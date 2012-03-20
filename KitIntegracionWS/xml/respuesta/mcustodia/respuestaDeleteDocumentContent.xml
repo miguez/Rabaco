@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<outputMessage xmlns="https://afirmaws/ws/custody" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mcustodia/wseng.xsd ">
+	<request>DeleteDocumentContent</request>
+	<versionMsg>1.0</versionMsg>
+	<response>
+		<Response>
+			<status>true</status>
+			<description>Proceso de eliminaciÃ³n de contenido de documento (id=176) realizado correctamente.</description>
+		</Response>
+	</response> 
+</outputMessage>

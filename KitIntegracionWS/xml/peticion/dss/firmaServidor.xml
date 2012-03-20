@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dss:SignRequest Profile="urn:afirma:dss:1.0:profile:XSS" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:afxp="urn:afirma:dss:1.0:profile:XSS:schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:afirma:dss:1.0:profile:XSS:schema http://localhost/afirmaws/xsd/dss/afirma-dss-1.0-profiles-XSS-schema.xsd http://www.w3.org/2000/09/xmldsig# http://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd urn:oasis:names:tc:dss:1.0:core:schema http://docs.oasis-open.org/dss/v1.0/oasis-dss-core-schema-v1.0-os.xsd">
+	<dss:InputDocuments>
+		<dss:Document>
+			<dss:Base64Data>
+				<![CDATA[IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMNCiMgCQkJU0VDVVJJWkFDSdNOIERFIFBFVElDSdNOIFNPQVAgREVMIENMSUVOVEUgICAgICAgICMNCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjDQoNCiMgTU9ETyBERSBTRUNVUklaQUNJT04NCiMgVmFsb3JlcyBwb3NpYmxlczogTm9uZSwgVXNlcm5hbWVUb2tlbiwgQmluYXJ5U2VjdXJpdHlUb2tlbg0Kc2VjdXJpdHkubW9kZT1Ob25lDQoNCiMgQXRyaWJ1dG9zIGV4Y2x1c2l2b3Mgc2kgc2VjdXJpdHkubW9kZSBlcyBVc2VybmFtZVRva2VuDQojIC0gdXN1YXJpbzogIHVzdWFyaW8gZGFkbyBkZSBhbHRhIHBhcmEgbGEgYXBsaWNhY2nzbiBxdWUgcmVhbGl6YSBsYSBwZXRpY2nzbg0KIyAtIHBhc3N3b3JkOiBwYXNzd29yZCBjb3JyZXNwb25kaWVudGUNCiMgVmFsb3JlcyBwb3NpYmxlcyBkZSBwYXNzd29yZFR5cGU6IFBhc3N3b3JkRGlnZXN0IChsYSBwYXNzd29yZCBzZSBlbnbtYSBoYXNoZWFkYSkgbyBQYXNzd29yZFRleHQgKGxhIHBhc3N3b3JkIHNlIGVudu1hIGVuIGNsYXJvKQ0Kc2VjdXJpdHkudXNlcnRva2VuLnVzZXI9cHJ1ZWJhDQpzZWN1cml0eS51c2VydG9rZW4ucGFzc3dvcmQ9MTExMQ0Kc2VjdXJpdHkudXNlcnRva2VuLnBhc3N3b3JkVHlwZT1QYXNzd29yZERpZ2VzdA0KDQojIEF0cmlidXRvcyBleGNsdXNpdm9zIHNpIHNlY3VyaXR5Lm1vZGUgZXMgQmluYXJ5U2VjdXJpdHlUb2tlbg0KIyAtIGxvY2F0aW9uOiAJICAgUnV0YSBhbCBhbG1hY+luIHF1ZSBjb250aWVuZSBlbCBjZXJ0aWZpY2FkbyB5IGxhIGNsYXZlIHByaXZhZGEgY29uIGxhIHF1ZSBmaXJtYXIgbGEgcGV0aWNp824gV1MNCiMgLSB0eXBlOiAJICAgICAgIFRpcG8gZGUgYWxtYWPpbiAoUEtDUzEyLCBKS1MpDQojIC0gcGFzc3dvcmQ6ICAgICAgcGFzc3dvcmQgZGVsIEFsbWFj6W4NCiMgLSBjZXJ0IGFsaWFzOiAgICBBbGlhcyBkZWwgY2VydGlmaWNhZG8gZGVsIHVzdWFyaW8gcXVlIGVzdOEgZGVudHJvIGRlbCBhbG1hY+luDQojIC0gY2VydCBwYXNzd29yZDogUGFzc3dvcmQgZGUgbGEgY2xhdmUgcHJpdmFkYSBjb3JyZXNwb25kaWVudGUgYWwgY2VydGlmaWNhZG8gYW50ZXJpb3INCnNlY3VyaXR5LmtleXN0b3JlLmxvY2F0aW9uPUM6XFxARklSTUFcXHdvcmtzcGFjZVxcQGZpcm1hTUFQQ2xpZW50ZVdTXFxjb2xlZ2lhZG8ucGZ4DQpzZWN1cml0eS5rZXlzdG9yZS50eXBlPVBLQ1MxMg0Kc2VjdXJpdHkua2V5c3RvcmUucGFzc3dvcmQ9MTExMQ0Kc2VjdXJpdHkua2V5c3RvcmUuY2VydC5hbGlhcz1wcnVlYmFzDQpzZWN1cml0eS5rZXlzdG9yZS5jZXJ0LnBhc3N3b3JkPTExMTENCg==]]>
+			</dss:Base64Data>
+		</dss:Document>
+	</dss:InputDocuments>
+	<dss:OptionalInputs>
+		<dss:ClaimedIdentity>
+			<dss:Name>tester</dss:Name>
+		</dss:ClaimedIdentity>
+		<dss:KeySelector>
+			<ds:KeyInfo>
+				<ds:KeyName>serversigner1</ds:KeyName>
+			</ds:KeyInfo>
+		</dss:KeySelector>
+		<afxp:HashAlgorithm>http://www.w3.org/2000/09/xmldsig#sha1</afxp:HashAlgorithm>
+		<afxp:AdditionalDocumentInfo>
+			<afxp:DocumentName>securityConfiguration.properties</afxp:DocumentName>
+			<afxp:DocumentType>properties</afxp:DocumentType>
+		</afxp:AdditionalDocumentInfo>
+	</dss:OptionalInputs>
+</dss:SignRequest>

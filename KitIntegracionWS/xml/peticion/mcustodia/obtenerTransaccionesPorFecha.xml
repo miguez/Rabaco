@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mensajeEntrada xmlns="https://afirmaws/ws/custodia" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mcustodia/ws.xsd">
+	<peticion>ObtenerTransaccionesPorFecha</peticion>
+	<versionMsg>1.0</versionMsg>
+	<parametros>
+		<idAplicacion>appPrueba</idAplicacion>
+		<fechaInicial>01/01/2000</fechaInicial>
+		<fechaFinal>01/01/2007</fechaFinal>
+	</parametros>
+</mensajeEntrada>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arch:ArchiveRetrievalResponse Profile="urn:afirma:dss:1.0:profile:archive" xmlns:afxp="urn:afirma:dss:1.0:profile:XSS:schema" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:arch="urn:oasis:names:tc:dss:1.0:profiles:archive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:afirma:dss:1.0:profile:XSS:schema https://localhost/afirmaws/xsd/dss/afirma-dss-1.0-profiles-XSS-schema.xsd urn:oasis:names:tc:dss:1.0:core:schema http://docs.oasis-open.org/dss/v1.0/oasis-dss-core-schema-v1.0-os.xsd urn:oasis:names:tc:dss:1.0:profiles:archive https://localhost/afirmaws/xsd/dss/oasis-dss-1.0-profiles-archive-schema.xsd">
+	<dss:Result>
+		<dss:ResultMajor>urn:oasis:names:tc:dss:1.0:resultmajor:Success</dss:ResultMajor>
+		<dss:ResultMessage>Proceso de obtención de transacciones por identificador de aplicación (tester) y referencia externa (ref1) realizado correctamente.</dss:ResultMessage>
+	</dss:Result>
+	<dss:SignatureObject>
+		<dss:Other>
+			<afxp:SignatureArchiveId>1231513210295007</afxp:SignatureArchiveId>
+			<afxp:SignatureArchiveId>1231513210295012</afxp:SignatureArchiveId>
+		</dss:Other>
+	</dss:SignatureObject>
+</arch:ArchiveRetrievalResponse>

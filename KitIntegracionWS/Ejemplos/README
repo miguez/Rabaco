@@ -1,0 +1,322 @@
+ ----------------------------------------------------------------------------
+  GUÍA DE USO DEL CLIENTE JAVA DE SERVICIOS WEB DE LA PLATAFORMA @FIRMA 5.0
+ ----------------------------------------------------------------------------
+
+ Indice
+ ---------------------------------------------------------------
+
+ 1. Introducción
+ 2. Requerimientos
+ 3. Contenido
+ 4. Parámetros de entrada
+ 5. Salida
+ 6. Fichero de configuracion 'configuration.properties'
+ 7. Fichero de configuración 'securityConfiguration.properties'
+ 8. Fichero de configuracion 'webServicesconfiguration.properties'
+ 9. Fichero de configuracion 'OCSPConfiguration.properties'
+ 10. Política empleada en codificaciones
+ 11. Cliente de Firma
+ 12. Información Adicional
+ 13. Control de versiones
+ 
+ 
+ 1. Introducción
+ ---------------------------------------------------------------
+
+ Esta aplicación es un cliente Web Service programado en Java y que permite lanzar distintas peticiones a la plataforma @firma 5.0.
+ 
+ Los servicios Web implementados se corresponden con los publicados en la plataforma. Son los referentes a los procesos de Firma Electrónica,
+ Acceso a Custodia, Validación de Certificados y Obtención de la Información de un Certificado.
+ 
+ Se proporcionan las pruebas servicios Web tanto en Español como en Inglés (MultiIdioma).
+
+ 2. Requerimientos
+ ---------------------------------------------------------------
+ 
+ - Tener instalado Java SDK 1.4.2.
+ - Según la prueba a lanzar, tener instalado el Cliente de Firma de @Firma 5.0 (ver punto 9)
+  
+ El resto de librerías necesarias se incluyen el jar distribuido.
+ 
+ 3. Contenido
+ ---------------------------------------------------------------
+
+ - bin/: 	Carpeta con todos los ficheros de procesamiento por lotes para ejecutar las pruebas.
+   	 		Existen 3 subdirectorios:
+   	 			   certificado:/		Contiene las pruebas de los servicios Web de Validación y Obtención de Información de 
+   	 			   					    certificados de la plataforma @firma 5.0
+   	 			   certificate:/		Contiene las pruebas de los servicios Web de Validación y Obtención de Información de 
+   	 			   					    certificados de la plataforma @firma 5.0  (Inglés)
+                   coder/:				Contiene una utilidad para la codificación/decodificación en Base64 de documentos
+                   custodia/:			Contiene las pruebas de los servicios Web de acceso a Custodia de la plataforma @firma 5.0
+                   custody/:			Contiene las pruebas de los servicios Web de acceso a Custodia de la plataforma @firma 5.0 (Inglés)
+                   firmaElectronica/:	Contiene las pruebas de los servicios Web de Firma Electrónica de la plataforma @firma 5.0
+                   signature/:			Contiene las pruebas de los servicios Web de Firma Electrónica de la plataforma @firma 5.0 (Inglés)
+		   OCSP/:		Contiene las pruebas para el servicio OCSP de la plataforma.
+ - lib/:	Carpeta con todas las librerías necesarias.
+ - src/:    Contiene el código fuente de las pruebas.
+ - temp/: 	Directorio temporal donde se almacenan los posibles resultados de las pruebas.             
+ - configuration.properties: Fichero de configuración que contiene información empleada por las pruebas. Podrá ser modificado.
+ - README: Este documento.
+ - securityConfiguration.properties: Fichero de configuración con todos los valores para la securización de las peticiones al servicio. 
+                                     Podrá ser modificado.
+ - truststore@Firma.jks: Almacén con los certificados SSL empleados por la plataforma en las comunicaciones seguras en los entornos de
+                         preproducción y producción. Su contraseña es changeit.
+ - webServicesConfiguration.properties: Fichero de configuración con todos los valores para las peticiones a los servicios. Podrá ser modificado.
+ - OCSPConfiguration.properties': Fichero de configuración con todos los valores para las peticiones OCSP.
+ - TestFirmaOCSP.p12: Almacén con el certificado y su clave privada correspondiente que se empleará para firmar las peticiones OCSP.
+ 
+ 4. Parámetros de entrada
+ ---------------------------------------------------------------
+
+  Se deben indicar todos los parámetros de entrada obligatorios al cliente de prueba del servicio Web concreto. 
+
+  Dependiendo del servicio, éste requerirá unos parámetros de entrada adicionales u otros.
+  
+  Para conocer los parámetros de entrada a la aplicación, ejecutar el archivo .bat sin parámetros.
+       
+ 5. Salida
+ ---------------------------------------------------------------
+ 
+  Dependiendo del cliente WS ejecutado, se producirá una salida o no que necesite ser almacenada en disco. Se proporciona un directorio temporal 
+  (temp/) donde se almacenan estos resultados. No obstante, es posible, modificando el fichero configuration.properties, indicar otro directorio
+  donde volcar los resultados.
+  
+  Los resultados obtenidos se almacenan con la siguiente nomenclatura:
+  --> document_tempfile_XXX, para los documentos obtenidos
+  --> userESignature2Phase_tempfile_XXX, para las Firmas Electrónicas generadas por el usuario 2 fases
+  --> userESignature3Phase_tempfile_XXX, para las Firmas Electrónicas generadas por el usuario 3 fases
+  --> userESignature3PhaseCoSign_tempfile_XXX, para las Firmas Electrónicas generadas por el usuario 3 fases
+  --> userESignature3PhaseCounterSign_tempfile_XXX, para las Firmas Electrónicas generadas por el usuario 3 fases
+  --> userESignatureBlock_tempfile_XXX, para las Firmas Electrónicas generadas por el usuario por bloques
+  --> eSignature_tempfile_XXX, para las Firmas Electrónicas servidor
+  --> eSignatureCoSign_tempfile_XXX, para las Firmas Electrónicas cosign servidor
+  --> eSignatureCounterSign_tempfile_XXX, para las Firmas Electrónicas countersign servidor
+  --> block_tempfile_XXX, para los bloques de Firmas Electrónicas obtenidos
+  
+  donde XXX es un identificador único, que suele corresponderse con el identificador de la aplicación + otro identificador, que puede ser, 
+  según el caso ejecutado, el identificador de la transacción o el identificador del documento.
+   
+ 6. Fichero de configuracion 'configuration.properties'
+ ---------------------------------------------------------------
+  
+  En este fichero, se configuran una serie de propiedades empleadas por todos los cliente WS de prueba proporcionados.
+  
+  a) Directorio temporal
+	 Contiene la ruta completa (o relativa respecto a la localización de este fichero) al directorio temporal del Cliente WS. 
+	 Modificar por el valor deseado
+
+ 7. Fichero de configuración 'securityConfiguration.properties'
+ ---------------------------------------------------------------
+ 
+  En este fichero, se configuran una serie de propiedades empleadas por el núcleo de axis, empleado para realizar
+  las peticiones WS cliente a la plataforma de manera securizada. El usario puede modificar los atributos según considere necesario.
+  
+  a) Modo de securización de la petición
+     Existen 3 niveles:
+     - Sin Autenticación: Las peticiones SOAP no irán securizadas de ninguna forma.
+     - Mediante Usuario y Password: Se deberá enviar un UserNameToken en la petición SOAP. Dicho token contiene un usuario y el hash 
+       de una password, que serán comprobados contra una Base de Datos de Usuarios de aplicación en la plataforma.
+     - Mediante Certificado: Se deberá firmar mediante WS-Security la petición SOAP, haciendo uso de un certificado determinado.
+  b) Atributos exclusivos si security.mode es UsernameToken
+     - usuario  representa el usuario dado de alta para la aplicación que realiza la petición
+     - password representa la password correspondiente
+       Valores posibles de passwordType: PasswordDigest (la password se envía hasheada) o PasswordText (la password se envía en claro)
+  c) Atributos exclusivos si security.mode es BinarySecurityToken
+	 - location: 	   Ruta al almacén que contiene el certificado y la clave privada con la que firmar la petición WS
+	 - type: 	       Tipo de almacén (PKCS12, JKS)
+	 - password:      password del Almacén
+ 	 - cert alias:    Alias del certificado del usuario que está dentro del almacén
+	 - cert password: Password de la clave privada correspondiente al certificado anterior
+  
+  NOTA: Importante indicar que mediante la herramienta gráfica de la plataforma @firma 5.0, en el momento de dar de alta una aplicación, 
+  es necesario indicar el nivel de securización deseado que deben tener todas las peticiones realizadas por dicha aplicación cliente a la plataforma.
+
+ 8. Fichero de configuracion 'configuration.properties'
+ ---------------------------------------------------------------
+  
+  En este fichero, se configuran una serie de propiedades empleadas por el núcleo de axis, empleado para realizar
+  las peticiones WS cliente a la plataforma.
+  
+  a) Keystore de Certificados SSL (afirma.ssl.keystore)
+     Contiene la ruta completa al Almacén de certificados de confianza SSL de la plataforma @firma 5.0. 
+  	 Toma el valor de truststore@Firma.jks proporcionado en el jar de distribución. 
+  	 Se recomienda dejar el valor proporcionado.
+  
+  b) Dirección IP de la Plataforma @Firma 5.0 (afirma.ip)
+     Dirección IP donde está localizada la plataforma @firma 5.0.
+     Posibles valores:
+	       preproducción: https://10.252.130.195
+	       producción: 	  https://10.252.130.3
+  c) Ruta dentro del servidor Web anterior donde se localizan los servicios Web desplegados (afirma.ip.sufix)
+     Valor por defecto: /afirmaws/services/
+     
+  d) Timer en el acceso a los servicios (socket.timer)
+     Se puede configurar cuánto tiempo se desea esperar tras la invocación a un servicio antes que salte el timeout.
+  
+  e) Datos de configuración del Proxy (opcionales)
+  	 En caso que exista un proxy entre la máquina cliente y el servidor donde están desplegados los servicios Web de la Plataforma, 
+  	 deberá ser necesario indicar estos valores.
+		   Dirección IP del Proxy (proxy.ip)
+	       Puerto de escucha del Proxy (proxy.port)
+		   Usuario de acceso al proxy (proxy.user.name)
+		   Password de acceso al proxy (proxy.user.password)
+  
+ 9. Fichero de configuracion 'OCSPConfiguration.properties'
+ ---------------------------------------------------------------
+   En este fichero se configuran una serie de propiedades empleadas por el cliente OCSP de prueba proporcionado.
+
+  a) Keystore para el certificado de firma peticiones (service.ocsp.userkeystore) 
+     Contiene la ruta completa dónde se encuentra el keystore en formato p12 que contiene el certificado 
+     con el que se firmarán las peticiones OCSP y la clave privada de éste.
+	Toma el valor de TestFirmaOCSP.p12 proporcionado en el jar de distribución. 
+  	Se recomienda dejar el valor proporcionado.
+   
+  b) Password del certificado de firma de peticiones (service.ocsp.userkeystorepass).
+     Contraseña para el acceso al keystore anterior.
+	Valor por defecto: changeit
+
+  c) Password de la clave privada del certificado de firma de peticiones OCSP (service.ocsp.userkeypass).
+  	Valor por defecto: changeit
+
+  d) Alias de la clave privada en el almacén de firma de peticiones OCSP (service.ocsp.userkeystorealias).
+        Valor por defecto: ocsp
+
+  e) Ruta donde se encuentra el certificado que se desea validar (service.ocsp.certificatefile)
+
+  f) Ruta donde se encuentra el certificado raíz de la CA del certificado que deseamos validar (service.ocsp.masterfile)
+
+  g) Ruta donde se encuentra el certificado con el que firma la respuesta el servidor OCSP Responder (service.ocsp.respfile)
+	
+  h) URL del servidor OCSP Responder al que se enviará la solicitud (service.ocsp.URLofOCSPServer)
+	preproducción: http://10.252.130.195/servidorOcsp/servidorOCSP
+	producción:    http://10.252.130.3/servidorOcsp/servidorOCSP
+
+  i) Parametro para indicar si se firma la petición OCSP (service.ocsp.peticionfirmada)
+	Posibles valores: 
+		true -> Se firma la petición.
+		false-> No se firma la petición.
+
+  j) Identificador de la aplicación que se utilizará para la autenticación (service.ocsp.aplicacion)
+     Este identificador es el campo requestorName que se envia en la petición
+	Posibles valores: 
+		Identificador de la aplicación en la plataforma, con el formato UNIDAD_ORGANIZATIVA.ID_APLICACION.
+		Si no se desea enviar requestorName se deja en blanco.
+
+ 10. Política empleada en codificaciones
+ ---------------------------------------------------------------
+ 
+   La política empleada por las aplicaciones de prueba proporcionadas, en cuanto a codificaciones, es la siguiente:
+   
+   a) Cuando se almacenen datos en disco, ya sea en el directorio temporal u otro, serán decodificados en Base64. Es decir,
+      los datos se almacenarán en su formato original. Ej: Las Firmas Electrónicas se almacenarán en binario, los documentos descargados
+      de la plataforma en su formato y codificación original etc.
+   b) Cuando se lean datos de disco, sean de la índole que sean (Firmas Electrónicas , documentos, etc), se procederá a comprobar si
+      éstos están codificados en Base64. En caso que no lo estén, y deban enviarse en Base64 a la Plataforma, se codificarán.
+      
+   La lógica seguida por las aplicaciones de prueba se ha hecho de forma que no se tengan que pre o post procesar los datos para codificarlos/
+   decodificarlos en Base64.
+   
+   De todas formas se proporciona una utilidad de codificación/decodificación en Base64 para dicho fin, en caso de necesitarlo.
+   Esta utilidad está en coder/.
+  
+  11. Cliente de Firma
+  ---------------------------------------------------------------
+  
+  En determinadas pruebas, la Firma Electrónica será realizada en la máquina del usuario, haciendo uso del certificado de usuario elegido.
+  Es en estos casos donde se hace uso del Cliente de Firma de @Firma 5.0. Éstas pruebas son:
+  
+					  Firma2Fases, Firma3Fases, Firma3FasesCoSign, Firma3FasesCounterSign, FirmaBloques.
+  
+  La comunicación con el Applet es totalmente transparente y está integrada en las pruebas, de forma que no se necesita ninguna acción adicional
+  por parte del usario. Simplemente se le mostrarán determinadas ventanas donde deberá elegir el certificado con el que realizar la firma o el 
+  fichero a firmar (en caso de Firma de usuario en 2 fases).
+  
+  Indicar que para que el Cliente de Firma pueda operar correctamente, es necesario tener un navegador de los soportados por el Cliente instalado, 
+  y tener importado en el mismo el/los certificado/s con los que realizar las Firmas Electrónicas.
+  
+  Como es obvio, también se deberá haber instalado el Cliente de Firma mediante el instalador proporcionado a tal efecto.
+  
+ 12. Información Adicional  
+ ---------------------------------------------------------------
+
+ - Para la prueba de obtención de información de un certificado y de validación de certificados, se soportan los certificados con extensión
+   .crt, .der y .cer, tanto si están codificados en Binario como en Base 64.
+ - El directorio donde descomprimir el contenido del jar distribuido NO puede contener espacios.
+   
+ 13. Control de versiones
+ ---------------------------------------------------------------
+ 
+ En este apartado se recogen las actualizaciones y modificaciones de cada versión del cliente WS.
+ 
+ * Versión 1d0
+ 
+   Cliente inicial.
+   
+ * Versión 1d1
+ 
+   - FirmaBloques
+     Se ha añadido la posibilidad de multifirmar documentos en un proceso de firma por bloques.
+
+   - ObtenerInfoCompletaBloqueFirmas
+     Nuevo Servicio Web.
+ 
+ * Versión 2d0
+   
+   - Se han incorporado la funcionalidad de prueba de todos los servicios Web en Inglés (MultiIdioma) 
+   
+   - Se ha incluido detección de codificación en Base64, lo que permite indicar ficheros (p.ej: firmas) en Base64
+     sin que se codifiquen nuevamente.
+ 
+ * Versión 2d1
+ 
+   - Se ha creado un nuevo properties, webServicesConfiguration.properties, el cual contiene todas las propiedades
+     respecto a las conexiones y servicios Web.
+   
+   - El fichero de propiedades configuration.properties sólo contiene ahora el parámetro del directorio temporal.
+   
+   - Se han añadidos los parámetros de configuración en webServicesConfiguration.properties para poder realizar conexiones
+     a través de proxy.
+   
+   - Se permiten comunicaciones:
+   
+   		--> Directas (sin proxy)
+   		--> Por proxy (sin autenticación)
+   		--> Por proxy (con autenticación básica (Basic Authentication) )
+   		--> Por proxy (con autenticación NTLM)
+ * Versión 2d2
+	
+   - Se añade un cliente de prueba para el servicio OCSP.
+
+   - Se ha creado un nuevo properties, OCSPConfiguration.properties, el cual contiene todas las propiedades respecto 
+     al cliente de prueba OCSP.
+   
+ * Versión 2d3
+ 
+   - Se ha actualizado el Cliente de Firma a la versión 2.3.0 (incluido en el Kit de Pruebas).
+   
+   - Se han corregido los pasos de parámetros en los ficheros .bat de modo que ahora recogen todos los argumentos que
+     se les pasen (dependiendo del servicio, se aceptaran cierto número de parámetros).
+     
+   - Se ha corregido la forma de recoger los argumentos opcionales en los servicios, de forma que se pueden introducir
+     en cualquier orden (respetando los obligatorios) y se detecta si se repiten.
+     
+   - Se ha incluido el parámetro "referenciaExterna" en los servicios:
+   		- FirmaServidor.
+   		- FirmaServidorCoSign
+   		- FirmaServidorCounterSign
+   		- FirmaUsuario3Fases
+   		- FirmaUsuario3FasesCoSign
+   		- FirmaUsuario3FasesCounterSign
+   		- FirmaUsuario2Fases
+   		- FirmaUsuarioBloques
+   	 También en su versión en inglés.
+   	 
+   - A los servicios en los que se especifica el formato de firma y se utiliza el Cliente de Firma en ellos,
+     se les ha indicado que en caso de seleccionar el formato XMLDSIG, al Cliente de Firma se le mande como
+     XMLDSIGN y al servicio web como XMLDSIG.
+     
+   - En BrowserAfirma.java se ha indicado que si se va a realizar una firma por bloques y el formato de firma
+     es XADES, XADES-BES, XMLDSIG o XMLDSIGN, el hash que recibe el Cliente lo considere como datos, para que
+     no se produzca el error: No se puede firmar el hash.
+   	 

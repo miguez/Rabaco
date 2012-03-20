@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<outputMessage xmlns="https://afirmaws/ws/signature" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mfirma/wseng.xsd "> 
+	<petition>SignatureValidation</petition> 
+	<versionMsg>1.0 </versionMsg> 
+	<response> 
+	<Response>
+		<status>true</status>
+		<description>
+				<eSignatureValidation>
+					<process>Proceso de verificación de Firma Electrónica completo</process>
+					<detail>
+						Firma Digital correcta | Firma Electrónica correcta | Los certificados contenidos en la Firma Electrónica son válidos (integridad, periodo de 						validez,estado de revocación)
+					</detail>
+					<conclusion>Firma Electrónica correcta</conclusion>
+					<additionalInformation>
+						<signer>
+							<certificate>Version: 3
+								Serial number: 3725
+								Signature algorithm: sha1WithRSAEncryption (1.2.840.113549.1.1.5) 
+								Issuer: CN=ANF Server CA,serialNumber=G-63287510,OU=ANF Clase 1 CA,O=ANF Autoridad de Certificacion,L=Barcelona (see 
+								current 			address at 					https://www.anf.es/address/ ),ST=Barcelona,C=ES
+								Valid not before: Sun May 01 00:00:00 CEST 2005
+								      not after: Tue May 01 00:00:00 CEST 2007
+								Subject: C=ES,OU=Clase 2 persona fisica,EMAIL=test@prueba.com,serialNumber=12345678Y,SN=Prueba 		
+									Prueba,givenName=Usuario,CN=Usuario 		Prueba 		Prueba
+								RSA public key (1024 bits):
+								public exponent: 10001
+								modulus: 														c7ded742eeb2f3dbd3bd8a4d2d3509dbc22e3f54a7514f4e758c844ce8cac2b78ebe4eeb47c57cb44659c14d8d49702515658e0a1f43ccc79447b7fd8f99522ef6eb492					7a54d64c42a6fad5784018ca336209ed590244eeba46f4a143e65ed9fe12cc0b5199f512a7c002c2a4789ec165c00d776e5a9d342de2a5f61d294e821
+								Certificate Fingerprint (MD5)  : 51:14:D7:AC:3F:BF:EE:DC:9F:D0:07:EC:D1:6F:E4:22
+								Certificate Fingerprint (SHA-1): E2:03:95:6F:53:E9:E5:D2:02:ED:00:3B:02:55:31:6F:AE:17:68:2E		
+								Extensions: 14
+							</certificate>
+						</signer>
+					</additionalInformation>
+				</eSignatureValidation>
+			</description>
+		</Response>
+	</response>
+</outputMessage>

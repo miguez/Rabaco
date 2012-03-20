@@ -1,0 +1,30 @@
+<?xml version="1.0"?> 
+<mensajeSalida xmlns="https://afirmaws/ws/firma" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mfirma/ws.xsd "> 
+	<peticion> ObtenerIdDocumentosBloqueFirmasBackwards </peticion> 
+	<versionMsg>1.0 </versionMsg> 
+	<respuesta> 
+		<Respuesta>
+			<estado>true</estado>
+			<descripcion>Proceso de obtenci¾n de los identificadores de documentos del bloque realizado correctamente.</descripcion>
+			<idDocumentosBloque>
+				<idDocumentos>
+					<idDocumento>330.0</idDocumento>
+				</idDocumentos>
+				<idDocumentosMultifirmados>
+					<Bloque>
+						<idBloque>321.0</idBloque>
+						<idDocumentos>
+							<idDocumento>310.0</idDocumento>
+						</idDocumentos>
+					</Bloque>
+					<Bloque>
+						<idBloque>291.0</idBloque>
+						<idDocumentos>
+							<idDocumento>254.0</idDocumento>
+						</idDocumentos>
+					</Bloque>
+				</idDocumentosMultifirmados>
+			</idDocumentosBloque>
+		</Respuesta> 
+	</respuesta> 
+</mensajeSalida>

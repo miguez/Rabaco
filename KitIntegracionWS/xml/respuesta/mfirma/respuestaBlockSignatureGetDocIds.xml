@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<outputMessage xmlns="https://afirmaws/ws/signature" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mfirma/wseng.xsd "> 
+	<request>BlockSignatureGetDocIds</request> 
+	<versionMsg>1.0 </versionMsg> 
+	<response> 
+	<Response>
+		<status>true</status>
+		<description>Proceso de obtenci¾n de los identificadores de documentos del bloque realizado correctamente.</description>
+			<idDocumentsBlock>
+				<idDocuments>
+					<documentId>508</documentId>
+					<documentId>510</documentId>
+				</idDocuments>
+				<idDocumentsMultiSigned>
+					<Block>
+						<idBlock>1153902648987505</idBlock>
+						<idDocuments>
+							<documentId>508</documentId>
+						</idDocuments>
+					</Block>
+					<Block>
+						<idBlock>1153902648987482</idBlock>
+						<idDocuments>
+							<documentId>508</documentId>
+						</idDocuments>
+					</Block>
+				</idDocumentsMultiSigned>
+			</idDocumentsBlock>
+		</Response>
+	</response>
+</outputMessage>

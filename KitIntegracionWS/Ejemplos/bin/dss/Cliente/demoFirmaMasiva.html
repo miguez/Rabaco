@@ -1,0 +1,180 @@
+<html>
+	<head>
+	<link rel="stylesheet" href="style.css" type="text/css">
+		<script type="text/javascript" language="javascript" src="common-js/time.js"></script>
+		<script type="text/javascript" language="javascript" src="common-js/appletHelper.js"></script>
+		<script type="text/javascript" language="javascript" src="common-js/instalador.js"></script>
+		<script type="text/javascript" language="javascript" src="common-js/firma.js"></script>
+		<script type="text/javascript" language="javascript" src="constantes.js"></script>
+		<script language="javascript">
+			var signatureFormat = "NONE";
+			var sigantureMode = "NONE";
+		
+			function mostrar()
+			{
+				var signatures = clienteFirma.getSignaturesBase64Encoded();
+				signatures = signatures.split('!');
+				for(i=0; i<signatures.length; i++)
+				{					
+					if(signatureFormat == "XMLDSIG" 
+						||signatureFormat == "XMLDSIG_DETACHED" 
+						|| signatureFormat == "XMLDSIG_ENVELOPING"
+						|| signatureFormat == "XADES"
+						|| signatureFormat == "XADES_DETACHED"
+					    || signatureFormat == "XADES_ENVELOPING"){
+						var aux = clienteFirma.getTextFromBase64(signatures[i]);
+						alert(aux);
+					}
+					else
+						alert(signatures[i]);
+				}
+			}
+
+			function addHash(){
+				document.pruebaMasiva.formato.disabled = "disabled";
+				document.pruebaMasiva.modo.disabled = "disabled";
+				clienteFirma.setFileuri(document.getElementById('fich').value); 
+				aux= document.pruebaMasiva.formato;
+        		signatureFormat = aux.options[aux.selectedIndex].value;
+				clienteFirma.setSignatureFormat(signatureFormat);
+				aux2= document.pruebaMasiva.modo;
+        		signatureMode = aux2.options[aux2.selectedIndex].value;
+				clienteFirma.setSignatureMode(signatureMode);
+				var hash=clienteFirma.getFileHashBase64Encoded(true);
+				clienteFirma.addMassiveHash(hash);
+				var tabla=document.getElementById("hashes");
+				var row=tabla.insertRow(-1);
+				var cell=row.insertCell(-1);
+				cell.appendChild(document.createTextNode(hash));
+				return false;
+			}
+			
+			function reinicia(){
+				document.pruebaMasiva.formato.disabled = "";
+				document.pruebaMasiva.modo.disabled = "";
+				signatureFormat = "NONE";
+				signatureMode = "NONE";				
+				clienteFirma.initialize(); 
+				var tabla=document.getElementById("hashes");
+
+				while(tabla.rows.length!=0){
+					tabla.deleteRow(-1);
+				}
+				return false;
+			}
+			
+			function verConfFirma(){
+				alert("Configuración de la firma Masiva:"+
+					   "\n\nFormato de firma: "+signatureFormat+
+					   "\n\nModo de firma: "+clienteFirma.getSignatureMode());
+				firmar();
+			}
+			
+			function unsuported(){
+				alert("FORMATOS DE FIRMA NO SOPORTADOS\nPARA FIRMA MASIVA:\n\n"+
+					   " · ODF\n"+
+					   " · PDF\n"+
+					   " · XMLDSIG Enveloped\n"+
+					   " · XAdES Enveloped\n"+
+					   " · Ninguno (Solo válido para firmar)");
+			}
+		</script>
+	</head>
+<body onload="cargarAppletFirma();">
+<form name="pruebaMasiva">
+<table align="center">
+<tr>
+<td>
+<fieldset>
+	<legend>Demostración de Firma Masiva</legend>
+	<table>
+		<tr>
+		<td colspan="2">
+		<fieldset>
+			Formato de firma: 
+			<select name="formato">
+				<option value="CMS" selected="selected">CMS</option>
+				<option value="ODF">ODF</option>
+				<option value="PDF">PDF</option>
+				<option value="CADES">CADES</option>
+				<option value="XADES">Detached XAdES (default)</option>
+				<option value="XADES_ENVELOPED">Enveloped XAdES</option>
+				<option value="XADES_ENVELOPING">Enveloping XAdES</option>
+				<option value="XMLDSIG_DETACHED">Detached XMLDSig (default)</option>
+				<option value="XMLDSIG_ENVELOPED">Enveloped XMLDSig</option>
+				<option value="XMLDSIG_ENVELOPING">Enveloping XMLDSig</option>
+				<option value="NONE">Ninguno (sólo válido para firmar)</option>
+			</select>
+			<br/><br/>
+			Modo de firma: 
+			<select name="modo">
+				<option value="EXPLICIT" selected="selected">Explicito</option>
+				<option value="IMPLICIT">Implicito</option>
+			</select>
+		</fieldset>	
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<fieldset>
+			<table>
+				<tr>
+				<td>
+					Seleccionar fichero:
+					<input id="fich" type="file" title="Seleccionar fichero"/>
+				</td>
+				</tr>
+				<tr>
+				<td align="center">
+					<input type="button" value="Añadir Hash" onclick="addHash();"/>
+					<input type="button" value="Firma Masiva Nueva" onclick="reinicia();"/>
+				</td>
+				</tr>
+				<tr>
+				<td colspan="2">
+				<fieldset>
+					<legend>Hashes añadidos</legend>
+					<table id="hashes">
+						<tr><td></td></tr>
+					</table>
+				</fieldset>
+				</td>
+				</tr>
+			</table>
+		</fieldset>
+		</td>
+		</tr>
+		<tr>
+			<td>
+			<fieldset>
+				<table align="center">
+					<tr>
+						<td><input type="button" value="Firmar"
+							onclick="verConfFirma(); return false;" />
+						</td>
+						<td/><td/><td/><td/>
+						<td><input type="button" onclick="mostrar(); return false;"
+							value="Mostrar firmas" />
+						</td>						
+					</tr>
+				</table>
+			</fieldset>
+			</td>
+		</tr>
+	</table>
+	<fieldset>
+		<table align="center">
+			<tr>
+				<td>
+					<input type="button" value="Mostrar formatos de firma NO soportados"
+					 onclick="unsuported(); return false;"/>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+</fieldset>
+</td>
+</tr>
+</form>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<html>
+	<head>
+	<link rel="stylesheet" href="style.css" type="text/css">
+		<script type="text/javascript" language="javascript" src="common-js/time.js"></script>
+		<script type="text/javascript" language="javascript" src="common-js/appletHelper.js"></script>
+		<script type="text/javascript" language="javascript" src="common-js/instalador.js"></script>
+		<script type="text/javascript" language="javascript" src="common-js/firma.js"></script>
+		<script type="text/javascript" language="javascript" src="constantes.js"></script>
+	</head>
+
+<body onload="cargarAppletInstalador()">
+<table align="center">
+	<tr>
+		<td>
+		
+		<table>
+			<tr>
+				<td>
+				<fieldset><legend>Operaciones del instalador</legend> <a href="#"
+					onclick="alert(isInstalado()); return false;">Comprobar instalación
+				(true=correcta, false=incorrecta)</a><br>
+				<a href="#" onclick="instalar(); return false;">Instalar applet de
+				firma</a><br>
+				<a href="#" onclick="desinstalar(); return false;">Desinstalar
+				applet de firma</a><br>
+				<a href="#" onclick="alert(isActualizado()); return false;">Comprobar
+				UP-TO-DATE (true=correcta, false=incorrecta)</a><br>
+				<a href="#" onclick="actualizar(); return false;">Actualizar applet
+				de firma</a><br>
+				<a href="#"
+					onclick="alert(getDirectorioInstalacion()); return false;">Directorio
+				de instalación</a><br>
+				<br>
+				<a href="#" onclick="firmar(); return false;">Firmar un fichero</a><br>
+				<a href="#" onclick="clienteFirma.saveSignToFile(); return false;">Guardar
+				última firma realizada a fichero</a><br>
+				</fieldset>
+				</td>
+			</tr>
+		</table>
+		
+		</td>
+	</tr>
+</table>
+
+</body>
+</html>

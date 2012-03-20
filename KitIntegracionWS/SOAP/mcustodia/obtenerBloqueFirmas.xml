@@ -1,0 +1,205 @@
+*****************************MENSAJE SOAP DE PETICION*****************************
+
+POST /afirmaws/services/ObtenerBloqueFirmas HTTP/1.0
+Content-Type: text/xml; charset=iso-8859-1
+Accept: application/soap+xml, application/dime, multipart/related, text/*
+User-Agent: Axis/1.3
+Host: 192.168.53.73:8080
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<soapenv:Envelope
+	xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<soapenv:Body>
+		<ObtenerBloqueFirmas xmlns="http://soapinterop.org/">
+			<ObtenerBloqueFirmasRequest xsi:type="xsd:string">
+				&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+				&lt;mensajeEntrada	xmlns="https://afirmaws/ws/custodia" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"			xsi:SchemaLocation="https://localhost/afirmaws/xsd/mcustodia/ws.xsd"&gt;
+					&lt;peticion&gt;ObtenerBloqueFirmas&lt;/peticion&gt;
+					&lt;versionMsg&gt;1.0&lt;/versionMsg&gt;
+					&lt;parametros&gt;
+						&lt;idAplicacion&gt;appPrueba&lt;/idAplicacion&gt;
+						&lt;idTransaccion&gt;1151657880509001&lt;/idTransaccion&gt;
+					&lt;/parametros&gt;
+				&lt;/mensajeEntrada&gt;
+			</ObtenerBloqueFirmasRequest>
+		</ObtenerBloqueFirmas>
+	</soapenv:Body>
+</soapenv:Envelope>
+
+
+*****************************MENSAJE SOAP DE RESPUESTA****************************
+
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+X-Powered-By: Servlet 2.4; JBoss-4.0.2 (build: CVSTag=JBoss_4_0_2 date=200505022023)/Tomcat-5.5
+Set-Cookie: JSESSIONID=0CE12B6935165B1391FAD4CACEEA4E4C; Path=/
+Content-Type: text/xml;charset=iso-8859-1
+Date: Sun, 23 Jul 2006 06:54:14 GMT
+Connection: close
+
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<soapenv:Envelope
+	xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<soapenv:Header>
+		<wsse:Security
+			soapenv:actor="http://schemas.xmlsoap.org/soap/actor/next"
+			soapenv:mustUnderstand="0">
+			<wsse:BinarySecurityToken
+				EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary"
+				ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"
+				wsu:Id="binaryToken">
+				MIICsTCCAhqgAwIBAAIEQ8zySzANBgkqhkiG9w0BAQUFADCBnDEgMB4GCSqGSIb3
+				DQEJARYRc29wb3J0ZS5ydEBtYXAuZXMxCzAJBgNVBAYTAkVTMQ8wDQYDVQQIEwZN
+				YWRyaWQxDzANBgNVBAcTBk1hZHJpZDEMMAoGA1UEChMDTUFQMQwwCgYDVQQLEwNN
+				QVAxLTArBgNVBAMTJHByZS1hZmlybWEucmVkaW50ZXJhZG1pbmlzdHJhdGl2YS5l
+				czAeFw0wNjAxMTcxMzM0MDNaFw0zMzA2MDQxMzM0MDNaMIGcMSAwHgYJKoZIhvcN
+				AQkBFhFzb3BvcnRlLnJ0QG1hcC5lczELMAkGA1UEBhMCRVMxDzANBgNVBAgTBk1h
+				ZHJpZDEPMA0GA1UEBxMGTWFkcmlkMQwwCgYDVQQKEwNNQVAxDDAKBgNVBAsTA01B
+				UDEtMCsGA1UEAxMkcHJlLWFmaXJtYS5yZWRpbnRlcmFkbWluaXN0cmF0aXZhLmVz
+				MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCpmDks3oqpTVhj69pu3gZtU3fd
+				MLv2sEPW4yq5/DZb4nWhhufwwUKHJrBtDadJyCv6x9sUaJEQMI9fyiP3br4t3So3
+				VC2+ki3ouUqAM7R1oWd0qbxn7xZ4qN5UvwgSGbJLmT9omi8CqeIAAecJt/Jhd3CR
+				MMknvDg2TKiH9Y2j2wIDAQABMA0GCSqGSIb3DQEBBQUAA4GBAH12TSqTvkyY8Odn
+				Ervl6814griyxw+DkLcYXQN3L2/0OTZTV/wUElsar2KzGacmTQykH3zQeyt4hOMf
+				FX3A6cMuLyVzgc4Eoo6B3hGeRuaUoa92OxbwX79iBcYoIFGgxmgPrQUi1dHeuxQq
+				1uLg9O8Bhhp3saZfk56Ta7CegbG5
+			</wsse:BinarySecurityToken>
+			<ds:Signature
+				xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+				<ds:SignedInfo>
+					<ds:CanonicalizationMethod
+						Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+					<ds:SignatureMethod
+						Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+					<ds:Reference URI="#binaryToken">
+						<ds:Transforms>
+							<ds:Transform
+								Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+						</ds:Transforms>
+						<ds:DigestMethod
+							Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+						<ds:DigestValue>
+							VqClygkINsFb33W6zo4tH7fN/xY=
+						</ds:DigestValue>
+					</ds:Reference>
+					<ds:Reference URI="#BBFDGDHGFDJBF1">
+						<ds:Transforms>
+							<ds:Transform
+								Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+						</ds:Transforms>
+						<ds:DigestMethod
+							Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+						<ds:DigestValue>
+							hnFBD4iClIDVFxV56mPsKl36q8k=
+						</ds:DigestValue>
+					</ds:Reference>
+				</ds:SignedInfo>
+				<ds:SignatureValue>
+					cjfXHEZfc7sL+0Qy3efny8bOVHaDixCoKeZWhZyGbm85ch442FRLS3PH8FBAtuYj
+					H9e/oTDjB2cOaBjV9eNehtkfRdDdHmy0DK8jHrAWMjkxUlAJYJoQBUxbryhXNyOc
+					6hUpQykMaYRUwSTBv/wRkSurrkv8qRh+JXN8Q7sTWmE=
+				</ds:SignatureValue>
+				<ds:KeyInfo>
+					<wsse:SecurityTokenReference>
+						<wsse:Reference URI="#binaryToken" />
+					</wsse:SecurityTokenReference>
+				</ds:KeyInfo>
+			</ds:Signature>
+		</wsse:Security>
+	</soapenv:Header>
+	<soapenv:Body wsu:Id="BBFDGDHGFDJBF1">
+		<ns1:ObtenerBloqueFirmasResponse
+			soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+			xmlns:ns1="http://soapinterop.org/">
+			<ObtenerBloqueFirmasReturn
+				xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+				xsi:type="soapenc:string">
+				&lt;?xml version=&quot;1.0&quot;?&gt; 
+				&lt;mensajeSalida xmlns=&quot;https://afirmaws/ws/custodia&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+				xsi:SchemaLocation=&quot;https://localhost/afirmaws/xsd/mcustodia/ws.xsd&quot;&gt; 
+					&lt;peticion&gt; ObtenerBloqueFirmas	&lt;/peticion&gt; 
+					&lt;versionMsg&gt;1.0&lt;/versionMsg&gt; 
+					&lt;respuesta&gt;
+						&lt;Respuesta&gt;
+							&lt;estado&gt;true&lt;/estado&gt;
+							&lt;descripcion&gt;Proceso de obtenciÃ³n del bloque de firmas realizado correctamente&lt;/descripcion&gt;			
+							&lt;bloqueFirmas&gt;
+								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
+					AQYEKgMEATAfMAcGBSsOAwIaBBTRFdU5Wl+1nyDxflzipsIXJ+ABzQICHXsYDzIwMDYwNjMwMDg1
+					ODM0WgIESZYC0qCCBrwwggOyMIICmqADAgECAgICfzANBgkqhkiG9w0BAQUFADAsMQswCQYDVQQG
+					EwJlczENMAsGA1UEChMEYnVsbDEOMAwGA1UEAxMFcm9vdDEwHhcNMDQxMTE3MTYyODEzWhcNMDkx
+					MTE3MTYyODEzWjBSMQswCQYDVQQGEwJFUzEPMA0GA1UEChMGU3RlcmlhMTIwMAYDVQQDEylBU1Qg
+					LSBBdXRvcmlkYWQgZGUgU2VsbG8gZGUgVGllbXBvIC0gVEVTVDCBnzANBgkqhkiG9w0BAQEFAAOB
+					jQAwgYkCgYEAws/8CJJxIA//VEMo/0skGVUQkTYaa+NXuy0VAPq5vHc78+CWu8uIPzA72EL5oud5
+					24WVhVTxT3yUHrkPLTHuuHz/x6bhy9nR4+9CEB6mHSKGndE776dh2Zvfgc+KF6PHqabi0eIqlOgI
+					9on5WmF5xRFT/LiK3L8xNq19enxUJPcCAwEAAaOCATowggE2MAwGA1UdEwEB/wQCMAAwDgYDVR0P
+					AQH/BAQDAgbAMBYGA1UdJQEB/wQMMAoGCCsGAQUFBwMIMBEGCWCGSAGG+EIBAQQEAwIGQDAdBgNV
+					HQ4EFgQUJJMptZA+ukAI6eW6rf8OMgEc09gwTQYDVR0jBEYwRKEwpC4wLDELMAkGA1UEBhMCZXMx
+					DTALBgNVBAoTBGJ1bGwxDjAMBgNVBAMTBXJvb3QxghBbAwNDvHHUvT2O9Oavxn3qMH0GA1UdHwR2
+					MHQwKqAooCaGJGh0dHA6Ly9vYmVsaXgva2V5b25lL2NybC9jcmwxXzAxLmNybDBGoESgQoYvaHR0
+					cDovL3BsdXRvL2tleW9uZTEwMzIzL2NybHMvc3Vib3JkUGx1dG8wMi5jcmykDzANMQswCQYDVQQG
+					EwJlczANBgkqhkiG9w0BAQUFAAOCAQEAqCRa2uAvYuQSQ6Xq6s3kcv8z8g8+O/lQ+aNy7Yaaoiv9
+					z0LOE/obI3vIjE9XbmxHYZaZ6WWLqd2rES/kt9N/AtgP9+Xq92qN6wzPTy492JMgWR5SbB/oSQv4
+					loUsJSUWKj/TZGHiba6W6pmRdZie8ye1BNhsOGmmznPLai+aJS6kDF3GAbKOYHXdg9/tdXqmXME/
+					ylXHTctnweKrgc4fWc0fziqq4vLia6lAN1SDpr+Pp7XX6kocF1Mw9fwtd+yt+Ext6qH7SeAUJ+2a
+					faOWYKBO9S5jkVK8AmxC3n68D6SfQqFlQMnSC/1WYyb0SoG6ytYCR4lrCiBorHVipQ1kfjCCAwIw
+					ggHqoAMCAQICEFsDA0O8cdS9PY705q/GfeowDQYJKoZIhvcNAQEFBQAwLDELMAkGA1UEBhMCZXMx
+					DTALBgNVBAoTBGJ1bGwxDjAMBgNVBAMTBXJvb3QxMB4XDTAyMDkyMjIyMDAwMFoXDTIyMDkyMjIy
+					MDAwMFowLDELMAkGA1UEBhMCZXMxDTALBgNVBAoTBGJ1bGwxDjAMBgNVBAMTBXJvb3QxMIIBIjAN
+					BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5dFfzWEpIRmY4xnlGh1YRjT6IBPOe4xMdRaI5Ulz
+					9jE0V3200zfHZW+YDIs6OXkopXwdpN7QqdzsczVINmH7a9LiIWZUcOyKP5A09/18gntqPjFoSRkJ
+					4DZgx3p7h9c9vp5CQwEg5FEvgJgw8q6WPKB5oWzkdRhqPR/7vsKbsPmpFaRTY5oFMAhUFotPR8XF
+					Rmpo2tkg0ZxQahafBfrdHrsLA2StN+f3N11mWQqf7raXFlq9RCpd2OSk8OzylqMVoNIe3cUlJS8Q
+					RvQDxN6Q8S1VGbQacDrp9Nt1lhqIbSF/PiAYTskoUkhz2ondrNxrYEZ60ODPWrRBPP/cVS3AfwID
+					AQABoyAwHjAPBgNVHRMECDAGAQH/AgEBMAsGA1UdDwQEAwIBBjANBgkqhkiG9w0BAQUFAAOCAQEA
+					JhO27i5s9LI3lMlqqWyczrvz67cFf/TpMI2xlZ6slJx9fZjr3joovUToseUZto6TvoXLFsCnLG2E
+					vxuxWQatXBpqSkVYoir+1vRC0fPI3/xa6AllnLE+SZrgVZeU3HuflzY7QDt7xAB1C55YVFSS+0KU
+					biCcDaMTTVS4Eqw7UL1lVj481dmgWSt+E3qNh+PCSghyTU4fGyM4fcFSSDibNFtVW5Pxuy7zCIij/
+					MdpqJpjk4VhJ4XxGW4hj4tOjLe6gPveLkRMm07/9CEzHGsLR/d9ZMolq6VrcuULnU2mYkkUb2AbQ
+					ren1iDEltAc0hlEzY5/UpshCRZmsmSiDYxVij7h6hmQiNmYZXQ3L+vRgeIbIXGgOMQ==
+							&lt;/bloqueFirmas&gt;
+						&lt;/Respuesta&gt;
+					&lt;/respuesta&gt; 
+				&lt;/mensajeSalida&gt;
+			</ObtenerBloqueFirmasReturn>
+		</ns1:ObtenerBloqueFirmasResponse>
+	</soapenv:Body>
+</soapenv:Envelope>
+
+

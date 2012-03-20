@@ -1,0 +1,1337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://afirmaws/services/ObtenerIdDocumentosBloqueFirmas" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://afirmaws/services/ObtenerIdDocumentosBloqueFirmas" xmlns:intf="http://afirmaws/services/ObtenerIdDocumentosBloqueFirmas" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsfirma="http://afirmaws/ws/firma" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.3
+Built on Oct 05, 2005 (05:23:37 EDT)-->
+ <wsdl:types>
+  <xs:schema targetNamespace="http://afirmaws/ws/firma" xmlns:wsfirma="http://afirmaws/ws/firma" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<!--PETICION-->
+
+	<!-- Definicion Elementos Simples -->
+
+	   <xs:group name="IdAplicacion">
+
+		    <xs:sequence>
+
+			     <xs:element name="idAplicacion" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmaElectronica">
+
+		    <xs:sequence>
+
+			     <xs:element name="firmaElectronica" type="xs:base64Binary"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="CertificadoFirmante">
+
+		    <xs:sequence>
+
+			     <xs:element name="certificadoFirmante" type="xs:base64Binary"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FormatoFirma">
+
+		    <xs:sequence>
+
+			     <xs:element name="formatoFirma">
+
+				      <xs:simpleType>
+
+					       <xs:restriction base="xs:string">
+
+						        <xs:enumeration value="CMS"/>
+
+						        <xs:enumeration value="CADES-BES"/>
+
+						        <xs:enumeration value="CADES-T"/>
+
+						        <xs:enumeration value="ODF"/>
+
+						        <xs:enumeration value="PDF"/>
+
+						        <xs:enumeration value="PKCS7"/>
+
+						        <xs:enumeration value="XADES-BES"/>
+
+						        <xs:enumeration value="XADES-T"/>
+
+						        <xs:enumeration value="XMLDSIG"/>
+
+					       </xs:restriction>
+
+				      </xs:simpleType>
+
+			     </xs:element>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="Hash">
+
+		    <xs:sequence>
+
+			     <xs:element name="hash" type="xs:base64Binary"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="Documento">
+
+		    <xs:sequence>
+
+			     <xs:element name="documento" type="xs:base64Binary"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="Datos">
+
+		    <xs:sequence>
+
+			     <xs:element name="datos" type="xs:base64Binary"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="IdDocumento">
+
+		    <xs:sequence>
+
+			     <xs:element name="idDocumento" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="IdTransaccion">
+
+		    <xs:sequence>
+
+			     <xs:element name="idTransaccion" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="IdDocumentos">
+
+		    <xs:sequence>
+
+			     <xs:element name="idDocumentos">
+
+				      <xs:complexType>
+
+					       <xs:sequence maxOccurs="unbounded">
+
+						        <xs:group ref="wsfirma:IdDocumento"/>
+
+					       </xs:sequence>
+
+				      </xs:complexType>
+
+			     </xs:element>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="IdTransacciones">
+
+		    <xs:sequence>
+
+			     <xs:element name="idTransacciones">
+
+				      <xs:complexType>
+
+					       <xs:sequence maxOccurs="unbounded">
+
+						        <xs:group ref="wsfirma:IdTransaccion"/>
+
+					       </xs:sequence>
+
+				      </xs:complexType>
+
+			     </xs:element>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="IdDocumentosMultifirmados">
+
+		    <xs:sequence>
+
+			     <xs:element name="Bloque">
+
+				      <xs:complexType>
+
+					       <xs:sequence maxOccurs="unbounded">
+
+						        <xs:element name="idBloque" type="xs:string"/>
+
+						        <xs:group ref="wsfirma:IdDocumento"/>
+
+					       </xs:sequence>
+
+				      </xs:complexType>
+
+			     </xs:element>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="NombreDocumento">
+
+		    <xs:sequence>
+
+			     <xs:element name="nombreDocumento" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="TipoDocumento">
+
+		    <xs:sequence>
+
+			     <xs:element name="tipoDocumento" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="CustodiarDocumento">
+
+		    <xs:sequence>
+
+			     <xs:element name="custodiarDocumento" type="xs:boolean"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="Firmante">
+
+		    <xs:sequence>
+
+			     <xs:element name="firmante" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="IdReferencia">
+
+		    <xs:sequence>
+
+			     <xs:element name="idReferencia" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="AlgoritmoHash">
+
+		    <xs:sequence>
+
+			     <xs:element name="algoritmoHash">
+
+				      <xs:simpleType>
+
+					       <xs:restriction base="xs:string">
+
+						        <xs:enumeration value="MD2"/>
+
+						        <xs:enumeration value="MD5"/>
+
+						        <xs:enumeration value="SHA"/>
+
+						        <xs:enumeration value="SHA1"/>
+
+						        <xs:enumeration value="SHA256"/>
+
+						        <xs:enumeration value="SHA384"/>
+
+						        <xs:enumeration value="SHA512"/>
+
+					       </xs:restriction>
+
+				      </xs:simpleType>
+
+			     </xs:element>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmanteObjetivo">
+
+		    <xs:sequence>
+
+			     <xs:element name="firmanteObjetivo" type="xs:base64Binary"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="JustificanteFirmaElectronica">
+
+		    <xs:sequence>
+
+			     <xs:element name="justificanteFirmaElectronica" type="xs:base64Binary"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="BloqueFirmas">
+
+		    <xs:sequence>
+
+			     <xs:element name="bloqueFirmas" type="xs:base64Binary"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="IdDocumentosBloque">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdDocumentos"/>
+
+			     <xs:group ref="wsfirma:IdDocumentosMultifirmados"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="DatosAFirmar">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:Documento"/>
+
+			     <xs:group ref="wsfirma:NombreDocumento"/>
+
+			     <xs:group ref="wsfirma:TipoDocumento"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	<!-- Definicion Grupos de Elementos de Entrada segun Servicio Web -->
+
+	   <xs:group name="ValidarFirma">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:FirmaElectronica"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:FormatoFirma"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:Hash"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:AlgoritmoHash"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:Datos"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmaServidor">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:choice>
+
+				      <xs:group ref="wsfirma:IdDocumento"/>
+
+				      <xs:group ref="wsfirma:DatosAFirmar"/>
+
+			     </xs:choice>
+
+			     <xs:group ref="wsfirma:Firmante"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:IdReferencia"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:AlgoritmoHash"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:FormatoFirma"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmaServidorCoSign">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group ref="wsfirma:Firmante"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:IdReferencia"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:AlgoritmoHash"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmaServidorCounterSign">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group ref="wsfirma:Firmante"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:IdReferencia"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:AlgoritmoHash"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:FirmanteObjetivo"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmaUsuario3FasesF1">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:IdDocumento"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:AlgoritmoHash"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmaUsuario3FasesF1CoSign">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:AlgoritmoHash"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmaUsuario3FasesF1CounterSign">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmaUsuario3FasesF3">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group ref="wsfirma:FirmaElectronica"/>
+
+			     <xs:group ref="wsfirma:CertificadoFirmante"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:FormatoFirma"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:IdReferencia"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmaUsuario2FasesF2">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:FirmaElectronica"/>
+
+			     <xs:group ref="wsfirma:CertificadoFirmante"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:AlgoritmoHash"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:IdReferencia"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:FormatoFirma"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:Documento"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:NombreDocumento"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:TipoDocumento"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:CustodiarDocumento"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="ValidarFirmaBloquesCompleto">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:FirmaElectronica"/>
+
+			     <xs:group ref="wsfirma:BloqueFirmas"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:FormatoFirma"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="ValidarFirmaBloquesDocumento">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:FirmaElectronica"/>
+
+			     <xs:group ref="wsfirma:Documento"/>
+
+			     <xs:group ref="wsfirma:IdDocumento"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:FormatoFirma"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmaUsuarioBloquesF1">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:Firmante"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:IdDocumentos"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:IdTransacciones"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:AlgoritmoHash"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmaUsuarioBloquesF3">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group ref="wsfirma:FirmaElectronica"/>
+
+			     <xs:group ref="wsfirma:CertificadoFirmante"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:FormatoFirma"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:IdReferencia"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="ObtenerIdDocumentosBloqueFirmas">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="ObtenerIdDocumentosBloqueFirmasBackwards">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:BloqueFirmas"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="ObtenerInformacionBloqueFirmas">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="ObtenerInformacionBloqueFirmasBackwards">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:BloqueFirmas"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="ObtenerInfoCompletaBloqueFirmas">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:IdAplicacion"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	<!-- Definicion Grupos de Elementos de Salida  -->
+
+	   <xs:group name="resultadoGeneral">
+
+		    <xs:sequence>
+
+			     <xs:element name="estado" type="xs:boolean"/>
+
+			     <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoGeneralValidarFirmas">
+
+		    <xs:sequence>
+
+			     <xs:element name="estado" type="xs:boolean"/>
+
+			     <xs:element minOccurs="0" name="descripcion" type="wsfirma:descripcionValidarFirmas"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoGeneralValidarFirmasBloques">
+
+		    <xs:sequence>
+
+			     <xs:element name="estado" type="xs:boolean"/>
+
+			     <xs:element minOccurs="0" name="descripcion" type="wsfirma:descripcionValidarFirmasBloques"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoValidarFirma">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneralValidarFirmas"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoValidarFirmaBloques">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneralValidarFirmasBloques"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoFirmaServidor">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group ref="wsfirma:FirmaElectronica"/>
+
+			     <xs:group ref="wsfirma:FormatoFirma"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:IdDocumento"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoFirmaServidorCoSign">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group ref="wsfirma:FirmaElectronica"/>
+
+			     <xs:group ref="wsfirma:FormatoFirma"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoFirmaServidorCounterSign">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group ref="wsfirma:FirmaElectronica"/>
+
+			     <xs:group ref="wsfirma:FormatoFirma"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoFirmaUsuario3FasesF1">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group ref="wsfirma:Hash"/>
+
+			     <xs:group ref="wsfirma:AlgoritmoHash"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoFirmaUsuario3FasesF1CoSign">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group ref="wsfirma:FirmaElectronica"/>
+
+			     <xs:group ref="wsfirma:FormatoFirma"/>
+
+			     <xs:group ref="wsfirma:Hash"/>
+
+			     <xs:group ref="wsfirma:AlgoritmoHash"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoFirmaUsuario3FasesF1CounterSign">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group ref="wsfirma:FirmaElectronica"/>
+
+			     <xs:group ref="wsfirma:FormatoFirma"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoFirmaUsuario3FasesF3">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+			     <xs:group ref="wsfirma:JustificanteFirmaElectronica"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoFirmaUsuario2FasesF2">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group minOccurs="0" ref="wsfirma:IdDocumento"/>
+
+			     <xs:group ref="wsfirma:JustificanteFirmaElectronica"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoValidarFirmaBloquesCompleto">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneralValidarFirmasBloques"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoValidarFirmaBloquesDocumento">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneralValidarFirmasBloques"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoFirmaUsuarioBloquesF1">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+			     <xs:group ref="wsfirma:IdTransaccion"/>
+
+			     <xs:group ref="wsfirma:Hash"/>
+
+			     <xs:group ref="wsfirma:AlgoritmoHash"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoFirmaUsuarioBloquesF3">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+			     <xs:group ref="wsfirma:JustificanteFirmaElectronica"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoObtenerIdDocumentosBloqueFirmas">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+			     <xs:group ref="wsfirma:IdDocumentosBloque"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoObtenerIdDocumentosBloqueFirmasBackwards">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+			     <xs:group ref="wsfirma:IdDocumentosBloque"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoObtenerInformacionBloqueFirmas">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoObtenerInformacionBloqueFirmasBackwards">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoObtenerInfoCompletaBloqueFirmas">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wsfirma:resultadoGeneral"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="Excepcion">
+
+		    <xs:sequence>
+
+			     <xs:element name="codigoError" type="xs:string"/>
+
+			     <xs:element name="descripcion" type="xs:string"/>
+
+			     <xs:element minOccurs="0" name="excepcionAsociada" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:element name="mensajeEntrada">
+
+		    <xs:complexType>
+
+			     <xs:sequence>
+
+				      <xs:element name="peticion">
+
+					       <xs:simpleType>
+
+						        <xs:restriction base="xs:string">
+
+							         <xs:enumeration value="ValidarFirma"/>
+
+							         <xs:enumeration value="FirmaServidor"/>
+
+							         <xs:enumeration value="FirmaServidorCoSign"/>
+
+							         <xs:enumeration value="FirmaServidorCounterSign"/>
+
+							         <xs:enumeration value="FirmaUsuario3FasesF1"/>
+
+							         <xs:enumeration value="FirmaUsuario3FasesF1CoSign"/>
+
+							         <xs:enumeration value="FirmaUsuario3FasesF3"/>
+
+							         <xs:enumeration value="FirmaUsuario2FasesF2"/>
+
+							         <xs:enumeration value="ValidarFirmaBloquesCompleto"/>
+
+							         <xs:enumeration value="ValidarFirmaBloquesDocumento"/>
+
+							         <xs:enumeration value="FirmaUsuarioBloquesF1"/>
+
+							         <xs:enumeration value="FirmaUsuarioBloquesF1CoSign"/>
+
+							         <xs:enumeration value="FirmaUsuarioBloquesF1CounterSign"/>
+
+							         <xs:enumeration value="FirmaUsuarioBloquesF3"/>
+
+							         <xs:enumeration value="ObtenerIdDocumentosBloqueFirmas"/>
+
+							         <xs:enumeration value="ObtenerIdDocumentosBloqueFirmasBackwards"/>
+
+							         <xs:enumeration value="ObtenerInformacionBloqueFirmas"/>
+
+							         <xs:enumeration value="ObtenerInformacionBloqueFirmasBackwards"/>
+
+							         <xs:enumeration value="ObtenerInfoCompletaBloqueFirmas"/>
+
+						        </xs:restriction>
+
+					       </xs:simpleType>
+
+				      </xs:element>
+
+				      <xs:element name="versionMsg" type="xs:string"/>
+
+				      <xs:element name="parametros">
+
+					       <xs:complexType>
+
+						        <xs:choice>
+
+							         <xs:group ref="wsfirma:ValidarFirma"/>
+
+							         <xs:group ref="wsfirma:FirmaServidor"/>
+
+							         <xs:group ref="wsfirma:FirmaServidorCoSign"/>
+
+							         <xs:group ref="wsfirma:FirmaServidorCounterSign"/>
+
+							         <xs:group ref="wsfirma:FirmaUsuario3FasesF1"/>
+
+							         <xs:group ref="wsfirma:FirmaUsuario3FasesF1CoSign"/>
+
+							         <xs:group ref="wsfirma:FirmaUsuario3FasesF3"/>
+
+							         <xs:group ref="wsfirma:FirmaUsuario2FasesF2"/>
+
+							         <xs:group ref="wsfirma:ValidarFirmaBloquesCompleto"/>
+
+							         <xs:group ref="wsfirma:ValidarFirmaBloquesDocumento"/>
+
+							         <xs:group ref="wsfirma:FirmaUsuarioBloquesF1"/>
+
+							         <xs:group ref="wsfirma:FirmaUsuarioBloquesF3"/>
+
+							         <xs:group ref="wsfirma:ObtenerIdDocumentosBloqueFirmas"/>
+
+							         <xs:group ref="wsfirma:ObtenerIdDocumentosBloqueFirmasBackwards"/>
+
+							         <xs:group ref="wsfirma:ObtenerInformacionBloqueFirmas"/>
+
+							         <xs:group ref="wsfirma:ObtenerInformacionBloqueFirmasBackwards"/>
+
+							         <xs:group ref="wsfirma:ObtenerInfoCompletaBloqueFirmas"/>
+
+						        </xs:choice>
+
+					       </xs:complexType>
+
+				      </xs:element>
+
+			     </xs:sequence>
+
+		    </xs:complexType>
+
+	   </xs:element>
+
+	<!-- RESULTADO  -->
+
+	<!-- Elemento raiz -->
+
+	   <xs:element name="mensajeSalida">
+
+		    <xs:complexType>
+
+			     <xs:sequence>
+
+				      <xs:element name="peticion">
+
+					       <xs:simpleType>
+
+						        <xs:restriction base="xs:string">
+
+							         <xs:enumeration value="ValidarFirma"/>
+
+							         <xs:enumeration value="FirmaServidor"/>
+
+							         <xs:enumeration value="FirmaServidorCoSign"/>
+
+							         <xs:enumeration value="FirmaServidorCounterSign"/>
+
+							         <xs:enumeration value="FirmaUsuario3FasesF1"/>
+
+							         <xs:enumeration value="FirmaUsuario3FasesF1CoSign"/>
+
+							         <xs:enumeration value="FirmaUsuario3FasesF3"/>
+
+							         <xs:enumeration value="FirmaUsuario2FasesF2"/>
+
+							         <xs:enumeration value="ValidarFirmaBloquesCompleto"/>
+
+							         <xs:enumeration value="ValidarFirmaBloquesDocumento"/>
+
+							         <xs:enumeration value="FirmaUsuarioBloquesF1"/>
+
+							         <xs:enumeration value="FirmaUsuarioBloquesF3"/>
+
+							         <xs:enumeration value="ObtenerIdDocumentosBloqueFirmas"/>
+
+							         <xs:enumeration value="ObtenerIdDocumentosBloqueFirmasBackwards"/>
+
+							         <xs:enumeration value="ObtenerInformacionBloqueFirmas"/>
+
+							         <xs:enumeration value="ObtenerInformacionBloqueFirmasBackwards"/>
+
+							         <xs:enumeration value="ObtenerInfoCompletaBloqueFirmas"/>
+
+						        </xs:restriction>
+
+					       </xs:simpleType>
+
+				      </xs:element>
+
+				      <xs:element name="versionMsg" type="xs:string"/>
+
+				      <xs:element name="respuesta">
+
+					       <xs:complexType>
+
+						        <xs:choice>
+
+							         <xs:element name="Respuesta">
+
+								          <xs:complexType>
+
+									           <xs:choice>
+
+										            <xs:group ref="wsfirma:resultadoValidarFirma"/>
+
+										            <xs:group ref="wsfirma:resultadoFirmaServidor"/>
+
+										            <xs:group ref="wsfirma:resultadoFirmaServidorCoSign"/>
+
+										            <xs:group ref="wsfirma:resultadoFirmaServidorCounterSign"/>
+
+										            <xs:group ref="wsfirma:resultadoFirmaUsuario3FasesF1"/>
+
+										            <xs:group ref="wsfirma:resultadoFirmaUsuario3FasesF1CoSign"/>
+
+										            <xs:group ref="wsfirma:resultadoFirmaUsuario3FasesF1CounterSign"/>
+
+										            <xs:group ref="wsfirma:resultadoFirmaUsuario3FasesF3"/>
+
+										            <xs:group ref="wsfirma:resultadoFirmaUsuario2FasesF2"/>
+
+										            <xs:group ref="wsfirma:resultadoValidarFirmaBloquesCompleto"/>
+
+										            <xs:group ref="wsfirma:resultadoValidarFirmaBloquesDocumento"/>
+
+										            <xs:group ref="wsfirma:resultadoFirmaUsuarioBloquesF1"/>
+
+										            <xs:group ref="wsfirma:resultadoFirmaUsuarioBloquesF3"/>
+
+										            <xs:group ref="wsfirma:resultadoObtenerIdDocumentosBloqueFirmas"/>
+
+										            <xs:group ref="wsfirma:resultadoObtenerIdDocumentosBloqueFirmasBackwards"/>
+
+										            <xs:group ref="wsfirma:resultadoObtenerInformacionBloqueFirmas"/>
+
+										            <xs:group ref="wsfirma:resultadoObtenerInformacionBloqueFirmasBackwards"/>
+
+										            <xs:group ref="wsfirma:resultadoObtenerInfoCompletaBloqueFirmas"/>
+
+									           </xs:choice>
+
+								          </xs:complexType>
+
+							         </xs:element>
+
+							         <xs:element name="Excepcion">
+
+								          <xs:complexType>
+
+									           <xs:group ref="wsfirma:Excepcion"/>
+
+								          </xs:complexType>
+
+							         </xs:element>
+
+						        </xs:choice>
+
+					       </xs:complexType>
+
+				      </xs:element>
+
+			     </xs:sequence>
+
+		    </xs:complexType>
+
+	   </xs:element>
+
+	<!-- Descripcion Validar Firmas-->
+
+	   <xs:complexType name="descripcionValidarFirmas">
+
+		    <xs:sequence>
+
+			     <xs:element name="validacionFirmaElectronica">
+
+				      <xs:complexType>
+
+					       <xs:sequence>
+
+						        <xs:element name="proceso" type="xs:string"/>
+
+						        <xs:element name="detalle" type="xs:string"/>
+
+						        <xs:element name="conclusion" type="xs:string"/>
+
+						        <xs:element minOccurs="0" name="informacionAdicional">
+
+							         <xs:complexType>
+
+								          <xs:sequence>
+
+									           <xs:element maxOccurs="unbounded" name="firmante">
+
+										            <xs:complexType>
+
+											             <xs:sequence>
+
+												              <xs:element name="certificado" type="xs:string"/>
+
+												              <xs:element name="selloTiempo" type="xs:string"/>
+
+												              <xs:element name="certificadoTSA" type="xs:string"/>
+
+											             </xs:sequence>
+
+										            </xs:complexType>
+
+									           </xs:element>
+
+								          </xs:sequence>
+
+							         </xs:complexType>
+
+						        </xs:element>
+
+					       </xs:sequence>
+
+				      </xs:complexType>
+
+			     </xs:element>
+
+		    </xs:sequence>
+
+	   </xs:complexType>
+
+	<!-- Descripcion de Validar Firmas Bloques-->
+
+	   <xs:complexType name="descripcionValidarFirmasBloques">
+
+		    <xs:sequence>
+
+			     <xs:element name="validacionFirmaElectronica">
+
+				      <xs:complexType>
+
+					       <xs:sequence>
+
+						        <xs:element name="proceso" type="xs:string"/>
+
+						        <xs:element name="detalle" type="xs:string"/>
+
+					       </xs:sequence>
+
+				      </xs:complexType>
+
+			     </xs:element>
+
+		    </xs:sequence>
+
+	   </xs:complexType>
+
+  </xs:schema>
+ </wsdl:types>
+
+   <wsdl:message name="ObtenerIdDocumentosBloqueFirmasResponse">
+
+      <wsdl:part name="ObtenerIdDocumentosBloqueFirmasReturn" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ObtenerIdDocumentosBloqueFirmasRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="Firma">
+
+      <wsdl:operation name="ObtenerIdDocumentosBloqueFirmas" parameterOrder="in0">
+
+         <wsdl:input message="impl:ObtenerIdDocumentosBloqueFirmasRequest" name="ObtenerIdDocumentosBloqueFirmasRequest"/>
+
+         <wsdl:output message="impl:ObtenerIdDocumentosBloqueFirmasResponse" name="ObtenerIdDocumentosBloqueFirmasResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ObtenerIdDocumentosBloqueFirmasSoapBinding" type="impl:Firma">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="ObtenerIdDocumentosBloqueFirmas">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="ObtenerIdDocumentosBloqueFirmasRequest">
+
+            <wsdlsoap:body namespace="http://afirmaws/services/ObtenerIdDocumentosBloqueFirmas" use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="ObtenerIdDocumentosBloqueFirmasResponse">
+
+            <wsdlsoap:body namespace="http://afirmaws/services/ObtenerIdDocumentosBloqueFirmas" use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="FirmaService">
+
+      <wsdl:port binding="impl:ObtenerIdDocumentosBloqueFirmasSoapBinding" name="ObtenerIdDocumentosBloqueFirmas">
+
+         <wsdlsoap:address location="https://${balanceador}/afirmaws/services/ObtenerIdDocumentosBloqueFirmas"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

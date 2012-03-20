@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- XSS Profile of the OASIS DSS Schema v1.0-->
+<!--Author: Carlos González-Cadenas-->
+<!--Date: December 2005-->
+<xs:schema targetNamespace="urn:oasis:names:tc:dss:1.0:profiles:XSS" xmlns:archp="urn:oasis:names:tc:dss:1.0:profiles:archive" xmlns:tsl="http://uri.etsi.org/02231/v1.1.1#" xmlns:dss="http://www.docs.oasis-open.org/dss/oasis-dss-1.0-core-schema-cd-02.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xades="http://uri.etsi.org/01903/v1.2.2#" xmlns:saml20="urn:oasis:names:tc:SAML:2.0:assertion" xmlns="urn:oasis:names:tc:dss:1.0:profiles:XSS" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/2002/REC-xmldsig-core-20020212/xmldsig-core-schema.xsd"/>
+	<xs:import namespace="http://uri.etsi.org/01903/v1.2.2#" schemaLocation="http://uri.etsi.org/01903/v1.2.2/XAdES.xsd"/>
+	<xs:import namespace="urn:oasis:names:tc:dss:1.0:core:schema" schemaLocation="http://docs.oasis-open.org/dss/v1.0/oasis-dss-core-schema-v1.0-os.xsd"/>
+	<xs:import namespace="http://uri.etsi.org/02231/v1.1.1#" schemaLocation="http://uri.etsi.org/02231/v1.1.1/TS102231 v1-1-1.xsd"/>
+	<xs:import namespace="urn:oasis:names:tc:dss:1.0:profiles:archive" schemaLocation="oasis-dss-1.0-profiles-archive-schema.xsd"/>
+	<xs:import namespace="urn:oasis:names:tc:SAML:2.0:assertion" schemaLocation="http://docs.oasis-open.org/security/saml/v2.0/saml-schema-assertion-2.0.xsd"/>
+	<xs:element name="SignaturePolicy">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="xades:ObjectIdentifierType">
+					<xs:attribute name="allowPolicyMappings" type="xs:boolean" use="optional" default="false"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SignaturePolicyInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="SignaturePolicyIssuer" type="xs:string"/>
+				<xs:element name="SignaturePolicyIdentifier" type="xades:ObjectIdentifierType"/>
+				<xs:element name="SignaturePolicyDigestAlgorithm" type="xades:ObjectIdentifierType"/>
+				<xs:element name="SignaturePolicyDigestValue" type="ds:DigestValueType"/>
+				<xs:element ref="ds:Transforms" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ReturnSignedResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RequiredCommitments" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CommitmentType" type="xsp:CommitmentType" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ResponseSignature">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ds:Signature"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ReturnSignatureInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AttributeDesignator" type="saml20:AttributeType" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SignatureInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Attribute" type="saml20:AttributeType" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="BinaryAttributeValueType">
+		<xs:simpleContent>
+			<xs:extension base="xs:base64Binary">
+				<xs:attribute name="Attribute" type="xs:anyURI" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:element name="ReturnX509CertificateInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AttributeDesignator" type="saml20:AttributeType" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="X509CertificateInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Attribute" type="saml20:AttributeType" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Scheme"/>
+	<xs:element name="SchemeInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="SchemeName" type="tsl:InternationalNamesType"/>
+				<xs:element name="TSLSequenceNumber" type="xs:integer"/>
+				<xs:element name="TSLDigestAlgorithm" type="xades:ObjectIdentifierType"/>
+				<xs:element name="TSLDigestValue" type="ds:DigestValueType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="X509CertificateValidationOptions" type="xsp:CertificateTrustTreesType"/>
+	<xs:element name="RequireQualifiedCertificate"/>
+	<xs:element name="Archive">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element ref="archp:ArchivePolicy" minOccurs="0"/>
+					<xs:element ref="archp:RetentionPeriod" minOccurs="0"/>
+				</xs:choice>
+				<xs:element ref="archp:UpdateSignature" minOccurs="0"/>
+				<xs:element ref="archp:ArchiveMode" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArchiveInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ArchiveIdentifier"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CounterSignature">
+		<xs:complexType>
+			<xs:attribute name="WhichDocument" type="xs:IDREF" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ParallelSignature"/>
+</xs:schema>

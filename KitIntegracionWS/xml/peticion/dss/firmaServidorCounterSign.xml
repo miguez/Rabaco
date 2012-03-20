@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dss:SignRequest Profile="urn:afirma:dss:1.0:profile:XSS" xmlns:afxp="urn:afirma:dss:1.0:profile:XSS:schema" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xss="urn:oasis:names:tc:dss:1.0:profiles:XSS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:afirma:dss:1.0:profile:XSS:schema http://localhost/afirmaws/xsd/dss/afirma-dss-1.0-profiles-XSS-schema.xsd http://www.w3.org/2000/09/xmldsig# http://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd urn:oasis:names:tc:dss:1.0:core:schema http://docs.oasis-open.org/dss/v1.0/oasis-dss-core-schema-v1.0-os.xsd urn:oasis:names:tc:dss:1.0:profiles:XSS http://localhost/afirmaws/xsd/dss/oasis-dss-1.0-profiles-XSS-schema-wd02.xsd">
+	<dss:InputDocuments>
+		<dss:Other>
+			<afxp:DocumentArchiveId ID="CounterSignature-1232009283767">1232005413736011</afxp:DocumentArchiveId>
+		</dss:Other>
+	</dss:InputDocuments>
+	<dss:OptionalInputs>
+		<dss:ClaimedIdentity>
+			<dss:Name>tester</dss:Name>
+		</dss:ClaimedIdentity>
+		<dss:KeySelector>
+			<ds:KeyInfo>
+				<ds:KeyName>signer</ds:KeyName>
+			</ds:KeyInfo>
+		</dss:KeySelector>
+		<afxp:HashAlgorithm>http://www.w3.org/2000/09/xmldsig#sha1</afxp:HashAlgorithm>
+		<xss:CounterSignature WhichDocument="CounterSignature-1232009283767"/>
+	</dss:OptionalInputs>
+</dss:SignRequest>

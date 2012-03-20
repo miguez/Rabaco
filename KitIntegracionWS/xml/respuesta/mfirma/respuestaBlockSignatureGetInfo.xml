@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<outputMessage xmlns="https://afirmaws/ws/signature" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mfirma/wseng.xsd "> 
+	<request>BlockSignatureGetInfo</request> 
+	<versionMsg>1.0 </versionMsg> 
+	<response> 
+	<Response>
+		<status>true</status>
+		<description> bloque (id de transaccion:1153902648987798) firmado por C=ES,
+OU=Clase 2 persona fisica,EMAIL=test@prueba.com,serialNumber=12345678Y,SN=Prueba Prueba,givenName=Us
+uario,CN=Usuario Prueba Prueba
+          Transaccion=1153902648987799
+          Documento:508
+          Firmante:CN=pre-afirma.redinteradministrativa.es,OU=Servidores,O=Generalitat Valenciana,C=
+ES
+          Transaccion=1153902648987800
+          Documento:510
+          Firmante:CN=pre-afirma.redinteradministrativa.es,OU=Servidores,O=Generalitat Valenciana,C=
+ES
+          bloque (id de transaccion:1153902648987482) firmado por C=ES,OU=Clase 2 persona fisica,EMA
+IL=test@prueba.com,serialNumber=12345678Y,SN=Prueba Prueba,givenName=Usuario,CN=Usuario Prueba Prueb
+a
+                   Transaccion=1153902648987483
+                   Documento:508
+                   Firmante:CN=pre-afirma.redinteradministrativa.es,OU=Servidores,O=Generalitat Vale
+nciana,C=ES
+          bloque (id de transaccion:1153902648987505) firmado por C=ES,OU=Clase 2 persona fisica,EMA
+IL=test@prueba.com,serialNumber=12345678Y,SN=Prueba Prueba,givenName=Usuario,CN=Usuario Prueba Prueb
+a
+                   Transaccion=1153902648987506
+                   Documento:508
+                   Firmante:CN=pre-afirma.redinteradministrativa.es,OU=Servidores,O=Generalitat Vale
+nciana,C=ES
+			</description>
+		</Response> 
+	</response> 
+</outputMessage>

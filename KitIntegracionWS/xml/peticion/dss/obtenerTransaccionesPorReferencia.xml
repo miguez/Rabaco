@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arch:ArchiveRetrievalRequest Profile="urn:afirma:dss:1.0:profile:archive" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:afap="urn:afirma:dss:1.0:profile:archive:schema" xmlns:arch="urn:oasis:names:tc:dss:1.0:profiles:archive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:afirma:dss:1.0:profile:archive:schema http://localhost/afirmaws/xsd/dss/afirma-dss-1.0-profiles-archive-schema.xsd urn:oasis:names:tc:dss:1.0:profiles:archive http://localhost/afirmaws/xsd/dss/oasis-dss-1.0-profiles-archive-schema.xsd urn:oasis:names:tc:dss:1.0:core:schema http://docs.oasis-open.org/dss/v1.0/oasis-dss-core-schema-v1.0-os.xsd">
+	<dss:OptionalInputs>
+		<dss:ClaimedIdentity>
+			<dss:Name>tester</dss:Name>
+		</dss:ClaimedIdentity>
+		<afap:ArchiveIdentifierType>urn:afirma:dss:1.0:profile:archive:identifier:type:reference</afap:ArchiveIdentifierType>
+	</dss:OptionalInputs>
+	<arch:ArchiveIdentifier>ref1</arch:ArchiveIdentifier>
+</arch:ArchiveRetrievalRequest>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<outputMessage xmlns="https://afirmaws/ws/custody" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mcustodia/wseng.xsd ">
+	<request>GetTransactionsByDates</request>
+	<versionMsg>1.0</versionMsg>
+	<response>
+		<Response>
+			<status>true</status>
+			<description>Proceso de obtenciÃ³n de transacciones por fechas realizado correctamente.</description>
+			<idTransactions>
+				<transactionId>1148912967875001</transactionId>
+				<transactionId>1148912967875002</transactionId>
+				<transactionId>1148912967875003</transactionId>
+				<transactionId>1148915868890001</transactionId>
+				<transactionId>1148912967875004</transactionId>
+				<transactionId>1148912967875005</transactionId>
+				<transactionId>1148912967875006</transactionId>
+			</idTransactions>
+		</Response>
+	</response> 
+</outputMessage>

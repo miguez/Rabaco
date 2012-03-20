@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arch:ArchiveSubmitRequest Profile="urn:afirma:dss:1.0:profile:archive" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:afxp="urn:afirma:dss:1.0:profile:XSS:schema" xmlns:afap="urn:afirma:dss:1.0:profile:archive:schema" xmlns:arch="urn:oasis:names:tc:dss:1.0:profiles:archive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:afirma:dss:1.0:profile:archive:schema http://localhost/afirmaws/xsd/dss/afirma-dss-1.0-profiles-archive-schema.xsd urn:afirma:dss:1.0:profile:XSS:schema http://localhost/afirmaws/xsd/dss/afirma-dss-1.0-profiles-XSS-schema.xsd urn:oasis:names:tc:dss:1.0:profiles:archive http://localhost/afirmaws/xsd/dss/oasis-dss-1.0-profiles-archive-schema.xsd http://www.w3.org/2000/09/xmldsig# http://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd urn:oasis:names:tc:dss:1.0:core:schema http://docs.oasis-open.org/dss/v1.0/oasis-dss-core-schema-v1.0-os.xsd">
+	<dss:OptionalInputs>
+		<dss:ClaimedIdentity>
+			<dss:Name>tester</dss:Name>
+		</dss:ClaimedIdentity>
+		<afap:AdditionalSignatureInfo>
+			<dss:InputDocuments>
+				<dss:Document>
+					<dss:Base64Data>
+						<![CDATA[IyBSdXRhIGNvbXBsZXRhIChvIHJlbGF0aXZhIHJlc3BlY3RvIGEgbGEgbG9jYWxpemFjafNuIGRlbCBmaWNoZXJvIC5iYXQgZGUgZWplY3VjafNuKSBhbCBkaXJlY3RvcmlvIHRlbXBvcmFsIGRlbCBDbGllbnRlIFdTDQpkaXIudGVtcG9yYWwucGF0aD0uLi8uLi90ZW1wLw0KDQojIEFsbWFjZW5hciBwZXRpY2lvbg0KYWxtYWNlbmFyLnBldGljaW9uID0gdHJ1ZQ0KDQojIEFsbWFjZW5hciByZXNwdWVzdGENCmFsbWFjZW5hci5yZXNwdWVzdGEgPSB0cnVlDQoNCiMgUGF0cvNuIHV0aWxpemFkbyBwYXJhIGVzY3JpYmlyIGxhIGZlY2hhIGVuIGxvcyBub21icmVzIGRlIGxvcyBmaWNoZXJvcw0KIyBxdWUgYWxtYWNlbmFuIGxhIHBldGljafNuIG8gcmVzcHVlc3RhIHJlYWxpemFkYXMuDQpmb3JtYXRvLmZlY2hhID0geXl5eS1NTS1kZF9ISC1tbS1zcy1TU1Nf]]>
+					</dss:Base64Data>
+				</dss:Document>
+			</dss:InputDocuments>
+			<ds:X509Data>
+				<ds:X509Certificate>
+					<![CDATA[MIIDizCCAvSgAwIBAgIBDjANBgkqhkiG9w0BAQsFADCBzTELMAkGA1UEBhMCRVMxEDAOBgNVBAgTB1NFVklMTEExEDAOBgNVBAcTB1NFVklMTEExIjAgBgNVBAoTGVRFTFZFTlQgSU5URVJBQ1RJVkEuIFMuQS4xMjAwBgNVBAsTKURFUEFSVEFNRU5UTyBERSBBRE1JTklTVFJBQ0lPTkVTIFBVQkxJQ0FTMR0wGwYDVQQDFBRDQSBERVNBUlJPTExPIEBGSVJNQTEjMCEGCSqGSIb3DQEJARYUamEucm9tYW5AdGVsdmVudC5jb20wHhcNMDgxMjEyMDcyMTAxWhcNMDkxMjEyMDcyMTAxWjCBnzELMAkGA1UEBhMCRVMxEDAOBgNVBAgTB1NFVklMTEExEDAOBgNVBAcTB1NFVklMTEExHDAaBgNVBAoTE1RFTFZFTlQgSU5URVJBQ1RJVkExDzANBgNVBAsWBkBGSVJNQTEYMBYGA1UEAxMPU0VSVklET1IgVEVTVEVSMSMwIQYJKoZIhvcNAQkBFhRqYS5yb21hbkB0ZWx2ZW50LmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAvr0f/koYzdkpauz1aqbzuxPTKi+7CLv8F9JAcD8U8sbmUNCW3kA1KCdN+n4KynRkNn95QtPOsMtaZgHomR7h3p3K8xNocKgAi96UwItJO/Jy1cRSEIX3mNfcVndLINfWOkZcb4nBrv4g2XIn19bKX+kxyxHn7T5zK5hShRL4wYkCAwEAAaOBpjCBozAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQKGw+YOjDaUA0hCGuDXO7azRyAuzALBgNVHQ8EBAMCAYYwEQYJYIZIAYb4QgEBBAQDAgCHMDQGCWCGSAGG+EIBCAQnFiVodHRwOlxcdGVsdmVudC5kZXNhcnJvbGxvLmNvbXBvbmVudGVzMB4GCWCGSAGG+EIBDQQRFg94Y2EgY2VydGlmaWNhdGUwDQYJKoZIhvcNAQELBQADgYEAfEap0g3oDqyBQsNx6E1rBGJG2JmEOFRlF1VjKXFdDU0BaDeLSvi6Cak9vOmFi2cyrRI+Bmkmpl4FWHFtn5EUtk4u65lTietoJIEU7f26ixKQxwy5zf8Xol2dAhNa+JV8IHu2rmu4eSGf8tpMf4PtfXEh6p0NVo7QcuRBrultQJE=]]>
+				</ds:X509Certificate>
+			</ds:X509Data>
+			<afxp:HashAlgorithm>http://www.w3.org/2000/09/xmldsig#sha1</afxp:HashAlgorithm>
+			<afap:StoreDocument>false</afap:StoreDocument>
+		</afap:AdditionalSignatureInfo>
+		<afxp:AdditionalDocumentInfo>
+			<afxp:DocumentName>configuration.properties</afxp:DocumentName>
+			<afxp:DocumentType>properties</afxp:DocumentType>
+		</afxp:AdditionalDocumentInfo>
+	</dss:OptionalInputs>
+	<dss:SignatureObject>
+		<dss:Base64Signature>
+			<![CDATA[MIIFrQYJKoZIhvcNAQcCoIIFnjCCBZoCAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHAaCCA48wggOLMIIC9KADAgECAgEOMA0GCSqGSIb3DQEBCwUAMIHNMQswCQYDVQQGEwJFUzEQMA4GA1UECBMHU0VWSUxMQTEQMA4GA1UEBxMHU0VWSUxMQTEiMCAGA1UEChMZVEVMVkVOVCBJTlRFUkFDVElWQS4gUy5BLjEyMDAGA1UECxMpREVQQVJUQU1FTlRPIERFIEFETUlOSVNUUkFDSU9ORVMgUFVCTElDQVMxHTAbBgNVBAMUFENBIERFU0FSUk9MTE8gQEZJUk1BMSMwIQYJKoZIhvcNAQkBFhRqYS5yb21hbkB0ZWx2ZW50LmNvbTAeFw0wODEyMTIwNzIxMDFaFw0wOTEyMTIwNzIxMDFaMIGfMQswCQYDVQQGEwJFUzEQMA4GA1UECBMHU0VWSUxMQTEQMA4GA1UEBxMHU0VWSUxMQTEcMBoGA1UEChMTVEVMVkVOVCBJTlRFUkFDVElWQTEPMA0GA1UECxYGQEZJUk1BMRgwFgYDVQQDEw9TRVJWSURPUiBURVNURVIxIzAhBgkqhkiG9w0BCQEWFGphLnJvbWFuQHRlbHZlbnQuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+vR/+ShjN2Slq7PVqpvO7E9MqL7sIu/wX0kBwPxTyxuZQ0JbeQDUoJ036fgrKdGQ2f3lC086wy1pmAeiZHuHencrzE2hwqACL3pTAi0k78nLVxFIQhfeY19xWd0sg19Y6RlxvicGu/iDZcifX1spf6THLEeftPnMrmFKFEvjBiQIDAQABo4GmMIGjMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFAobD5g6MNpQDSEIa4Nc7trNHIC7MAsGA1UdDwQEAwIBhjARBglghkgBhvhCAQEEBAMCAIcwNAYJYIZIAYb4QgEIBCcWJWh0dHA6XFx0ZWx2ZW50LmRlc2Fycm9sbG8uY29tcG9uZW50ZXMwHgYJYIZIAYb4QgENBBEWD3hjYSBjZXJ0aWZpY2F0ZTANBgkqhkiG9w0BAQsFAAOBgQB8RqnSDegOrIFCw3HoTWsEYkbYmYQ4VGUXVWMpcV0NTQFoN4tK+LoJqT286YWLZzKtEj4GaSamXgVYcW2fkRS2Ti7rmVOJ62gkgRTt/bqLEpDHDLnN/xeiXZ0CE1r4lXwge7aua7h5IZ/y2kx/g+19cSHqnQ1WjtBy5EGu6W1AkTGCAeYwggHiAgEBMIHTMIHNMQswCQYDVQQGEwJFUzEQMA4GA1UECBMHU0VWSUxMQTEQMA4GA1UEBxMHU0VWSUxMQTEiMCAGA1UEChMZVEVMVkVOVCBJTlRFUkFDVElWQS4gUy5BLjEyMDAGA1UECxMpREVQQVJUQU1FTlRPIERFIEFETUlOSVNUUkFDSU9ORVMgUFVCTElDQVMxHTAbBgNVBAMUFENBIERFU0FSUk9MTE8gQEZJUk1BMSMwIQYJKoZIhvcNAQkBFhRqYS5yb21hbkB0ZWx2ZW50LmNvbQIBDjAJBgUrDgMCGgUAoGowCwYDVQQFMQQTAjE0MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTA5MDExNTExMDQwOVowIwYJKoZIhvcNAQkEMRYEFPwYegNX3Am7c8LgOb5hE8oYEHP6MA0GCSqGSIb3DQEBAQUABIGAO3/rTCmF2CB0TpQVenAUyQ5zrVgwS8Akla4qzFS+hih7tiJfijz+yJ1mBnn2pgACcQxSpBW39zcbU5GTf/nUyAXHX+x42XoYgJn/q4zHcPAmuHokKqomCmZYSLmVvhpBnCmJo+u+fC9fCXnKAAerZir4skJdNhVGAhSV9Mp2inU=]]>
+		</dss:Base64Signature>
+	</dss:SignatureObject>
+</arch:ArchiveSubmitRequest>

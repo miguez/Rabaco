@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://afirmaws/services/GetDocId" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://afirmaws/services/GetDocId" xmlns:intf="http://afirmaws/services/GetDocId" xmlns:wscustody="http://afirmaws/ws/custody" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.3
+Built on Oct 05, 2005 (05:23:37 EDT)-->
+ <wsdl:types>
+  <xs:schema targetNamespace="http://afirmaws/ws/custody" xmlns:wscustody="http://afirmaws/ws/custody" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <import namespace=""/>
+
+	<!--<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" >-->
+
+	<!--PETICION-->
+
+	<!-- Definicion Elementos Simples -->
+
+	   <xs:group name="IdAplicacion">
+
+		    <xs:sequence>
+
+			     <xs:element name="applicationId" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="IdTransaccion">
+
+		    <xs:sequence>
+
+			     <xs:element name="transactionId" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="Referencia">
+
+		    <xs:sequence>
+
+			     <xs:element name="reference" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="Documento">
+
+		    <xs:sequence>
+
+			     <xs:element name="document" type="xs:base64Binary"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="BloqueFirmas">
+
+		    <xs:sequence>
+
+			     <xs:element name="block" type="xs:base64Binary"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FirmaElectronica">
+
+		    <xs:sequence>
+
+			     <xs:element name="eSignature" type="xs:base64Binary"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FormatoFirma">
+
+		    <xs:sequence>
+
+			     <xs:element name="eSignatureFormat" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="IdDocumento">
+
+		    <xs:sequence>
+
+			     <xs:element name="documentId" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="NombreDocumento">
+
+		    <xs:sequence>
+
+			     <xs:element name="documentName" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="TipoDocumento">
+
+		    <xs:sequence>
+
+			     <xs:element name="documentType" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FechaInicial">
+
+		    <xs:sequence>
+
+			     <xs:element name="startDate" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="FechaFinal">
+
+		    <xs:sequence>
+
+			     <xs:element name="endDate" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="IdTransacciones">
+
+		    <xs:sequence>
+
+			     <xs:element minOccurs="0" name="idTransactions">
+
+				      <xs:complexType>
+
+					       <xs:sequence>
+
+						        <xs:element minOccurs="0" name="transactionId" type="xs:string"/>
+
+					       </xs:sequence>
+
+				      </xs:complexType>
+
+			     </xs:element>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	<!-- Definicion Grupos de Elementos de Entrada segun Servicio Web -->
+
+	   <xs:group name="StoreDocument">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:IdAplicacion"/>
+
+			     <xs:group ref="wscustody:Documento"/>
+
+			     <xs:group ref="wscustody:NombreDocumento"/>
+
+			     <xs:group ref="wscustody:TipoDocumento"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="DeleteDocumentContent">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:IdAplicacion"/>
+
+			     <xs:group ref="wscustody:IdDocumento"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="SetExternalReference">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:IdAplicacion"/>
+
+			     <xs:group ref="wscustody:IdTransaccion"/>
+
+			     <xs:group ref="wscustody:Referencia"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="GetTransactionsByDates">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:IdAplicacion"/>
+
+			     <xs:group ref="wscustody:FechaInicial"/>
+
+			     <xs:group ref="wscustody:FechaFinal"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="GetTransactionsByAppId">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:IdAplicacion"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="GetDocId">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:IdAplicacion"/>
+
+			     <xs:group ref="wscustody:IdTransaccion"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="GetESignature">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:IdAplicacion"/>
+
+			     <xs:group ref="wscustody:IdTransaccion"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="GetDocumentContent">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:IdAplicacion"/>
+
+			     <xs:group ref="wscustody:IdTransaccion"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="GetBlock">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:IdAplicacion"/>
+
+			     <xs:group ref="wscustody:IdTransaccion"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="GetTransactionsByRefId">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:IdAplicacion"/>
+
+			     <xs:group ref="wscustody:Referencia"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="GetDocumentContentId">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:IdAplicacion"/>
+
+			     <xs:group ref="wscustody:IdDocumento"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	<!-- Definicion Grupos de Elementos de Salida  -->
+
+	   <xs:group name="resultadoGeneral">
+
+		    <xs:sequence>
+
+			     <xs:element name="status" type="xs:boolean"/>
+
+			     <xs:element minOccurs="0" name="description" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoStoreDocument">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:resultadoGeneral"/>
+
+			     <xs:group ref="wscustody:IdDocumento"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoDeleteDocumentContent">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:resultadoGeneral"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoSetExternalReference">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:resultadoGeneral"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoGetTransactionsByDates">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:resultadoGeneral"/>
+
+			     <xs:group ref="wscustody:IdTransacciones"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoGetTransactionsByAppId">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:resultadoGeneral"/>
+
+			     <xs:group ref="wscustody:IdTransacciones"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoGetDocId">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:resultadoGeneral"/>
+
+			     <xs:group ref="wscustody:IdDocumento"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoGetESignature">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:resultadoGeneral"/>
+
+			     <xs:group ref="wscustody:FirmaElectronica"/>
+
+			     <xs:group ref="wscustody:FormatoFirma"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoGetDocumentContent">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:resultadoGeneral"/>
+
+			     <xs:group ref="wscustody:Documento"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoGetBlock">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:resultadoGeneral"/>
+
+			     <xs:group ref="wscustody:BloqueFirmas"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoGetTransactionsByRefId">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:resultadoGeneral"/>
+
+			     <xs:group ref="wscustody:IdTransacciones"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="resultadoGetDocumentContentId">
+
+		    <xs:sequence>
+
+			     <xs:group ref="wscustody:resultadoGeneral"/>
+
+			     <xs:group ref="wscustody:Documento"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:group name="Exception">
+
+		    <xs:sequence>
+
+			     <xs:element name="errorCode" type="xs:string"/>
+
+			     <xs:element name="description" type="xs:string"/>
+
+			     <xs:element minOccurs="0" name="exception" type="xs:string"/>
+
+		    </xs:sequence>
+
+	   </xs:group>
+
+	   <xs:element name="inputMessage">
+
+		    <xs:complexType>
+
+			     <xs:sequence>
+
+				      <xs:element name="request">
+
+					       <xs:simpleType>
+
+						        <xs:restriction base="xs:string">
+
+							         <xs:enumeration value="StoreDocument"/>
+
+							         <xs:enumeration value="DeleteDocumentContent"/>
+
+							         <xs:enumeration value="SetExternalReference"/>
+
+							         <xs:enumeration value="GetTransactionsByDates"/>
+
+							         <xs:enumeration value="GetTransactionsByAppId"/>
+
+							         <xs:enumeration value="GetDocId"/>
+
+							         <xs:enumeration value="GetESignature"/>
+
+							         <xs:enumeration value="GetDocumentContent"/>
+
+							         <xs:enumeration value="GetBlock"/>
+
+							         <xs:enumeration value="GetTransactionsByRefId"/>
+
+							         <xs:enumeration value="GetDocumentContentId"/>
+
+						        </xs:restriction>
+
+					       </xs:simpleType>
+
+				      </xs:element>
+
+				      <xs:element name="versionMsg" type="xs:string"/>
+
+				      <xs:element name="parameters">
+
+					       <xs:complexType>
+
+						        <xs:choice>
+
+							         <xs:group ref="wscustody:StoreDocument"/>
+
+							         <xs:group ref="wscustody:DeleteDocumentContent"/>
+
+							         <xs:group ref="wscustody:SetExternalReference"/>
+
+							         <xs:group ref="wscustody:GetTransactionsByDates"/>
+
+							         <xs:group ref="wscustody:GetTransactionsByAppId"/>
+
+							         <xs:group ref="wscustody:GetDocId"/>
+
+							         <xs:group ref="wscustody:GetESignature"/>
+
+							         <xs:group ref="wscustody:GetDocumentContent"/>
+
+							         <xs:group ref="wscustody:GetBlock"/>
+
+							         <xs:group ref="wscustody:GetTransactionsByRefId"/>
+
+							         <xs:group ref="wscustody:GetDocumentContentId"/>
+
+						        </xs:choice>
+
+					       </xs:complexType>
+
+				      </xs:element>
+
+			     </xs:sequence>
+
+		    </xs:complexType>
+
+	   </xs:element>
+
+	<!-- RESULTADO  -->
+
+	<!-- Elemento raiz -->
+
+	   <xs:element name="outputMessage">
+
+		    <xs:complexType>
+
+			     <xs:sequence>
+
+				      <xs:element name="request">
+
+					       <xs:simpleType>
+
+						        <xs:restriction base="xs:string">
+
+							         <xs:enumeration value="StoreDocument"/>
+
+							         <xs:enumeration value="DeleteDocumentContent"/>
+
+							         <xs:enumeration value="SetExternalReference"/>
+
+							         <xs:enumeration value="GetTransactionsByDates"/>
+
+							         <xs:enumeration value="GetTransactionsByAppId"/>
+
+							         <xs:enumeration value="GetDocId"/>
+
+							         <xs:enumeration value="GetESignature"/>
+
+							         <xs:enumeration value="GetDocumentContent"/>
+
+							         <xs:enumeration value="GetBlock"/>
+
+							         <xs:enumeration value="GetTransactionsByRefId"/>
+
+							         <xs:enumeration value="GetDocumentContentId"/>
+
+						        </xs:restriction>
+
+					       </xs:simpleType>
+
+				      </xs:element>
+
+				      <xs:element name="versionMsg" type="xs:string"/>
+
+				      <xs:element name="response">
+
+					       <xs:complexType>
+
+						        <xs:choice>
+
+							         <xs:element name="Response">
+
+								          <xs:complexType>
+
+									           <xs:choice>
+
+										            <xs:group ref="wscustody:resultadoStoreDocument"/>
+
+										            <xs:group ref="wscustody:resultadoDeleteDocumentContent"/>
+
+										            <xs:group ref="wscustody:resultadoSetExternalReference"/>
+
+										            <xs:group ref="wscustody:resultadoGetTransactionsByDates"/>
+
+										            <xs:group ref="wscustody:resultadoGetTransactionsByAppId"/>
+
+										            <xs:group ref="wscustody:resultadoGetDocId"/>
+
+										            <xs:group ref="wscustody:resultadoGetESignature"/>
+
+										            <xs:group ref="wscustody:resultadoGetDocumentContent"/>
+
+										            <xs:group ref="wscustody:resultadoGetBlock"/>
+
+										            <xs:group ref="wscustody:resultadoGetTransactionsByRefId"/>
+
+										            <xs:group ref="wscustody:resultadoGetDocumentContentId"/>
+									
+									           </xs:choice>
+
+								          </xs:complexType>
+
+							         </xs:element>
+
+							         <xs:element name="Exception">
+
+								          <xs:complexType>
+
+									           <xs:group ref="wscustodia:Excepcion"/>
+
+								          </xs:complexType>
+
+							         </xs:element>
+
+						        </xs:choice>
+
+					       </xs:complexType>
+
+				      </xs:element>
+
+			     </xs:sequence>
+
+		    </xs:complexType>
+
+	   </xs:element>
+
+  </xs:schema>
+ </wsdl:types>
+
+   <wsdl:message name="GetDocIdRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="GetDocIdResponse">
+
+      <wsdl:part name="GetDocIdReturn" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="Custody">
+
+      <wsdl:operation name="GetDocId" parameterOrder="in0">
+
+         <wsdl:input message="impl:GetDocIdRequest" name="GetDocIdRequest"/>
+
+         <wsdl:output message="impl:GetDocIdResponse" name="GetDocIdResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="GetDocIdSoapBinding" type="impl:Custody">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="GetDocId">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="GetDocIdRequest">
+
+            <wsdlsoap:body namespace="http://afirmaws/services/GetDocId" use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="GetDocIdResponse">
+
+            <wsdlsoap:body namespace="http://afirmaws/services/GetDocId" use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="CustodyService">
+
+      <wsdl:port binding="impl:GetDocIdSoapBinding" name="GetDocId">
+
+         <wsdlsoap:address location="https://${balanceador}/afirmaws/services/GetDocId"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

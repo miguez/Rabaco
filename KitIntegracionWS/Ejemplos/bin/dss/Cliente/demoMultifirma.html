@@ -1,0 +1,685 @@
+<html>
+    <head>
+	    <link rel="stylesheet" href="style.css" type="text/css">
+    
+        <title>Demostración de Multifirma</title>
+		<script type="text/javascript" language="javascript" src="constantes.js"></script>
+		<script type="text/javascript" language="javascript" src="common-js/time.js"></script>
+		<script type="text/javascript" language="javascript" src="common-js/appletHelper.js"></script>
+		<script type="text/javascript" language="javascript" src="common-js/instalador.js"></script>
+		<script type="text/javascript" language="javascript" src="common-js/firma.js"></script>
+
+        <script language="javascript">
+        	function configureEntrada()
+        	{	// Establecemos datos de entrada
+        		var entrada;
+				aux = document.prueba.formato;				
+				var signatureFormat= aux.options[aux.selectedIndex].value;
+
+				if((signatureFormat=="ODF" || signatureFormat=="PDF")
+					&& getRadioValue(document.prueba.operacion) == "cofirmar") 
+					entrada = "none";					
+				else
+					entrada = getRadioValue(document.prueba.entrada);
+					
+        		if(entrada=="file")
+        		{
+	        		clienteFirma.setFileuri(document.getElementById('file').value);
+        		}
+        		else if(entrada=="data")
+        		{
+	        		clienteFirma.setData(document.getElementById('b64').value)
+        		}
+        		else if(entrada=="hash")
+        		{
+	        		clienteFirma.setHash(document.getElementById('b64').value)
+        		}
+        		else if(entrada=="none")
+        		{
+					if((signatureFormat=="ODF" || signatureFormat=="PDF") 
+						&& getRadioValue(document.prueba.operacion) == "cofirmar")
+						clienteFirma.setData("null");
+        		}
+        	}
+        	
+        	function configureEntradaESignature()
+        	{	// Establecemos la firma electrónica de entrada
+				var op = document.getElementById('operacion').value;
+				if(op=="cofirmar" || op=="contrafirmar")
+				{
+	        		aux= getRadioValue(document.prueba.fe_entrada)
+	        		if(aux=="file")
+	        		{
+		        		clienteFirma.setElectronicSignatureFile(document.getElementById('fe_file').value)
+	        		}
+	        		else if(aux=="data")
+	        		{
+		        		clienteFirma.setElectronicSignature(document.getElementById('fe_b64').value)
+	        		}
+	        		else if(aux=="none")
+	        		{
+	        		}
+	        	}
+        	}
+        	
+        	function configureFiltroCertificados()
+        	{	// Establecemos filtros
+        		var filtro= getRadioValue(document.prueba.filtros);
+        		if(filtro=="none")
+        		{
+        		}
+        		else if(filtro=="mandatory")
+        		{
+	        		clienteFirma.setMandatoryCertificateCondition(document.getElementById('filtro').value);
+        		}
+        		else if(filtro=="filtro")
+        		{
+        			clienteFirma.setCertFilter(document.getElementById('filtro').value);
+        		}
+        		else if(filtro=="filtroPreDef")
+        		{
+        			var selectFiltrosPreDef= document.getElementById('selectFiltrosPreDef');
+        			var value= selectFiltrosPreDef.options[selectFiltrosPreDef.selectedIndex].value;
+        			clienteFirma.setCertFilter(value);
+        		}
+        	}
+        
+        	function configureFirmantes()
+        	{	// Establecemos firmantes
+        		var op		= document.getElementById('operacion').value;
+						var tipo	= document.getElementById('modoContrafirma').value;
+						
+        		if(op=="contrafirmar" && (tipo=="NODOS" || tipo=="FIRMANTES"))
+        		{
+	        		aux= document.prueba.firmantes;
+	        		aux2 = "";
+	        		j=0;
+	        		for(i=0; i<aux.options.length; i++)
+	        		{
+	        			if(aux.options[i].selected==true)
+	        			{
+	        				if(j!=0)
+	        				{
+	        					aux2+='\n';
+	        				}
+	        				
+	        				if(tipo=="NODOS")
+	        				{	// Pasamos los índices de los nodos
+		        				aux2 += ""+i;
+		        			}
+		        			else if(tipo=="FIRMANTES")
+		        			{	// Pasamos los nombres de los firmantes
+		        				aux2 += aux.options[i].value;
+		        			}
+	        				
+	        				j++;
+	        			}
+	        		}
+	        		if(aux2.length>0)
+	        		{
+	        			clienteFirma.setSignersToCounterSign(aux2);
+	        			
+	        		}
+	        	}
+        	}
+        
+        	function configure()
+        	{
+        	    // Inicializamos
+        		clienteFirma.initialize();
+				
+        		// Establecemos algoritmo de firma
+        		aux= document.prueba.algoritmo;
+        		clienteFirma.setSignatureAlgorithm(aux.options[aux.selectedIndex].value);
+				
+				// Establecemos modo de firma
+				aux= document.prueba.modoFirma;
+				clienteFirma.setSignatureMode(aux.options[aux.selectedIndex].value);
+				
+        		configureEntrada();
+				
+				configureEntradaESignature();
+        		
+        		configureFiltroCertificados();
+        		
+        		configureFirmantes();
+        		
+        		// Establecemos el formato de firma
+        		aux= document.prueba.formato;
+        		var signatureFormat= aux.options[aux.selectedIndex].value;
+        		clienteFirma.setSignatureFormat(signatureFormat);
+        		
+        		// Mostrar errores
+        		aux= document.prueba.errores;
+        		clienteFirma.setShowErrors(aux.options[aux.selectedIndex].value!='false');
+        	}
+        	
+        	function hacer()
+        	{
+      			document.prueba.btnGuardar.disabled="disabled";
+
+        		configure();
+        	
+        		var op = document.getElementById('operacion').value;
+				if(op=="firmar")
+        		{
+        			clienteFirma.sign();
+        		}
+        		else if(op=="cofirmar")
+        		{
+        			clienteFirma.coSign();
+        		}
+        		else if(op=="contrafirmar")
+        		{
+        			var tipo=document.getElementById('modoContrafirma').value;
+	        		//var tipo = getRadioValue(document.prueba.tipoContrafirma);
+					
+        			if(tipo=="NODOS")
+        			{
+	        			clienteFirma.counterSignIndexes();
+	        		}
+	        		else if(tipo=="FIRMANTES")
+	        		{
+	        			clienteFirma.counterSignSigners();
+	        		}
+	        		else if(tipo=="ARBOL")
+	        		{
+	        			clienteFirma.counterSignTree();
+	        		}
+	        		else if(tipo=="HOJAS")
+	        		{
+	        			clienteFirma.counterSignLeafs();
+	        		}
+        		}
+        		document.getElementById('firmaB64').style.display='block';
+        		var firma				= document.prueba.firma;
+        		var btnGuardar 			= document.prueba.btnGuardar;
+        		if(clienteFirma.isError())
+        		{
+        			firma.value  		= 'Error: '+clienteFirma.getErrorMessage();
+        			btnGuardar.disabled	= true;
+        		}
+        		else
+        		{
+        			//document.getElementById('firmaB64').style.display='block';
+        			aux= document.prueba.formato;
+        			var signatureFormat= aux.options[aux.selectedIndex].value;
+        			firma.value  		= clienteFirma.getSignatureBase64Encoded();
+        			btnGuardar.disabled	= false;
+        		}
+        	}
+        	
+        	function tabula(src)
+        	{
+        		var x= "";
+        		var src= ""+src;
+
+        		var i;
+        		for(i=0; i<src.length; i++)
+        		{
+        			if(src.charAt(i)!= 9  && src.charAt(i)!='\t')
+        			{
+        				break;
+        			}
+        		}
+        		
+        		if(i>0)
+        		{
+					var j;
+        			for(j=0; j<i-1; j++)
+        			{
+        				if(j!=0)
+        				{
+	        				x += "| ";
+	        			}
+	        			else
+	        			{
+	        				x += "  ";
+	        			}
+        			}
+        			if(j==0)
+        			{
+        				x+= "  +-->";
+        			}
+        			else
+        			{
+	        			x+= "| +-->";
+	        		}
+        			x+= src.substring(i);
+        		}
+        		else
+        		{
+        			x= src;
+        		}
+        		return x;
+        	}
+        	
+        	function seleccionarFirmantes()
+        	{
+	        	document.prueba.firmantes.disabled= true;
+	        	document.prueba.btnFirmar.disabled= true;
+	        	
+	        	configure();
+	        	
+	        	aux= clienteFirma.getSignersStructure().split('\n');
+        		document.prueba.firmantes.options.length = 0
+	        	if(clienteFirma.isError())
+	        	{
+	        		document.prueba.firmantes.options[0]= new Option("Error: "+clienteFirma.getErrorMessage());
+	        	}
+	        	else
+	        	{
+		        	var i;
+		        	for(i=0; i<aux.length; i++)
+		        	{
+		        		document.prueba.firmantes.options[i]= new Option(tabula(aux[i]), aux[i]);
+		        	}
+		        	document.prueba.firmantes.disabled= false;
+		        	document.prueba.btnFirmar.disabled= false;
+		      	}
+        	}
+        	
+        	function guardar()
+        	{
+      			clienteFirma.saveSignToFile();
+        	}
+        	
+        	function operacionChanged(op)
+        	{
+				if(op=="firmar" || op=="cofirmar" || op=="contrafirmar"){
+					document.getElementById('operacion').value=op;
+				}
+				
+        		if(op=="firmar")
+        		{
+        			document.getElementById("entradaFirma").style.display="none";
+        			document.getElementById("firmantesTD").style.display="none";
+        			document.getElementById("entradaDatos").style.display="block";
+					
+        			srcDataChanged();
+
+        			document.prueba.btnFirmar.value="firmar";
+        		}
+        		else if(op=="cofirmar")
+        		{
+        			document.getElementById("firmantesTD").style.display="none";
+					aux= document.prueba.formato;
+					var signatureFormat= aux.options[aux.selectedIndex].value;
+        			if(signatureFormat!="ODF" && signatureFormat!="PDF") {
+						document.getElementById("entradaDatos").style.display="block"						
+					}
+					else{
+						document.getElementById("entradaDatos").style.display="none";
+					}
+					
+        			document.getElementById("entradaFirma").style.display="block";
+
+        			srcDataChanged();
+        			srcESignChanged();
+
+        			document.prueba.btnFirmar.value="Co-firmar";
+        		}
+        		else if(op=="contrafirmar")
+        		{
+        			document.getElementById("entradaDatos").style.display="none";
+					document.getElementById("firmantesTD").style.display="block";
+        			document.getElementById("entradaFirma").style.display="block";
+					
+        			srcESignChanged();
+
+        			cambioTipoContrafirma(document.prueba.tipoContrafirma.value);
+
+        			document.prueba.btnFirmar.value="Contra-firmar";
+        		}
+				else if(op=="cambioformato"){ //solo para cofirmar
+					aux = document.prueba.formato;
+					aux2 = getRadioValue(document.prueba.operacion);
+					var signatureFormat= aux.options[aux.selectedIndex].value;
+        			if((signatureFormat=="ODF" || signatureFormat=="PDF") && aux2=="cofirmar")
+						document.getElementById("entradaDatos").style.display="none";
+					else if(aux2=="cofirmar")
+						document.getElementById("entradaDatos").style.display="block";
+				}
+        	}
+        	
+        	function cambioTipoContrafirma(tipo)
+        	{
+        		
+        		//var op	= getRadioValue(document.prueba.operacion);
+        		var op=document.getElementById('operacion').value;
+        		document.getElementById('modoContrafirma').value=tipo;
+        	//var tipo= getRadioValue(document.prueba.tipoContrafirma);
+        	
+	       		if(op=="contrafirmar" && (tipo == "NODOS" || tipo == "FIRMANTES"))
+        		{
+        			document.getElementById("firmantesTD").style.display="block";
+        		}
+        		else
+        		{
+        			document.getElementById("firmantesTD").style.display="none";
+        		}
+        	} 
+        	
+        	function filtrosChanged()
+        	{
+        		var filtro= getRadioValue(document.prueba.filtros);
+        	
+        		if(filtro=="none")
+        		{
+        			document.getElementById("filtro").style.display="none";
+        		}
+        		else if(filtro=="filtroPreDef")
+        		{
+        			document.getElementById("filtro").style.display="none";
+        		}
+        		else
+        		{
+        			document.getElementById("filtro").style.display="block";
+        		}
+        	}
+        	
+        	function srcDataChanged()
+        	{
+        		var src = getRadioValue(document.prueba.entrada);
+        	
+        		if(src=="none")
+        		{
+        			document.getElementById('file').style.display='none';
+        			document.getElementById('b64').style.display='none';
+        		}
+        		else if(src=="data" || src=="hash")
+        		{
+        			document.getElementById('file').style.display='none';
+        			document.getElementById('b64').style.display='block';
+        		}
+        		else if(src=="file")
+        		{
+        			document.getElementById('file').style.display='block';
+        			document.getElementById('b64').style.display='none';
+        		}
+        	}
+
+        	function srcESignChanged()
+        	{
+        		src = getRadioValue(document.prueba.fe_entrada);
+
+        		if(src=="none")
+        		{
+        			document.getElementById('fe_file').style.display='none';
+        			document.getElementById('fe_b64').style.display='none';
+        		}
+        		else if(src=="data" || src=="hash")
+        		{
+        			document.getElementById('fe_file').style.display='none';
+        			document.getElementById('fe_b64').style.display='block';
+        		}
+        		else if(src=="file")
+        		{
+        			document.getElementById('fe_file').style.display='block';
+        			document.getElementById('fe_b64').style.display='none';
+        		}
+        	}
+        	
+        	function getRadioValue(aux)
+        	{
+        		for(i=0; i<aux.length; i++)
+    	    	{
+    	    		if(aux[i].checked== true || aux[i].selected=="selected")
+    	    		{
+    	    			return aux[i].value;
+    	    		}
+    	    	}
+        	}
+        	
+        	function cambiaModoFirma(modo){
+
+        		clienteFirma.setSignatureMode(modo);
+        	}
+			
+			function firmaRemota(){
+				var URI = document.prueba.datosRemotos.value;
+				clienteFirma.setFileuri(URI);
+				clienteFirma.sign();
+		
+				document.getElementById('firmaB64').style.display='block';
+				var firma				= document.prueba.firma;
+				var btnGuardar 			= document.prueba.btnGuardar;
+				if(clienteFirma.isError())
+				{
+					firma.value  		= 'Error: '+clienteFirma.getErrorMessage();
+					btnGuardar.disabled	= true;
+				}
+				else
+				{
+					//document.getElementById('firmaB64').style.display='block';
+					aux= document.prueba.formato;
+					var signatureFormat= aux.options[aux.selectedIndex].value;
+					firma.value  		= clienteFirma.getSignatureBase64Encoded();
+					btnGuardar.disabled	= false;
+				}				
+			}
+        </script>
+    </head>
+<body onload="cargarAppletFirma(); operacionChanged('firmar');">
+<form name="prueba">
+	<input type="hidden" value="firmar" id="operacion"/>
+	<input type="hidden" value="NODOS" id="modoContrafirma"/>
+<table align="center">
+	<tr>
+		<td>
+		<fieldset><legend>Operación</legend>
+		<table>
+			<tr>
+				<td>Mostrar errores 
+					<select name="errores">
+						<option value="true">Si</option>
+						<option value="false">No</option>
+					</select>
+					<input name="btnConf" type="button" title="Configuración" 
+						value="Mostrar Configuración" onclick="alert(
+						'Operación: ' + getRadioValue(document.prueba.operacion) + 
+						'\nFormato: ' + document.prueba.formato.options[document.prueba.formato.selectedIndex].value + 
+						'\nDatos: ' + getRadioValue(document.prueba.entrada) +
+						'\nFirma: ' + getRadioValue(document.prueba.fe_entrada))"/>	
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="radio" name="operacion" value="firmar"
+					onchange="operacionChanged('firmar')"
+					onclick="operacionChanged('firmar')" checked="checked">
+						Firmar 
+					<input type="radio" name="operacion" value="cofirmar"
+					onchange="operacionChanged('cofirmar')"
+					onclick="operacionChanged('cofirmar')">
+						Co-firmar 
+					<input type="radio" name="operacion" value="contrafirmar"
+					onchange="operacionChanged('contrafirmar')"
+					onclick="operacionChanged('contrafirmar')">
+						Contra-firmar
+				</td>
+			</tr>
+		</table>
+		</fieldset>
+		</td>
+		<td>
+		<fieldset><legend>Firma</legend>
+		<table>
+			<tr>
+				<td>Algoritmo <select name="algoritmo">
+					<option value="sha1WithRsaEncryption" selected="selected">SHA1 con
+					RSA</option>
+					<option value="md5WithRsaEncryption">MD5 con RSA</option>
+				</select></td>
+				<td><select name="modoFirma" onchange="cambiaModoFirma(this.value);">
+					<option value="EXPLICIT" selected="selected">Explicito</option>
+					<option value="IMPLICIT">Implicito</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" >Formato 
+				<select name="formato" onchange="operacionChanged('cambioformato')">
+					<option value="CMS" selected="selected">CMS</option>
+					<option value="ODF">ODF</option>
+					<option value="PDF">PDF</option>
+					<option value="CADES">CADES</option>
+					<option value="XADES_DETACHED">Detached XAdES (default)</option>
+					<option value="XADES_ENVELOPED">Enveloped XAdES</option>
+					<option value="XADES_ENVELOPING" >Enveloping XAdES</option>
+					<option value="XMLDSIG">Detached XMLDSig (default)</option>
+					<option value="XMLDSIG_ENVELOPED">Enveloped XMLDSig</option>
+					<option value="XMLDSIG_ENVELOPING">Enveloping XMLDSig</option>
+					<option value="NONE">Ninguno (sólo válido para firmar)</option>
+				</select>
+				</td>
+			</tr>
+		</table>
+		</fieldset>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<fieldset><legend>Filtrado de certificados</legend>
+		<table>
+			<tr>
+				<td colspan="2"><input type="radio" name="filtros" value="none"
+					checked="checked" onchange="filtrosChanged()"
+					onclick="filtrosChanged()">Sin filtros</td>
+			</tr>
+			<tr>
+				<td><input type="radio" name="filtros" value="mandatory"
+					onchange="filtrosChanged()" onclick="filtrosChanged()">Filtro para
+				seleccionar un certificado concreto </td>
+				<td rowspan="2"><input type="text" id="filtro"
+					style="display: none;" width="100%"></td>
+			</tr>
+			<tr>
+				<td><input type="radio" name="filtros" value="filtro"
+					onchange="filtrosChanged()" onclick="filtrosChanged()">Filtro de selección de certificados </td>
+			</tr>
+			<tr>
+				<td><input type="radio" name="filtros" value="filtroPreDef"
+					onchange="filtrosChanged()" onclick="filtrosChanged()">Filtro predefinidos </td>
+					<td>
+					<select name="selectFiltrosPreDef" id="selectFiltrosPreDef">
+					<option value='{ISSUER.DN#MATCHES#{"CN=AC DNIE 00(1|2|3),OU=DNIE,O=DIRECCION GENERAL DE LA POLICIA,C=ES"}&&{SUBJECT.DN#MATCHES#{".*(FIRMA).*"}}}'>
+					DNI-e (firma)</option>
+					<option value='{ISSUER.DN={"OU = FNMT Clase 2 CA,O= FNMT,C = ES"}}'>Certificados
+					de la FNMT</option>
+					<option value='{SUBJECT.DN#NOT_MATCHES#{".*(AUTENTICACIÓN).*"}}}'>Todos menos AUTENTICACIÓN</option>
+				</select></td>
+			</tr>
+		</table>
+		</fieldset>
+		</td>
+		</tr>
+		<tr>
+		<td colspan="2">
+		<fieldset><legend>Firmantes</legend>
+		<table>
+			<tr>
+				<td><select name="tipoContrafirma" onchange="cambioTipoContrafirma(this.value)">
+					<option value="NODOS" onSelect="cambioTipoContrafirma('NODOS')">Nodos seleccionados</option>
+					<option value="FIRMANTES" onSelect="cambioTipoContrafirma('FIRMANTES')">Firmantes seleccionados</option>
+					<option value="ARBOL" onSelect="cambioTipoContrafirma('ARBOL')">Árbol entero</option>
+					<option value="HOJAS" onSelect="cambioTipoContrafirma('HOJAS')">Hojas del árbol</option>
+				</select></td>
+				<td align="center"><input name="btnFirmar" type="button"
+					title="Firma/Multifirma" onclick="hacer(this.value); return false;"
+					value="firmar"/></td>
+				<td rowspan="2" width="60%">
+					<fieldset id="firmantesTD">
+					<select multiple="multiple" name="firmantes" id="firmantes" disabled="disabled" style="font-family: monospace"></select>
+					</fieldset>
+					</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="button" title="Firmantes"
+					onclick="seleccionarFirmantes();return false;"
+					value="SeleccionarFirmantes"></td>
+			</tr>
+		</table>
+		</fieldset>
+		</td>
+	</tr>
+	<tr>
+	<td colspan="2">
+		<fieldset id="entradaDatos"><legend>Entrada de datos a firmar</legend>
+		<table>
+			<tr>
+				<td><input type="radio" name="entrada" onchange="srcDataChanged()"
+					onclick="srcDataChanged()" value="none" checked="checked">Fichero
+				binario a elegir</td>
+				<td rowspan="4"><input name="file" id="file" type="file"
+					style="display: none;"> <textarea name="b64" id="b64"
+					style="display: none;" cols="40" rows="10"></textarea></td>
+			</tr>
+			<tr>
+				<td><input type="radio" name="entrada" onclick="srcDataChanged()"
+					onchange="srcDataChanged()" value="file">Fichero binario</td>
+			</tr>
+			<tr>
+				<td><input type="radio" name="entrada" onclick="srcDataChanged()"
+					onchange="srcDataChanged()" value="data">Datos(en base 64)</td>
+			</tr>
+			<tr>
+				<td><input type="radio" name="entrada" onclick="srcDataChanged()"
+					onchange="srcDataChanged()" value="hash">Hash(en base 64)</td>
+			</tr>
+		</table>
+		</fieldset>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<fieldset id="entradaFirma" style="display:none">
+		<legend>Entrada de firma electrónica</legend>
+		<table>
+			<tr>
+				<td><input type="radio" name="fe_entrada"
+					onchange="srcESignChanged()" onclick="srcESignChanged()"
+					value="none" checked="checked">Fichero binario a elegir</td>
+				<td rowspan="4"><input name="fe_file" id="fe_file" type="file"
+					style="display: none;"> <textarea name="fe_b64" id="fe_b64"
+					style="display: none;" cols="40" rows="10"></textarea></td>
+			</tr>
+			<tr>
+				<td><input type="radio" name="fe_entrada"
+					onchange="srcESignChanged()" onclick="srcESignChanged()"
+					value="file">Fichero binario</td>
+			</tr>
+			<tr>
+				<td><input type="radio" name="fe_entrada"
+					onchange="srcESignChanged()" onclick="srcESignChanged()"
+					value="data">Datos(en base 64)</td>
+			</tr>
+		</table>
+		</fieldset>
+		</td>
+		
+	</tr>
+	<tr>
+		<td align="center" colspan="2">
+			<fieldset id="firmaRemotaID">
+				<legend>Firma de datos remotos</legend>
+				URI de los datos a firmar <input type="text" name="datosRemotos" size="80"/>
+				<br/><br/>
+				<input name="btnFirmaRemota" type="button" title="Firma de datos remotos"
+					value="Firmar datos remotos" onclick="firmaRemota();"/>
+			</fieldset>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" colspan="2">
+			<fieldset id="firmaB64" style="display:none"><legend>Firma electrónica (en base 64)</legend> <textarea
+				name="firma" cols="80" rows="10"></textarea><br /><br/>
+				<input name="btnGuardar" id="btnGuardar" type="button" title="Guardar"
+					onclick="guardar(); return false;" value="Guardar firma a fichero" disabled="enabled"/>
+			</fieldset>
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

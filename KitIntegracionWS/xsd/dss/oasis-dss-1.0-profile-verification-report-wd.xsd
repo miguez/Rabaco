@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" xmlns:tsl="http://uri.etsi.org/02231/v1.1.1#" xmlns:vr="urn:oasis:names:tc:dss:1.0:profiles:verificationreport:schema#" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" targetNamespace="urn:oasis:names:tc:dss:1.0:profiles:verificationreport:schema#" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">This Schema defines Profile for comprehensive multi-signature verification reports for OASIS Digital Signature Services Version 1.0. OASIS Working Draft, 5 May 2008.
+	</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:oasis:names:tc:dss:1.0:core:schema" schemaLocation="http://docs.oasis-open.org/dss/v1.0/oasis-dss-core-schema-v1.0-os.xsd"/>
+	<xs:import namespace="urn:oasis:names:tc:SAML:1.0:assertion" schemaLocation="http://www.oasis-open.org/committees/download.php/3408/oasis-sstc-saml-schema-protocol-1.1.xsd"/>
+	<xs:import namespace="http://uri.etsi.org/01903/v1.3.2#" schemaLocation="http://uri.etsi.org/01903/v1.3.2/XAdES.xsd"/>
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd"/>
+	<xs:import namespace="http://uri.etsi.org/02231/v1.1.1#" schemaLocation="http://uri.etsi.org/02231/v1.1.1/TS102231 v1-1-1.xsd"/>
+	<xs:element name="ReturnVerificationReport">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CheckOptions" type="vr:CheckOptionsType" minOccurs="0"/>
+				<xs:element name="ReportOptions" type="vr:ReportOptionsType" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="CheckOptionsType">
+		<xs:sequence>
+			<xs:element name="CheckCertificatePath" type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="CheckCertificateStatus" type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="VerifyManifests" type="xs:boolean" default="false" minOccurs="0"/>
+			<xs:element name="CheckAlgorithms" type="xs:boolean" default="false" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReportOptionsType">
+		<xs:sequence>
+			<xs:element name="IncludeVerifier" type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="IncludeCurrentTime" type="xs:boolean" default="true" minOccurs="0"/>
+			<xs:element name="IncludeCertificateValues" type="xs:boolean" default="false" minOccurs="0"/>
+			<xs:element name="IncludeRevocationValues" type="xs:boolean" default="false" minOccurs="0"/>
+			<xs:element name="ExpandBinaryValues" type="xs:boolean" default="false" minOccurs="0"/>
+			<xs:element name="ReportDetailLevel" type="xs:anyURI" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VerificationReport" type="vr:VerificationReportType"/>
+	<xs:complexType name="VerificationReportType">
+		<xs:sequence>
+			<xs:element name="CurrentTime" type="xs:dateTime" minOccurs="0"/>
+			<xs:element ref="dss:VerificationTimeInfo" minOccurs="0"/>
+			<xs:element name="VerifierIdentity" type="saml:NameIdentifierType" minOccurs="0"/>
+			<xs:element name="IndividualSignatureReport" type="vr:IndividualSignatureReportType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IndividualSignatureReportType">
+		<xs:sequence>
+			<xs:element name="SignatureIdentifier" type="vr:SignatureIdentifierType"/>
+			<xs:element ref="dss:Result"/>
+			<xs:element name="Details" type="dss:AnyType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SignatureIdentifierType">
+		<xs:sequence>
+			<xs:element name="DigestAlgAndValue" type="xades:DigestAlgAndValueType"/>
+			<xs:element name="SignedProperties" type="vr:SignedPropertiesType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="WhichDocument" type="xs:IDREF" use="optional"/>
+		<xs:attribute name="XPath" type="xs:string" use="optional"/>
+		<xs:attribute name="Offset" type="xs:integer" use="optional"/>
+	</xs:complexType>
+	<xs:element name="DetailedReport" type="vr:DetailedReportType"/>
+	<xs:complexType name="DetailedReportType">
+		<xs:sequence>
+			<xs:element name="FormatOK" type="dss:DetailType"/>
+			<xs:element name="Properties" type="vr:PropertiesType" minOccurs="0"/>
+			<xs:element ref="dss:VerifyManifestResults" minOccurs="0"/>
+			<xs:element name="SignatureOK" type="vr:SignatureValidityType"/>
+			<xs:element name="CertificatePathValidity" type="vr:CertificatePathValidityType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SignatureValidityType">
+		<xs:sequence>
+			<xs:element name="SigMathOK" type="dss:DetailType"/>
+			<xs:element name="SignatureAlgorithm" type="dss:DetailType" minOccurs="0"/>
+			<xs:element name="HashAlgUpToDate" type="dss:DetailType" minOccurs="0"/>
+			<xs:element name="SigAlgUpToDate" type="dss:DetailType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CertificatePathValidityType">
+		<xs:sequence>
+			<xs:element name="PathValiditySummary" type="dss:DetailType"/>
+			<xs:element name="CertificateIdentifier" type="ds:X509IssuerSerialType"/>
+			<xs:element name="PathValidityDetail" type="vr:CertificatePathValidityDetailType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CertificatePathValidityDetailType">
+		<xs:sequence>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="CertificateValidity" type="vr:CertificateValidityType"/>
+			</xs:sequence>
+			<xs:element name="TSLValidity" type="vr:TrustStatusListValidityType" minOccurs="0"/>
+			<xs:element name="TrustOrigin" type="dss:DetailType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CertificateValidityType">
+		<xs:sequence>
+			<xs:element name="CertificateIdentifier" type="ds:X509IssuerSerialType"/>
+			<xs:element name="Subject" type="xs:string"/>
+			<xs:element name="ChainingOK" type="dss:DetailType" minOccurs="0"/>
+			<xs:element name="ValidityPeriodOK" type="dss:DetailType"/>
+			<xs:element name="ExtensionsOK" type="dss:DetailType"/>
+			<xs:element name="CertificateValue" type="xs:base64Binary" minOccurs="0"/>
+			<xs:element name="CertificateContent" type="vr:CertificateContentType" minOccurs="0"/>
+			<xs:element name="SignatureOK" type="vr:SignatureValidityType"/>
+			<xs:element name="CertificateStatus" type="vr:CertificateStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CertificateContentType">
+		<xs:sequence>
+			<xs:element name="Version" type="xs:integer" minOccurs="0"/>
+			<xs:element name="SerialNumber" type="xs:integer"/>
+			<xs:element name="SignatureAlgorithm" type="dss:DetailType"/>
+			<xs:element name="Issuer" type="xs:string"/>
+			<xs:element name="Validity" type="vr:ValidityType"/>
+			<xs:element name="Subject" type="xs:string"/>
+			<xs:element name="Extensions" type="vr:ExtensionsType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ValidityType">
+		<xs:sequence>
+			<xs:element name="NotBefore" type="xs:dateTime"/>
+			<xs:element name="NotAfter" type="xs:dateTime"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExtensionsType">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="Extension" type="vr:ExtensionType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExtensionType">
+		<xs:sequence>
+			<xs:element name="ExtnId" type="dss:DetailType"/>
+			<xs:element name="Critical" type="xs:boolean" default="false"/>
+			<xs:element name="ExtnValue" type="dss:DetailType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CertificateStatusType">
+		<xs:sequence>
+			<xs:element name="CertStatusOK" type="dss:DetailType"/>
+			<xs:element name="RevocationInfo" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RevocationDate" type="xs:dateTime"/>
+						<xs:element name="RevocationReason" type="dss:DetailType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="RevocationEvidence">
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="CRLValidity" type="vr:CRLValidityType"/>
+						<xs:element name="CRLReference" type="xades:CRLIdentifierType"/>
+						<xs:element name="OCSPValidity" type="vr:OCSPValidityType"/>
+						<xs:element name="OCSPReference" type="xades:OCSPIdentifierType"/>
+						<xs:element name="Other" type="dss:AnyType"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CRLValidityType">
+		<xs:sequence>
+			<xs:element name="CRLIdentifier" type="xades:CRLIdentifierType"/>
+			<xs:element name="CRLValue" type="xs:base64Binary" minOccurs="0"/>
+			<xs:element name="CRLContent" type="vr:CRLContentType" minOccurs="0"/>
+			<xs:element name="SignatureOK" type="vr:SignatureValidityType"/>
+			<xs:element name="CertificatePathValidity" type="vr:CertificatePathValidityType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Id" type="xs:ID" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="CRLContentType">
+		<xs:sequence>
+			<xs:element name="Version" type="xs:integer" minOccurs="0"/>
+			<xs:element name="Signature" type="dss:DetailType"/>
+			<xs:element name="Issuer" type="xs:string"/>
+			<xs:element name="ThisUpdate" type="xs:dateTime"/>
+			<xs:element name="NextUpdate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="RevokedCertificates" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="UserCertificate" type="xs:integer"/>
+						<xs:element name="RevocationDate" type="xs:dateTime"/>
+						<xs:element name="CrlEntryExtensions" type="vr:ExtensionsType" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CrlExtensions" type="vr:ExtensionsType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OCSPValidityType">
+		<xs:sequence>
+			<xs:element name="OCSPIdentifier" type="xades:OCSPIdentifierType"/>
+			<xs:element name="OCSPValue" type="xs:base64Binary" minOccurs="0"/>
+			<xs:element name="OCSPContent" type="vr:OCSPContentType" minOccurs="0"/>
+			<xs:element name="SignatureOK" type="vr:SignatureValidityType"/>
+			<xs:element name="CertificatePathValidity" type="vr:CertificatePathValidityType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Id" type="xs:ID" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="OCSPContentType">
+		<xs:sequence>
+			<xs:element name="Version" type="xs:integer"/>
+			<xs:element name="ResponderID" type="xs:string"/>
+			<xs:element name="producedAt" type="xs:dateTime"/>
+			<xs:element name="Responses">
+				<xs:complexType>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="SingleResponse" type="vr:SingleResponseType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ResponseExtensions" type="vr:ExtensionsType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SingleResponseType">
+		<xs:sequence>
+			<xs:element name="CertID">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="HashAlgorithm" type="dss:DetailType"/>
+						<xs:element name="IssuerNameHash" type="xs:hexBinary"/>
+						<xs:element name="IssuerKeyHash" type="xs:hexBinary"/>
+						<xs:element name="SerialNumber" type="xs:integer"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CertStatus" type="dss:DetailType"/>
+			<xs:element name="ThisUpdate" type="xs:dateTime"/>
+			<xs:element name="NextUpdate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="SingleExtensions" type="vr:ExtensionsType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TrustStatusListValidityType">
+		<xs:sequence>
+			<xs:element ref="tsl:SchemeInformation"/>
+			<!-- xs:element ref="tsl:TrustServiceProviderList" minOccurs="0"/ -->
+			<xs:element name="SignatureOK" type="vr:SignatureValidityType"/>
+		</xs:sequence>
+		<xs:attribute name="Id" type="xs:ID" use="optional"/>
+		<!-- xs:attribute name="TSLTag" type="tsl:TSLTagType" use="required" / -->
+	</xs:complexType>
+	<xs:complexType name="PropertiesType">
+		<xs:sequence>
+			<xs:element name="SignedProperties" type="vr:SignedPropertiesType" minOccurs="0"/>
+			<xs:element name="UnsignedProperties" type="vr:UnsignedPropertiesType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Id" type="xs:ID" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="SignedPropertiesType">
+		<xs:sequence>
+			<xs:element name="SignedSignatureProperties" type="vr:SignedSignaturePropertiesType" minOccurs="0"/>
+			<xs:element name="SignedDataObjectProperties" type="vr:SignedDataObjectPropertiesType" minOccurs="0"/>
+			<xs:element name="Other" type="dss:AnyType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Id" type="xs:ID" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="SignedSignaturePropertiesType">
+		<xs:sequence>
+			<xs:element name="SigningTime" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="SigningCertificate" type="xades:CertIDListType" minOccurs="0"/>
+			<xs:element name="SignaturePolicyIdentifier" type="xades:SignaturePolicyIdType" minOccurs="0"/>
+			<xs:element name="SignatureProductionPlace" type="xs:string" minOccurs="0"/>
+			<xs:element name="SignerRole" type="vr:SignerRoleType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SignerRoleType">
+		<xs:sequence>
+			<xs:element name="ClaimedRoles" type="xades:ClaimedRolesListType" minOccurs="0"/>
+			<xs:element name="CertifiedRoles" type="vr:CertifiedRolesListType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CertifiedRolesListType">
+		<xs:sequence>
+			<xs:element name="AttributeCertificateValidity" type="vr:AttributeCertificateValidityType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SignedDataObjectPropertiesType">
+		<xs:sequence>
+			<xs:element name="DataObjectFormat" type="xades:DataObjectFormatType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="CommitmentTypeIndication" type="xades:CommitmentTypeIndicationType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="AllDataObjectsTimeStamp" type="vr:TimeStampValidityType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="IndividualDataObjectsTimeStamp" type="vr:TimeStampValidityType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="Id" type="xs:ID" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="UnsignedPropertiesType">
+		<xs:sequence>
+			<xs:element name="UnsignedSignatureProperties" type="vr:UnsignedSignaturePropertiesType" minOccurs="0"/>
+			<xs:element name="UnsignedDataObjectProperties" type="xades:UnsignedDataObjectPropertiesType" minOccurs="0"/>
+			<xs:element name="Other" type="dss:AnyType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Id" type="xs:ID" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="UnsignedSignaturePropertiesType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="CounterSignature" type="vr:SignatureValidityType"/>
+			<xs:element name="SignatureTimeStamp" type="vr:TimeStampValidityType"/>
+			<xs:element name="CompleteCertificateRefs" type="xades:CompleteCertificateRefsType"/>
+			<xs:element name="CompleteRevocationRefs" type="xades:CompleteRevocationRefsType"/>
+			<xs:element name="AttributeCertificateRefs" type="xades:CompleteCertificateRefsType"/>
+			<xs:element name="AttributeRevocationRefs" type="xades:CompleteRevocationRefsType"/>
+			<xs:element name="SigAndRefsTimeStamp" type="vr:TimeStampValidityType"/>
+			<xs:element name="RefsOnlyTimeStamp" type="vr:TimeStampValidityType"/>
+			<xs:element name="CertificateValues" type="vr:CertificateValuesType"/>
+			<xs:element name="RevocationValues" type="vr:RevocationValuesType"/>
+			<xs:element name="AttrAuthoritiesCertValues" type="vr:CertificateValuesType"/>
+			<xs:element name="AttributeRevocationValues" type="vr:RevocationValuesType"/>
+			<xs:element name="ArchiveTimeStamp" type="vr:TimeStampValidityType"/>
+			<xs:any namespace="##other"/>
+		</xs:choice>
+		<xs:attribute name="Id" type="xs:ID" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="CertificateValuesType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="EncapsulatedX509Certificate" type="vr:CertificateValidityType"/>
+			<xs:element name="OtherCertificate"/>
+		</xs:choice>
+		<xs:attribute name="Id" type="xs:ID" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="RevocationValuesType">
+		<xs:sequence>
+			<xs:element name="CRLValues" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="VerifiedCRL" type="vr:CRLValidityType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OCSPValues" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="VerifiedOCSPResponse" type="vr:OCSPValidityType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OtherValues" type="dss:AnyType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Id" type="xs:ID" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="AttributeCertificateValidityType">
+		<xs:sequence>
+			<xs:element name="AttributeCertificateIdentifier" type="vr:AttrCertIDType" minOccurs="0"/>
+			<xs:element name="AttributeCertificateValue" type="xs:base64Binary" minOccurs="0"/>
+			<xs:element name="AttributeCertificateContent" type="vr:AttributeCertificateContentType" minOccurs="0"/>
+			<xs:element name="SignatureOK" type="vr:SignatureValidityType"/>
+			<xs:element name="CertificatePathValidity" type="vr:CertificatePathValidityType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AttrCertIDType">
+		<xs:sequence>
+			<xs:element name="Holder" type="vr:EntityType" minOccurs="0"/>
+			<xs:element name="Issuer" type="vr:EntityType"/>
+			<xs:element name="SerialNumber" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EntityType">
+		<xs:sequence>
+			<xs:element name="BaseCertificateID" type="ds:X509IssuerSerialType" minOccurs="0"/>
+			<xs:element name="Name" type="xs:string" minOccurs="0"/>
+			<xs:element name="Other" type="dss:AnyType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AttributeCertificateContentType">
+		<xs:sequence>
+			<xs:element name="Version" type="xs:integer" minOccurs="0"/>
+			<xs:element name="Holder" type="vr:EntityType"/>
+			<xs:element name="Issuer" type="vr:EntityType"/>
+			<xs:element name="SignatureAlgorithm" type="xs:anyURI"/>
+			<xs:element name="SerialNumber" type="xs:integer"/>
+			<xs:element name="AttCertValidityPeriod" type="vr:ValidityType"/>
+			<xs:element name="Attributes">
+				<xs:complexType>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="Attribute" type="vr:AttributeType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IssuerUniqueID" type="xs:hexBinary" minOccurs="0"/>
+			<xs:element name="Extensions" type="vr:ExtensionsType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AttributeType">
+		<xs:sequence>
+			<xs:element name="Type" type="xs:anyURI"/>
+			<xs:element name="Value" type="dss:AnyType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TimeStampValidityType">
+		<xs:sequence>
+			<xs:element name="TimeStampIdentifier" type="vr:SignatureIdentifierType" minOccurs="0"/>
+			<xs:element name="FormatOK" type="dss:DetailType"/>
+			<xs:element name="TimeStampContent" type="vr:TstContentType" minOccurs="0"/>
+			<xs:element name="MessageHashAlg" type="dss:DetailType"/>
+			<xs:element name="MessageHashAlgUpToDate" type="dss:DetailType" minOccurs="0"/>
+			<xs:element name="SignatureOK" type="vr:SignatureValidityType"/>
+			<xs:element name="CertificatePathValidity" type="vr:CertificatePathValidityType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TstContentType">
+		<xs:sequence>
+			<xs:element name="SerialNumber" type="xs:integer"/>
+			<xs:element name="CreationTime" type="xs:dateTime"/>
+			<xs:element name="Policy" type="xs:anyURI" minOccurs="0"/>
+			<xs:element name="ErrorBound" type="xs:duration" minOccurs="0"/>
+			<xs:element name="Ordered" type="xs:boolean" default="false" minOccurs="0"/>
+			<xs:element name="TSA" type="saml:NameIdentifierType" minOccurs="0"/>
+			<xs:element name="Other" type="dss:AnyType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

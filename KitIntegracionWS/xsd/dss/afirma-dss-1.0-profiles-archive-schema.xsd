@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:afap="urn:afirma:dss:1.0:profile:archive:schema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:xssp="urn:oasis:names:tc:dss:1.0:profiles:XSS" xmlns:afxp="urn:afirma:dss:1.0:profile:XSS:schema" xmlns:ades="urn:oasis:names:tc:dss:1.0:profiles:AdES:schema#" targetNamespace="urn:afirma:dss:1.0:profile:archive:schema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd"/>
+	<xs:import namespace="urn:oasis:names:tc:dss:1.0:core:schema" schemaLocation="http://docs.oasis-open.org/dss/v1.0/oasis-dss-core-schema-v1.0-os.xsd"/>
+	<xs:import namespace="urn:afirma:dss:1.0:profile:XSS:schema" schemaLocation="afirma-dss-1.0-profiles-XSS-schema.xsd"/>
+	<xs:import namespace="urn:oasis:names:tc:dss:1.0:profiles:AdES:schema#" schemaLocation="http://docs.oasis-open.org/dss/v1.0/oasis-dss-profiles-AdES-schema-v1.0-os.xsd"/>
+	<!-- Información adicional de la firma -->
+	<xs:element name="AdditionalSignatureInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dss:InputDocuments" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="ds:X509Data"/>
+				<xs:element ref="afxp:ReferenceId"/>
+				<xs:element ref="dss:SignatureType"/>
+				<xs:element ref="ades:SignatureForm"/>
+				<xs:element ref="afxp:HashAlgorithm"/>
+				<xs:element name="StoreDocument" type="xs:boolean"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- Información adicional de archivo -->
+	<xs:element name="AdditionalArchiveInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="afxp:DocumentArchiveId" minOccurs="0"/>
+				<xs:element name="EvidenceOfESignature" type="afap:EvidenceOfESignatureType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- Justificante de firma -->
+	<xs:complexType name="EvidenceOfESignatureType">
+		<xs:sequence>
+			<xs:element ref="dss:SignatureObject"/>
+			<xs:element ref="dss:SignatureType"/>
+			<xs:element ref="ades:SignatureForm" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Tipo de identificador utilizado -->
+	<xs:element name="ArchiveIdentifierType" type="xs:anyURI"/>
+</xs:schema>

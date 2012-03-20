@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="urn:oasis:names:tc:dss:1.0:profiles:archive" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="urn:oasis:names:tc:dss:1.0:profiles:archive" xmlns:intf="urn:oasis:names:tc:dss:1.0:profiles:archive" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.3
+Built on Oct 05, 2005 (05:23:37 EDT)-->
+
+   <wsdl:message name="archiveSubmitResponse">
+
+      <wsdl:part name="archiveSubmitReturn" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="archiveSubmitRequest">
+
+      <wsdl:part name="in0" type="xsd:string"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="DSSArchive">
+
+      <wsdl:operation name="archiveSubmit" parameterOrder="in0">
+
+         <wsdl:input message="impl:archiveSubmitRequest" name="archiveSubmitRequest"/>
+
+         <wsdl:output message="impl:archiveSubmitResponse" name="archiveSubmitResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="DSSAfirmaArchiveSubmitSoapBinding" type="impl:DSSArchive">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="archiveSubmit">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="archiveSubmitRequest">
+
+            <wsdlsoap:body namespace="urn:oasis:names:tc:dss:1.0:profiles:archive" use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="archiveSubmitResponse">
+
+            <wsdlsoap:body namespace="urn:oasis:names:tc:dss:1.0:profiles:archive" use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="DSSArchiveService">
+
+      <wsdl:port binding="impl:DSSAfirmaArchiveSubmitSoapBinding" name="DSSAfirmaArchiveSubmit">
+
+         <wsdlsoap:address location="https://${balanceador}/afirmaws/services/DSSAfirmaArchiveSubmit"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

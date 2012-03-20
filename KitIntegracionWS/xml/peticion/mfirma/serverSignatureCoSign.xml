@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputMessage targetNamespace="https://afirmaws/ws/signature" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://localhost/afirmaws/xsd/mfirma/wseng.xsd">
+	<request>ServerSignatureCoSign</request>
+	<versionMsg>1.0</versionMsg>
+	<parameters>
+		<applicationId>appPrueba</applicationId>
+		<transactionId>1150549868598028</transactionId>
+		<signer>RSA.2048</signer>
+		<reference>idReferencia</reference>
+		<hashAlgorithm>SHA1</hashAlgorithm>
+	</parameters>
+</inputMessage>

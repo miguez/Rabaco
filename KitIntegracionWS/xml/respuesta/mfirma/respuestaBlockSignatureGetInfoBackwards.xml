@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<outputMessage xmlns="https://afirmaws/ws/signature" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mfirma/wseng.xsd "> 
+	<request>BlockSignatureGetInfoBackwards</request> 
+	<versionMsg>1.0 </versionMsg> 
+	<response> 
+	<Response>
+		<status>true</status>
+		<description> bloque firmado por CN=NOMBRE LOPEZ GARRIDO ANTONIO - NIF 28634913A,OU=701000413,OU=FNMT Clase 2 CA,O=FNMT,C=ES
+         330.0;
+         310.0; -> 321.0
+            bloque firmado por CN=NOMBRE LOPEZ GARRIDO ANTONIO - NIF 28634913A,OU=701000413,O
+U=FNMT Clase 2 CA,O=FNMT,C=ES
+                     254.0;
+                     310.0; -> 311.0
+                        bloque firmado por CN=NOMBRE LOPEZ GARRIDO ANTONIO - NIF 28634913A,OU
+=701000413,OU=FNMT Clase 2 CA,O=FNMT,C=ES
+                                 310.0;
+                                 254.0; -> 305.0
+                                    bloque firmado por CN=NOMBRE LOPEZ GARRIDO ANTONIO - NIF
+28634913A,OU=701000413,OU=FNMT Clase 2 CA,O=FNMT,C=ES
+
+                                             254.0; -> 291.0
+                                                bloque firmado por CN=NOMBRE LOPEZ GARRIDO ANTONIO  - NIF 28634913A,OU=701000413,OU=FNMT Clase 2 CA,O=FNMT,C=ES
+                                                         254.0;
+         254.0; -> 291.0
+            bloque firmado por CN=NOMBRE LOPEZ GARRIDO ANTONIO - NIF 28634913A,OU=701000413,O
+U=FNMT Clase 2 CA,O=FNMT,C=ES
+                     254.0;
+			</description>
+		</Response>
+	</response>
+</outputMessage>

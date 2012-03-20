@@ -1,0 +1,12 @@
+<?xml version="1.0"?> 
+<mensajeSalida xmlns="https://afirmaws/ws/custodia" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mcustodia/ws.xsd"> 
+	<peticion>ObtenerIdDocumento</peticion> 
+	<versionMsg>1.0</versionMsg> 
+	<respuesta>
+		<Respuesta>
+			<estado>true</estado>
+			<descripcion>Proceso de obtenciÃ³n del identificador del documento a partir de un identificador de transacciÃ³n (1148912967875004) y de aplicaciÃ³n (appPrueba) realizado correctamente.</descripcion>
+			<idDocumento>169</idDocumento>
+		</Respuesta>
+	</respuesta> 
+</mensajeSalida>

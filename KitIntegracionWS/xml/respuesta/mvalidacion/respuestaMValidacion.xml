@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<mensajeSalida xmlns="https://afirmaws/ws/validacion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mvalidacion/ws.xsd ">
+	<peticion>ValidarCertificado</peticion>
+	<versionMsg>1.0</versionMsg>
+	<respuesta>
+		<ResultadoProcesamiento>
+			<InfoCertificado>
+				<Campo>
+					<idCampo>nombreResponsable</idCampo>
+					<valorCampo>Juan</valorCampo>
+				</Campo>
+				<Campo>
+					<idCampo>idEmisor</idCampo>
+					<valorCampo>CN=AC DNIE 001,OU=PRUEBAS,O=DNIE,C=ES</valorCampo>
+				</Campo>
+				<Campo>
+					<idCampo>segundoApellidoResponsable</idCampo>
+					<valorCampo>Español,</valorCampo>
+				</Campo>
+				<Campo>
+					<idCampo>tipoCertificado</idCampo>
+					<valorCampo>CERTIFICADO DE AUTENTICACION DE CIUDADANO EDNI</valorCampo>
+				</Campo>
+				<Campo>
+					<idCampo>primerApellidoResponsable</idCampo>
+					<valorCampo>Español</valorCampo>
+				</Campo>
+				<Campo>
+					<idCampo>responsable</idCampo>
+					<valorCampo>CN=Espa\C3\B1ol Espa\C3\B1ol\, Juan,givenName=Juan,SN=Espa\C3\B1ol,serialNumber=11111111S,C=ES</valorCampo>
+				</Campo>
+				<Campo>
+					<idCampo>NIFResponsable</idCampo>
+					<valorCampo>11111111S</valorCampo>
+				</Campo>
+				<Campo>
+					<idCampo>ApellidosResponsable</idCampo>
+					<valorCampo>Español Español</valorCampo>
+				</Campo>
+				<Campo>
+					<idCampo>fechaNacimiento</idCampo>
+					<valorCampo> 19501202120000Z</valorCampo>
+				</Campo>
+			</InfoCertificado>
+			<ResultadoValidacion>
+				<resultado>0</resultado>
+				<descripcion>Certificado OK</descripcion>
+				0,1,2<ValidacionSimple>
+					<codigoResultado>0</codigoResultado>
+					<descResultado>Validación Satisfactoria</descResultado>
+					(opcional)<excepcion>ldap.cert.fnmt.es:389 [Root exception is java.net.SocketTimeoutException: connect timed out]</excepcion>
+				</ValidacionSimple>
+				1<ValidacionEstado>
+					<estado>3</estado>
+					<descEstado>No se ha podido determinar el estado del Certificado</descEstado>
+					<InfoMetodoVerificacion>
+						<estado>3</estado>
+						<descEstado>No se ha podido determinar el estado del Certificado</descEstado>
+						<fechaUltimaActualizacion>Wed Dec 28 19:12:55 CET 2005</fechaUltimaActualizacion>
+						<fechaRevocacion>12/12/2005</fechaRevocacion>
+						<motivo>65</motivo>
+						<Metodo>
+							<urlServidor>ldap.cert.fnmt.es:389</urlServidor>
+							<protocolo>CRL</protocolo>
+						</Metodo>
+						<excepcion>javax.naming.CommunicationException</excepcion>
+					</InfoMetodoVerificacion>
+					<InfoMetodoVerificacion>
+						<estado>3</estado>
+						<descEstado>No se ha podido determinar el estado del Certificado</descEstado>
+						<fechaRevocacion>12/12/2005</fechaRevocacion>
+						<fechaUltimaActualizacion>Wed Dec 28 19:12:55 CET 2005</fechaUltimaActualizacion>
+						<motivo>65</motivo>
+						<Metodo>
+							<urlServidor>ldap.cert.fnmt.es:389</urlServidor>
+							<protocolo>CRL</protocolo>
+						</Metodo>
+						<excepcion>javax.naming.CommunicationException</excepcion>
+					</InfoMetodoVerificacion>
+				</ValidacionEstado>
+				2<ValidacionCadena>
+					<codigoResultado>0</codigoResultado>
+					<descResultado>Cadena de certificación OK</descResultado>
+					<errorCertificado>
+						<idCertificado>subject</idCertificado>
+						<ValidacionSimple>
+							<codigoResultado>0</codigoResultado>
+							<descResultado>Validación Satisfactoria</descResultado>
+							<excepcion>ldap.cert.fnmt.es:389 [Root exception is java.net.SocketTimeoutException: connect timed out]</excepcion>
+						</ValidacionSimple>
+						<ValidacionEstado>
+							<estado>3</estado>
+							<descEstado>No se ha podido determinar el estado del Certificado</descEstado>
+							<InfoMetodoVerificacion>
+								<estado>3</estado>
+								<descEstado>No se ha podido determinar el estado del Certificado</descEstado>
+								<fechaUltimaActualizacion>Wed Dec 28 19:12:55 CET 2005</fechaUltimaActualizacion>
+								<fechaRevocacion/>
+								<motivo>32</motivo>
+								<Metodo>
+									<urlServidor>ldap.cert.fnmt.es:389</urlServidor>
+									<protocolo>CRL</protocolo>
+								</Metodo>
+								<excepcion>CODIGO888</excepcion>
+							</InfoMetodoVerificacion>
+						</ValidacionEstado>
+					</errorCertificado>
+				</ValidacionCadena>
+			</ResultadoValidacion>
+		</ResultadoProcesamiento>
+	</respuesta>
+</mensajeSalida>

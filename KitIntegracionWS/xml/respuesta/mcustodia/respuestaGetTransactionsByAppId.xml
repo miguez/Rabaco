@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<outputMessage xmlns="https://afirmaws/ws/custody" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mcustodia/wseng.xsd ">
+	<request>GetTransactionsByAppId</request>
+	<versionMsg>1.0</versionMsg>
+	<response>
+		<Response>
+			<status>true</status>
+			<description>Proceso de obtenciÃ³n de transacciones por identificador de aplicaciÃ³n (appPrueba) realizado correctamente</description>
+			<idTransactions>
+				<transactionId>1148912967875003</transactionId>
+				<transactionId>1148912967875001</transactionId>
+				<transactionId>1148912967875002</transactionId>
+				<transactionId>1148912967875004</transactionId>
+				<transactionId>1148912967875005</transactionId>
+				<transactionId>1148912967875006</transactionId>
+				<transactionId>1148915868890001</transactionId>
+				<transactionId>1149233972187001</transactionId>
+				<transactionId>1149240817593002</transactionId>
+				<transactionId>1149240817593003</transactionId>
+				<transactionId>1149240817593004</transactionId>
+				<transactionId>1149240817593005</transactionId>
+				<transactionId>1149241367062001</transactionId>
+				<transactionId>1149243130859001</transactionId>
+				<transactionId>1149243549546001</transactionId>
+				<transactionId>1149245284203002</transactionId>
+				<transactionId>1149245284203003</transactionId>
+				<transactionId>1149245284203004</transactionId>
+				<transactionId>1149245284203005</transactionId>
+				<transactionId>1149246084703001</transactionId>
+				<transactionId>1149246766984001</transactionId>
+				<transactionId>1149246983437001</transactionId>
+			</idTransactions>
+		</Response>
+	</response> 
+</outputMessage>

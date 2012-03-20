@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dss:SignResponse Profile="urn:afirma:dss:1.0:profile:XSS" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:arch="urn:oasis:names:tc:dss:1.0:profiles:archive" xmlns:xss="urn:oasis:names:tc:dss:1.0:profiles:XSS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:dss:1.0:core:schema http://docs.oasis-open.org/dss/v1.0/oasis-dss-core-schema-v1.0-os.xsd urn:oasis:names:tc:dss:1.0:profiles:archive https://localhost/afirmaws/xsd/dss/oasis-dss-1.0-profiles-archive-schema.xsd urn:oasis:names:tc:dss:1.0:profiles:XSS https://localhost/afirmaws/xsd/dss/oasis-dss-1.0-profiles-XSS-schema-wd02.xsd">
+	<dss:Result>
+		<dss:ResultMajor>urn:oasis:names:tc:dss:1.0:resultmajor:Success</dss:ResultMajor>
+		<dss:ResultMessage>Proceso de generación de firma en servidor realizado correctamente.</dss:ResultMessage>
+	</dss:Result>
+	<dss:OptionalOutputs>
+		<dss:SignatureType>urn:ietf:rfc:3369</dss:SignatureType>
+		<xss:ArchiveInfo>
+			<arch:ArchiveIdentifier>1232005413736011</arch:ArchiveIdentifier>
+		</xss:ArchiveInfo>
+	</dss:OptionalOutputs>
+	<dss:SignatureObject>
+		<dss:Base64Signature Type="urn:ietf:rfc:3369"><![CDATA[MIIFygYJKoZIhvcNAQcCoIIFuzCCBbcCAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHAaCCA5AwggOMMIIC9aADAgECAgENMA0GCSqGSIb3DQEBCwUAMIHNMQswCQYDVQQGEwJFUzEQMA4GA1UECBMHU0VWSUxMQTEQMA4GA1UEBxMHU0VWSUxMQTEiMCAGA1UEChMZVEVMVkVOVCBJTlRFUkFDVElWQS4gUy5BLjEyMDAGA1UECxMpREVQQVJUQU1FTlRPIERFIEFETUlOSVNUUkFDSU9ORVMgUFVCTElDQVMxHTAbBgNVBAMUFENBIERFU0FSUk9MTE8gQEZJUk1BMSMwIQYJKoZIhvcNAQkBFhRqYS5yb21hbkB0ZWx2ZW50LmNvbTAeFw0wODEyMTExOTMxMjRaFw0wOTEyMTExOTMxMjRaMIGjMQswCQYDVQQGEwJFUzEQMA4GA1UECBMHU0VWSUxMQTEQMA4GA1UEBxMHU0VWSUxMQTEcMBoGA1UEChMTVEVMVkVOVCBJTlRFUkFDVElWQTEPMA0GA1UECxYGQEZJUk1BMRwwGgYDVQQDExNTRVJWSURPUiBERSBQUlVFQkFTMSMwIQYJKoZIhvcNAQkBFhRqYS5yb21hbkB0ZWx2ZW50LmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAoRv9OIdEyQOEjKoS6nAOOmzktghk4Tz9FH/68lczbIExvve1buaNRt1SbRlnfJSnTDpQa6PPfMbTf70+/ETO8uqH8Hp+aDxksoAWErdiLxudvqyyNdCkUblj5Pw0rwTeQDUsoW4G3+QCCoJ+2PM6NEvJds6UUG6ORkOsjyTlQRUCAwEAAaOBozCBoDAJBgNVHRMEAjAAMB0GA1UdDgQWBBSVEST0YG7rRXZ2XxtEHYdOqhnLGjALBgNVHQ8EBAMCAYYwEQYJYIZIAYb4QgEBBAQDAgAHMDQGCWCGSAGG+EIBCAQnFiVodHRwOlxcdGVsdmVudC5kZXNhcnJvbGxvLmNvbXBvbmVudGVzMB4GCWCGSAGG+EIBDQQRFg94Y2EgY2VydGlmaWNhdGUwDQYJKoZIhvcNAQELBQADgYEAA2P5Aoh35Okn9O52uWGbr7TXwqIowTzKtoREX0f8dlwIYfe4D6T1jcIwh8mkJqRi+Xa752XaCUxZv1MfNHQkhSlw4Nw3En3ynfrd0Z9uCby4SPh4E3M1nWzw7odg1FIC766o8eUEwc9MN4i4kfbqELrJunJpkhhKa0UXNDtZaS4xggICMIIB/gIBATCB0zCBzTELMAkGA1UEBhMCRVMxEDAOBgNVBAgTB1NFVklMTEExEDAOBgNVBAcTB1NFVklMTEExIjAgBgNVBAoTGVRFTFZFTlQgSU5URVJBQ1RJVkEuIFMuQS4xMjAwBgNVBAsTKURFUEFSVEFNRU5UTyBERSBBRE1JTklTVFJBQ0lPTkVTIFBVQkxJQ0FTMR0wGwYDVQQDFBRDQSBERVNBUlJPTExPIEBGSVJNQTEjMCEGCSqGSIb3DQEJARYUamEucm9tYW5AdGVsdmVudC5jb20CAQ0wCQYFKw4DAhoFAKCBhTALBgNVBAUxBBMCMTMwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAZBgNVBC0xEhMQMTIzMjAwNTQxMzczNjAxMTAcBgkqhkiG9w0BCQUxDxcNMDkwMTE1MDgyMzM4WjAjBgkqhkiG9w0BCQQxFgQUoEWLXzy+jsGY1LjOCw1Dc14n3oQwDQYJKoZIhvcNAQEBBQAEgYCLY6WJd5MV4q/DSSTvsCNYCao4uef/xS4przouyOrlfaBFXozJd84s3O8DGuugZ0eR724LMA/Y9bVKG7I7W5B2xBcIMpv9/JkXSR0T5NiKh9yEY6RHGLcK7SRngaTXv5Njbq+t2oIKvIFDdJOb+kttn7vgCNtuyXh38aAY8uV/kw==]]></dss:Base64Signature>
+	</dss:SignatureObject>
+</dss:SignResponse>

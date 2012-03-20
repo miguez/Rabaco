@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mensajeEntrada xmlns="https://afirmaws/ws/firma" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mfirma/ws.xsd">
+	<peticion>ObtenerIdDocumentosBloqueFirmas</peticion>
+	<versionMsg>1.0</versionMsg>
+	<parametros>
+		<idAplicacion>appPrueba</idAplicacion>
+		<idTransaccion>1153902648987798</idTransaccion>
+	</parametros>
+</mensajeEntrada>
