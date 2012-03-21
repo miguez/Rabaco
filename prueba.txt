@@ -1,0 +1,71 @@
+﻿He revisado los proyectos mas populares del GitHup: https://github.com/popular/watched
+* bootstrap
+* rails
+* jquery
+* html5-boilerplate 
+* linux
+* symfony
+* paperclip
+
+La mayoria coinciden en los siguientes puntos del documento _README_ que se establece en el inicio del proyecto (por orden de relevancia):
+* Como contribuir al proyecto. Los proyectos mas escuetos, tienen unicamente unas indicaciones de como subir un cambio, pero este punto puede abarcar desde el registro de bugs/mejoras a cambios en la documentación del proyecto.
+* Como instalar y ejecutar el proyecto. Basicamente debe contener la información necesaria para instalar/configurar y ejecutar el proyecto, pero se puede ampliar a una documentación mas profunda, incluyendo manual de usuario/administración, etc...
+* Como trabajar con git. Muchos proyectos no tienen este punto, pero otros hacen leves indicaciones a los comandos de; clone, commit, etc...
+* Caracteristicas del proyecto. Documentación basica de introducción al proyecto.
+* Listas de correo, foros, IRC, etc. Algunos de los proyectos disponen de un sitio común donde se da soporte y se discute sobre diferentes ambitos del proyecto. Es común el uso de los grupos de google.
+
+
+h2. Estructura de sumario para un proyecto en GITH
+
+* Como contribuir al proyecto
+** Reportar defectos o mejoras
+** Como subir un cambio al proyecto (ya sea para solucionar un defecto o una mejora)
+** Convenciones para la creación/modificación de codigo fuente
+* Instalación del proyecto
+** Documentación de instalación
+** Manual de usuario
+** Manual para el desarrollador
+** Estructura del proyecto. Convenciones para la nomenclatura de versiones
+* 
+
+
+h2. Como trabajar con GIT (Git for dummies). 
+
+* Descargar el proyecto (Clone project).
+* Convenciones para la nomenclatura de versiones (Versioning conventions).
+* 
+
+
+h2. Instalación del proyecto (Install project). 
+
+* Documentación de instalación (Install guide)
+* Manual de usuario (User guide)
+* Manual para el desarrollador (Development guide)
+* Estructura del proyecto. (Structurer of project)
+
+En esta zona se ofrece la documentación del proyecto. En el gith es lo mas usual disponer de la guia de instalación breve y concisa, y sobre los demas temas se incluyen enlaces al home site del proyecto.
+
+
+
+
+
+h2. Como contribuir al proyecto (Contributing to the project Code & Documentation).
+
+* Reportar defectos o mejoras (Reporting an Issue or task).
+* Como crear un test (Set up and Run the Tests).
+* Como subir un cambio al proyecto (Commit your changes to project).
+* Convenciones para la creación/modificación de codigo fuente (coding conventions).
+
+Esta estructura, que se puede aplicar tanto para cambios en el codigo fuente como documentación del proyecto, se rige por le ejecución secuencial de los siguientes pasos:
+# El usuario se encuentra en alguno de los siguientes casos:
+* Ha detectado un bug.
+* Quiere realizar una mejora al proyecto.
+* Quiere ampliar o cambiar cualquier aspecto de la documentación del mismo.
+# El primer paso debe ser registrar el suceso, ya sea mediante una herramiente de ticket/bugs o bien notificación de correo electronico, etc...
+# El segundo paso debe ser es crear un parche o modificación al proyecto. Es conveniente que este cambio este acompañado de un test lo mas completo posible.
+# El ultimo paso es subir el cambio de forma correcta (Indicaciones para subir a una rama concreta).
+
+*Nota*: Es importante en este punto incluir documentación con respecto a:
+* Convenciones para la apertura de tickets. Ya sean defectos o mejoras al proyecto deben ir descritas lo mejor posible.
+* Convenciones para las modificaciones en el codigo fuente. 
+* Convenciones para las modificaciones en la documentación.
