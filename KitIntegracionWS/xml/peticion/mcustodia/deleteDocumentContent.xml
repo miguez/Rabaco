@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<inputMessage xmlns="https://afirmaws/ws/custody" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:SchemaLocation="https://localhost/afirmaws/xsd/mcustodia/wseng.xsd">
-	<request>DeleteDocumentContent</request>
-	<versionMsg>1.0</versionMsg>
-	<parameters>
-		<applicationId>appPrueba</applicationId>
-		<documentId>282</documentId>
-	</parameters>
-</inputMessage>
