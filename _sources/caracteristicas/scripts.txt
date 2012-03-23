@@ -1,0 +1,63 @@
+.. _eventos:
+
+=================================================
+ Sistema de comportamiento dinámico ante eventos
+=================================================
+
+*iCMS* nos brinda una manera simple de inyectar comportamiento ante cambios en una determinada
+colección. Esta funcionalidad hace uso del compilador dinámico incluido en la distribución oficial
+de *Groovy* para implementar la lógica que se debe ejecutar bien al arranque del servidor o cuando una
+colección especificada haya cambiado.
+
+Existen dos tipos de scripts distintos, que se diferencian en el momento de su ejecución.
+
+Eventos de arranque
+===================
+
+Los scripts de inicio implementan la interfaz *InitScript* y son lanzados en el arranque del servidor,
+justo después de la creación de las colecciones.
+
+Notificaciones
+==============
+
+Los scripts que implementan *EventScript* se ejecutan cada vez que se recibe una notificación en el
+*listener* de eventos asociado (habitualmente, cuando se crean nuevos contenidos en la colección).
+
+Notificaciones Dinámicas
+========================
+
+Las notificaciones que el servidor envía a los clientes podrán incorporar una parte dinámica adicional
+a la parte fija que se enviaba hasta la versión 2.0.0. La parte fija sigue constando, como mínimo, del
+identificador del elemento que ha cambiado. La parte dinámica puede depender tanto del mismo driver como de la
+configuración de la colección:
+
+Contenido de la notificación desde el driver
+++++++++++++++++++++++++++++++++++++++++++++
+
+Mediante la anotación de dos métodos en la clase que implementa a la interfaz ``ICMSCollectionProvider``
+se puede añadir más contenido al mensaje de notificación. En concreto, todo aquello que se quiera añadir será
+devuelto como un mapa de cadenas y objetos (``Map<String,Object>``) en un método que se anota con ``@PreNotification``.
+Dicho método recibe como parámetro el identificador del recurso que ha cambiado.
+
+Si fuera necesario ejecutar algún método después del proceso de notificación, sería necesario anotar un método con
+``@PostNotification``, pasando asimismo como parámetro, al igual que en el caso anterior, el identificador del recurso.
+
+Por ejemplo, el driver de BOJA necesita incluir
+en la notificación si el cambio se debe a un nuevo elemento, un elemento ya existente que ha sido
+modificado o un elemento que ha sido borrado. Esta información no se encuentra en la configuración
+de la colección, sino que viene incluida en la notificación interna que el sistema de procesado
+envía a iCMS.
+
+.. literalinclude:: /code/notification-hooks-boja.java
+
+Contenido de la notificación desde la configuración de la colección
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Otra forma de añadir más contenido al mensaje de notificación es a través del properties de la colección. Aquellos
+metadatos que tiene la propiedad ``includeInNotification = true`` se incluirán en la parte dinámica de la notificación.
+
+Por ejemplo, en una notificación de una colección gestionada con el driver de Drupal se podría incluir información
+acerca del elemento modificado, como su nid. Este metadato se encuentra en cada uno de los elementos, si así se
+configura en el fichero de propiedades de la colección.
+
+.. literalinclude:: /code/notification.properties

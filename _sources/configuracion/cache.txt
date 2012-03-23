@@ -1,0 +1,111 @@
+.. _configuración-caché:
+
+====================================
+ Configuración del sistema de caché
+====================================
+
+El sistema de caché del servidor de referencia *iCMS* se basa en las soluciones de código abierto
+`Ehcache <http://ehcache.org>`_ y `Terracotta <http://www.terracotta.org>`_.
+
+Mediante la integración con estas aplicaciones/librerías es posible obtener un sistema de caché muy
+configurable, adaptable a múltiples situaciones y topologías.
+
+Toda la configuración reside en el fichero ``ehcache.xml``, que se debe encontrar en el mismo
+directorio que el resto de ficheros de configuración de tipo ``properties``. La sintaxis del fichero
+``ehcache.xml`` se describe en `la documentación oficial de Ehcache`_. Se incluyen a continuación ejemplos
+concretos de implementación para los casos más habituales relacionados con *iCMS*:
+
+.. _la documentación oficial de Ehcache: http://ehcache.org/documentation/index.html
+
+La configuración debe incluir las siguientes cachés:
+
+* icms_requests
+* icms_subscriptions
+
+Se recomienda mirar los ficheros de ejemplo que aparecen a continuación en caso de duda acerca de
+cómo realizar este paso.
+
+Caché no distribuida
+====================
+
+Es el caso más simple, no válido para situaciones en que se requiere una configuración en activo-pasivo
+o con balanceo de carga. Se usará prácticamente de forma única en instalaciones de un solo nodo:
+
+*ehcache.xml*
+
+.. literalinclude:: /code/ehcache-simple.xml
+
+Caché replicada
+===============
+
+En instalaciones de múltiples nodos existen dos modos principales de operación. El modo que nos
+ocupa en este apartado mantiene una sincronización entre las cachés de todos los servidores de un
+mismo segmento de red, con capacidades de autodescubrimiento. Este modo es ligeramente menos
+eficiente que el caso en que se usa Terracotta Server Array, ya que según la `documentación oficial
+<http://ehcache.org/documentation/cache_topologies.html#Potential_Issues_with_Replicated_Caching>`_
+puede presentar problemas de sincronismo. Al utilizar el modo síncrono en lugar del asíncrono y,
+teniendo en cuenta las necesidades del servicio, se presenta como una opción válida y más sencilla
+de instalar que el último caso.
+
+El fichero de configuración que se incluye a continuación tiene habilitado el
+autodescubrimiento de los nodos de la caché, siendo requisito que todas las
+máquinas que funcionan como servidor *iCMS* se localicen en el mismo segmento
+de red. Es posible especificar en más detalle la configuración de los nodos
+realizando unos simples cambios, presentes en el segundo ejemplo. En él, se
+añade el parámetro ``rmiUrls`` a las propiedades del
+``cacheManagerPeerProviderFactory``. En él se tienen que incluir las rutas
+a todas las cachés compartidas.
+
+En caso de dudas, se recomienda seguir el manual oficial de *Ehcache*, enlazado
+al principio de esta página.
+
+*Descubrimiento automático*
+
+.. literalinclude:: /code/ehcache-replicated.xml
+
+*Descubrimiento manual*
+
+.. literalinclude:: /code/ehcache-replicated-manual.xml
+
+Caché distribuida con Terracotta
+================================
+
+El último ejemplo de los presentados es el más complejo, ya que requiere la instalación y configuración
+previa de un cluster de servidores Terracotta en modo activo/pasivo.
+
+La instalación no es para nada complicada, los pasos a seguir serían los siguientes:
+
+* Descargar el *tarball* de Terracotta desde la página
+  `<http://www.terracotta.org/dl/oss-download-catalog>`_
+* Descomprimir en una carpeta, como por ejemplo ``/opt/terracotta``, en cada una de las máquinas
+  que vaya a actuar como nodo del cluster.
+* Escribir el fichero de configuración ``tc-config.xml`` y copiarlo a cada uno de los nodos. Se
+  incluye un ejemplo al final de este apartado. Simplemente habría que modificar las entradas de
+  tipo ``server``, adaptándolas a la topología indicada y añadiendo o eliminando entradas
+  convenientemente.
+* Arrancar los Terracotta mediante el comando ``./start-tc-server.sh`` de la carpeta ``bin``,
+  pasando como parámetros el fichero de configuración y el nombre del nodo que se está
+  instanciando. Por ejemplo:
+  ``./start-tc-server.sh -f /home/antonio/icms/next/data/tc-config.xml -n asantos``
+
+Se puede encontrar la referencia del fichero de configuración en la `documentación de Terracotta`_.
+
+.. _documentación de Terracotta: http://www.terracotta.org/documentation/product-documentation
+
+Una vez que los servidores de Terracotta están encendidos, es posible comprobar su estado y
+estadísticas utilizando la consola de Terracotta, ejecutando ``./dev-console.sh`` dentro de la
+carpeta ``bin``.
+
+Por último, los servidores *iCMS* deben ser capaces de acceder al fichero ``tc-config.xml`` para
+conectar con los servidores Terracotta. La manera más sencilla es copiar dicho fichero a la carpeta
+de instalación de *iCMS* y hacer referencia a él desde ``ehcache.xml``. Se incluyen a continuación
+ejemplos de los ficheros ``ehcache.xml`` y ``tc-config.xml`` necesarios para que funcione esta
+configuración.
+
+*ehcache.xml*
+
+.. literalinclude:: /code/ehcache-distributed.xml
+
+*tc-config.xml*
+
+.. literalinclude:: /code/tc-config.xml

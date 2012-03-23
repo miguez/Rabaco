@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Uso del servidor &mdash; Interfaz de Interoperabilidad iCMS 1.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS 1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Ejecución y uso" href="index.html" />
+    <link rel="next" title="Interfaz HTTP" href="http.html" />
+    <link rel="prev" title="Uso como librería" href="libreria.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="http.html" title="Interfaz HTTP"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="libreria.html" title="Uso como librería"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Ejecución y uso</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="uso-del-servidor">
+<span id="uso-servidor"></span><h1>Uso del servidor<a class="headerlink" href="#uso-del-servidor" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El paquete <em>icms-server</em> es una implementación de un servidor <em>iCMS</em> con total funcionalidad, que mediante el
+uso de protocolos estándares exporta la información que recibe de un sistema productor de contenido
+a través de interfaces de servicios web de tipo <em>REST</em>ful y <em>SOAP</em>.</p>
+<p>Los protocolos de los que se hace uso son:</p>
+<ul class="simple">
+<li><em>OpenSearch</em> para la descripción del formato de búsqueda de datos.</li>
+<li><em>Rdf</em> y <em>Xml</em> para la descripción de contenidos usando la semántica definida por <em>eGov</em> y <em>Dublin Core</em>, entre otras.</li>
+<li><em>Atom</em> como formato de respuesta de búsquedas y descripción de colecciones.</li>
+</ul>
+<p>A diferencia de la implementación de referencia de cliente, que se utiliza únicamente como librería, el uso habitual que se le
+va a dar al paquete correspondiente a la implementación del servidor es la ejecución a través de la línea de comandos. No
+obstante, esto no quiere decir que no sea posible su integración con otras implementaciones a través de llamadas a las
+clases y métodos escritos en <em>Java</em>.</p>
+<p>Como se ha expuesto en el apartado <a class="reference internal" href="../instalacion/compilacion.html#empaquetado"><em>relativo al empaquetado</em></a>, la distribución de
+la implementación de referencia servidor cuenta con un paquete que incluye todas las dependencias
+necesarias para la ejecución del proyecto en el fichero icms-server-1.2.0-All.jar. Este paquete
+se ha copiado, por otra parte, a un directorio durante el proceso de <a class="reference internal" href="../instalacion/compilacion.html#instalacion"><em>instalación</em></a></p>
+<div class="section" id="arranque">
+<span id="id1"></span><h2>Arranque<a class="headerlink" href="#arranque" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El servidor de referencia <em>iCMS</em> muestra una pequeña página de ayuda al ser ejecutado sin parámetros
+desde la línea de comandos. Esta página también se muestra si en la ejecución se incluye el
+parámetro <cite>help</cite>.</p>
+<div class="highlight-python"><pre>java -jar icms-server-1.2.0-All.jar</pre>
+</div>
+<hr class="docutils" />
+<dl class="docutils">
+<dt>configDirectory &lt;arg&gt;</dt>
+<dd>Directorio donde se encuentran los ficheros de configuración.</dd>
+<dt>directoryBase &lt;arg&gt;</dt>
+<dd>Directorio raíz donde se encuentra el servidor <cite>iCMS</cite>.</dd>
+<dt>help</dt>
+<dd>Este mensaje de ayuda</dd>
+<dt>port &lt;arg&gt;</dt>
+<dd>Permite definir el puerto en el que se encuentra el servidor (por defecto, 9991)</dd>
+<dt>publicUrl &lt;arg&gt;</dt>
+<dd>Url pública</dd>
+<dt>start</dt>
+<dd>Arranca el servidor</dd>
+<dt>version</dt>
+<dd>Información acerca de la versión</dd>
+</dl>
+<hr class="docutils" />
+<p>Un ejemplo de ejecución desde línea de comandos típica es el siguiente</p>
+<div class="highlight-python"><pre>java -server -jar icms-server-1.1.2-SNAPSHOT-All.jar -publicUrl http://www.example.com
+-directoryBase /opt/icms/ -configDirectory /opt/icms/conf -start</pre>
+</div>
+<p>Para arrancar el servidor de referencia de iCMS siempre es necesario especificar en la línea de
+comandos, al menos, el directorio base y la url pública bajo la que se encuentra el servidor.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">El directorio base es uno de los dos parámetros que el servidor necesita recibir para un correcto
+funcionamiento (ver <a class="reference internal" href="#arranque"><em>sección correspondiente</em></a>). El parámetro directorio base
+especifica el lugar del sistema de ficheros en que es posible encontrar y escribir los archivos
+necesarios para la óptima ejecución del servidor <em>iCMS</em>. En dicho directorio se encuentran los
+<a class="reference internal" href="../configuracion/ficheros.html#ficheros-configuracion"><em>ficheros de configuración</em></a> y el directorio de <a class="reference internal" href="../configuracion/driver.html#drivers"><em>drivers</em></a>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">La url pública se utiliza para definir los enlaces en el servidor, ya que para una correcta
+operación de <em>iCMS</em> es necesario que los identificadores que se dan a los recursos se ajusten a la
+dirección desde la que se sirven.</p>
+</div>
+<p>El puerto en el que la aplicación escucha las conexiones se puede definir con el parámetro <tt class="docutils literal"><span class="pre">port</span></tt>, que
+por defecto toma el valor <strong>9991</strong>. Hay que destacar que es posible que la aplicación esté escuchando en
+dicho puerto y sin embargo tenga otro puerto definido en la url pública, ya que normalmente un
+balanceador de carga o proxy reverso se encargará de redirigir la petición a la dirección y puerto
+correspondientes.</p>
+<p>El resto de parámetros se pueden especificar no en la línea de comandos, sino a
+través de los ficheros de configuración de la implementación (véase apartado de <a class="reference internal" href="../configuracion/index.html#configuracion"><em>configuración</em></a>).</p>
+</div>
+<div class="section" id="script-de-arranque">
+<span id="script-arranque"></span><h2>Script de arranque<a class="headerlink" href="#script-de-arranque" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para facilitar la ejecución y el uso habitual del servidor <em>iCMS</em> se incluye
+un script de consola que permite, tras una mínima configuración, el arranque
+y parada del servidor con los siguientes comandos:</p>
+<div class="highlight-python"><pre>./ctlscript.sh start
+./ctlscript.sh stop
+./ctlscript.sh restart</pre>
+</div>
+<p>El script incluye también un comando <tt class="docutils literal"><span class="pre">clean</span></tt> que permite la limpieza del
+directorio de ejecución (borrado de ficheros <em>lock</em>)</p>
+<p>Para la configuración del fichero, hay que editar las variables de entorno que
+se encuentran al inicio del mismo.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c">#</span>
+<span class="c"># iCMS:    iCMS webservice daemon</span>
+<span class="c">#</span>
+<span class="c"># chkconfig: 345 99 50</span>
+<span class="c"># description: Run iCMS webservice daemon</span>
+<span class="c">#</span>
+<span class="c"># processname: icms</span>
+
+<span class="c"># Directorios de instalación</span>
+<span class="nv">ICMS_HOME</span><span class="o">=</span><span class="s2">&quot;@@ICMS_HOME@@&quot;</span>
+<span class="nv">ICMS_CONF</span><span class="o">=</span><span class="s2">&quot;$ICMS_HOME/conf&quot;</span>
+<span class="c"># Versión del servidor</span>
+<span class="nv">ICMS_VERSION</span><span class="o">=</span><span class="s2">&quot;@@ICMS_VERSION@@&quot;</span>
+<span class="nv">ICMS_JAR</span><span class="o">=</span><span class="s2">&quot;$ICMS_HOME/icms-server-$ICMS_VERSION-All.jar&quot;</span>
+<span class="c"># Url pública por la cual se accede al servidor</span>
+<span class="nv">ICMS_URL</span><span class="o">=</span><span class="s2">&quot;@@ICMS_URL@@&quot;</span>
+<span class="c"># Puerto en el que escucha el servidor</span>
+<span class="nv">ICMS_PORT</span><span class="o">=</span><span class="s2">&quot;@@ICMS_PORT@@&quot;</span>
+<span class="nv">ICMS_PID_DIR</span><span class="o">=</span><span class="s2">&quot;/var/run&quot;</span>
+<span class="nv">ICMS_PID</span><span class="o">=</span><span class="s2">&quot;$ICMS_PID_DIR/icms.pid&quot;</span>
+<span class="c"># Hostname o IP interno para sincronización de caché. Habitualmente, la dirección de red interna de la máquina</span>
+<span class="nv">ICMS_CACHE_HOSTNAME</span><span class="o">=</span><span class="s2">&quot;@@ICMS_CACHE_HOSTNAME@@&quot;</span>
+<span class="c"># Identificador interno que se utilizará para representar el servicio en el log</span>
+<span class="nv">ICMS_ID</span><span class="o">=</span><span class="s2">&quot;@@ICMS_ID@@&quot;</span>
+<span class="nv">ICMS_USER</span><span class="o">=</span><span class="s2">&quot;@@ICMS_USER@@&quot;</span>
+<span class="nv">ICMS_SOLR_WAR</span><span class="o">=</span><span class="s2">&quot;@@ICMS_HOME@@/lib/solr.war&quot;</span>
+<span class="nv">ICMS_SOLR_HOME</span><span class="o">=</span><span class="s2">&quot;@@ICMS_HOME@@/solr&quot;</span>
+
+<span class="nv">RUN_AS_USER</span><span class="o">=</span><span class="s2">&quot;su - $ICMS_USER -c&quot;</span>
+
+<span class="nv">JAVA</span><span class="o">=</span><span class="k">$(</span>which java<span class="k">)</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-server -Xms16m -Xmx512m -Dlogback.configurationFile=$ICMS_CONF/logback.xml -Dhazelcast.config=$ICMS_CONF/hazelcast.xml -Dicms.cache.hostName=$ICMS_CACHE_HOSTNAME -Dicms.id=$ICMS_ID -Dicms.solr.war=$ICMS_SOLR_WAR -Dsolr.solr.home=$ICMS_SOLR_HOME&quot;</span>
+<span class="c"># JAVA_PROFILE_OPTS=&quot;-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9000 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -agentlib:hprof=heap=dump,file=/tmp/hprof.bin,format=b,depth=10&quot;</span>
+
+<span class="c"># Comentar la siguiente variable si no es necesario el modo debug</span>
+<span class="c"># ICMS_DEBUG=&quot;-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044 -Xdebug&quot;</span>
+
+<span class="c"># No es necesario modificar a partir de aquí</span>
+
+<span class="o">[</span> -d <span class="nv">$ICMS_HOME</span> <span class="o">]</span> <span class="o">||</span> <span class="o">(</span><span class="nb">echo</span> <span class="s2">&quot;ERROR: no se encontró el directorio $ICMS_HOME&quot;</span> <span class="o">&amp;&amp;</span> <span class="nb">exit </span>1<span class="o">)</span>
+<span class="o">[</span> -d <span class="nv">$ICMS_CONF</span> <span class="o">]</span> <span class="o">||</span> <span class="o">(</span><span class="nb">echo</span> <span class="s2">&quot;ERROR: no se encontró el directorio $ICMS_CONF&quot;</span> <span class="o">&amp;&amp;</span> <span class="nb">exit </span>1<span class="o">)</span>
+<span class="o">[</span> -f <span class="nv">$ICMS_JAR</span> <span class="o">]</span> <span class="o">||</span> <span class="o">(</span><span class="nb">echo</span> <span class="s2">&quot;ERROR: no se encontró JAR de iCMS $ICMS_JAR&quot;</span> <span class="o">&amp;&amp;</span> <span class="nb">exit </span>1<span class="o">)</span>
+<span class="o">[</span> -d <span class="nv">$ICMS_PID_DIR</span> <span class="o">]</span> <span class="o">||</span> <span class="o">(</span><span class="nb">echo</span> <span class="s2">&quot;ERROR: no existe el directorio $ICMS_PID_DIR&quot;</span> <span class="o">&amp;&amp;</span> <span class="nb">exit </span>1<span class="o">)</span>
+
+start<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Iniciando iCMS...&quot;</span>
+    <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;$ICMS_PID&quot;</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;Error: Se ha encontrado un fichero de PID para iCMS. El proceso ya está ejecutándose&quot;</span> 1&gt;&amp;2
+        <span class="nv">RETVAL</span><span class="o">=</span>1
+    <span class="k">else</span>
+		<span class="nv">$RUN_AS_USER</span> <span class="s2">&quot;$JAVA $ICMS_DEBUG $JAVA_OPTS $JAVA_PROFILE_OPTS -server -jar $ICMS_JAR -publicUrl $ICMS_URL -port $ICMS_PORT -directoryBase $ICMS_HOME -configDirectory $ICMS_CONF -start&quot;</span> &amp;
+        <span class="nv">RETVAL</span><span class="o">=</span><span class="nv">$?</span>
+        <span class="nb">echo</span> <span class="nv">$!</span> &gt; <span class="nv">$ICMS_PID</span>
+        <span class="k">if</span> <span class="o">[</span> <span class="nv">$RETVAL</span> -gt 0 <span class="o">]</span>; <span class="k">then</span>
+            <span class="nv">$RUN_AS_USER</span> <span class="s2">&quot;rm -f $ICMS_PID&quot;</span> &gt; /dev/null 2&gt; /dev/null
+        <span class="k">fi</span>
+<span class="k">    fi</span>
+<span class="k">    return</span> <span class="nv">$RETVAL</span>
+<span class="o">}</span>
+
+stop<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Deteniendo iCMS...&quot;</span>
+    <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;$ICMS_PID&quot;</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">        </span><span class="nv">RUNNING_PID</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$ICMS_PID</span><span class="k">)</span>
+        <span class="nb">kill</span> <span class="nv">$RUNNING_PID</span>
+        <span class="nv">RETVAL</span><span class="o">=</span><span class="nv">$?</span>
+        clean
+    <span class="k">else</span>
+<span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;Error: No se encuentra el fichero de PID $ICMS_PID&quot;</span> 1&gt;&amp;2
+        <span class="nv">RETVAL</span><span class="o">=</span>1
+    <span class="k">fi</span>
+<span class="k">    return</span> <span class="nv">$RETVAL</span>
+<span class="o">}</span>
+
+clean<span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;$ICMS_PID&quot;</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">        </span>rm <span class="s2">&quot;$ICMS_PID&quot;</span>
+    <span class="k">fi</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;iCMS dir cleanup performed&quot;</span> <span class="o">}</span>
+
+
+<span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
+    start<span class="o">)</span>
+        start
+        ;;
+    stop<span class="o">)</span>
+        stop
+        ;;
+    restart<span class="o">)</span>
+        stop
+        sleep 5
+        start
+        ;;
+    clean<span class="o">)</span>
+        clean
+        ;;
+    *<span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Usage: $0 {start|stop|restart|clean}&quot;</span>
+        ;;
+<span class="k">esac</span>
+<span class="nb">exit</span> <span class="nv">$RETVAL</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuracion-como-servicio-en-sistemas-red-hat-o-compatibles">
+<h2>Configuración como servicio en sistemas Red Hat o compatibles<a class="headerlink" href="#configuracion-como-servicio-en-sistemas-red-hat-o-compatibles" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El script de instalación expuesto en el apartado anterior es compatible con
+sistemas Red Hat o compatibles. Simplemente es necesario copiarlo a la
+carpeta <tt class="docutils literal"><span class="pre">/etc/rc.d/init.d</span></tt> para poder utilizar el comando <tt class="docutils literal"><span class="pre">service</span></tt> del sistema.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-icms.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Uso del servidor</a><ul>
+<li><a class="reference internal" href="#arranque">Arranque</a></li>
+<li><a class="reference internal" href="#script-de-arranque">Script de arranque</a></li>
+<li><a class="reference internal" href="#configuracion-como-servicio-en-sistemas-red-hat-o-compatibles">Configuración como servicio en sistemas Red Hat o compatibles</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="libreria.html"
+                        title="Capítulo anterior">Uso como librería</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="http.html"
+                        title="Próximo capítulo">Interfaz <em>HTTP</em></a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/ejecucion/arranque.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un módulo, clase o nombre de función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="http.html" title="Interfaz HTTP"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="libreria.html" title="Uso como librería"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Ejecución y uso</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

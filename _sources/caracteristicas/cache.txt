@@ -1,0 +1,19 @@
+================
+Sistema de caché
+================
+
+El servidor de referencia de la Interfaz de Interoperabilidad *iCMS* cuenta con un avanzado
+mecanismo de caché de alta disponibilidad, basado en las soluciones de código libre *Ehcache* y
+*Terracotta*.
+
+Mediante la definición de dos simples ficheros de configuración se puede elegir entre las siguientes
+opciones de caché:
+
+* Caché única asociada al servidor, peristida en disco duro.
+* Caché distribuida en servidores Terracotta, compartida entre varios servidores *iCMS*.
+
+Se recomienda la segunda opción en entornos de producción que requieren una alta disponibilidad y
+escalabilidad horizontal, ya que proporcionará mejor rendimiento en situaciones críticas.
+
+En el apartado de :ref:`configuración de la caché <configuración-caché>` se
+pueden encontrar ejemplos concretos

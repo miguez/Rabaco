@@ -1,0 +1,408 @@
+.. _interfaz-soap:
+
+=================
+ Interfaz *SOAP*
+=================
+
+El sistema iCMS a través de la interfaz de servicios web ofrece las operaciones de realizar consultas sobre colecciones,
+obtener, guardar y actualizar un recurso.
+
+Los métodos soportados son los siguientes:
+
+* Ejecutar una consulta indicando el nombre de la colección, las condiciones, el número de página y el número de
+  elementos por página.
+* Ejecutar una consulta indicando el nombre de la colección, las condiciones, el número de página, el número de
+  elementos por página y la fecha a partir de la cual se quiere obtener los recursos.
+* Pedir un recurso unitario indicando su identificador.
+* Guardar un recurso indicando el nombre de la colección, el contenido del recurso y la fecha de publicación.
+* Actualizar un recurso indicando el nombre de la colección, el contenido del recurso y la fecha de publicación.
+* Prueba de conectividad con el cliente de servicios web.
+
+Descriptor de servicios
+=======================
+
+El fichero WSDL estará disponible en la url ``http://servidoricms/icms/services/IcmsWS?wsdl``. El contenido de dicho fichero
+es el siguiente:
+
+.. literalinclude:: /code/wsdl.xml
+   :language: xml
+
+Métodos soportados
+==================
+
+A continuación se detallan los métodos soportados junto con los parámetros necesarios para llamarlos.
+
+Método executeQuery
+-------------------
+Realiza una consulta en el sistema *iCMS* con los siguientes parámetros:
+
+* Nombre de la colección
+* Listado de condiciones de la consulta en formato de par *campo-valor*
+* Número de página
+* Número de elementos por página
+* El resultado de la llamada será el contenido de los recursos que cumplen con la consulta o un error indicando la causa del
+  mismo.
+
+Método executeQueryFromDate
+---------------------------
+
+Realiza una consulta en el sistema *iCMS* con los siguientes parámetros:
+
+* Nombre de la colección
+* Listado de condiciones de la consulta en formato de par *campo-valor*
+* Número de página
+* Número de elementos por página
+* Fecha a partir de la cual se quiere traer los recursos
+* El resultado de la llamada será el contenido de los recursos que cumplen con la consulta o un error indicando la causa del
+  mismo.
+
+Método getResource
+------------------
+
+Realiza la petición de un recurso en el sistema *iCMS* con el siguiente parámetro:
+
+* Identificador del recurso (\ *uri* de *iCMS*\ )
+
+El resultado de la llamada será el contenido del recurso que se solicita o un error indicando la causa del mismo.
+
+Método save
+-----------
+
+Guarda un recurso en el sistema *iCMS* indicando los siguientes parámetros:
+
+* Nombre de la colección donde se quiere guardar el recurso
+* Contenido del recurso siguiendo la estructura establecida en el siguiente apartado
+* Fecha de publicación (opcional)
+* El resultado de la llamada será el identificador que el sistema haya otorgado al nuevo recurso o un error indicando la causa
+  del mismo.
+
+Método update
+-------------
+
+Actualiza un recurso en el sistema *iCMS* indicando los siguientes parámetros:
+
+* Nombre de la colección donde se quiere guardar el recurso
+* Contenido del recurso siguiendo la estructura establecida en el siguiente apartado
+* Fecha de publicación (opcional)
+* La llamada devolverá error indicando la causa del mismo en caso de que la actualización no se hubiera llevado a cabo.
+
+Método ping
+-----------
+
+Realiza una prueba de conexión del servicio web de *iCMS*. Admite el siguiente parámetro:
+
+* Cadena para prueba
+
+La llamada devolverá un mensaje de *echo* en caso correcto o un error indicando la causa del mismo.
+
+Tipos complejos
+===============
+
+Además de las cadenas y los enteros, algunas llamadas precisan del uso del tipo *IcmsNode* para definir el contenido de un
+recurso o del tipo *ICMSException* para capturar los mensajes de error cuando una llamada realiza un comportamiento
+anómalo.
+
+IcmsNode
+--------
+
+Este tipo es utilizado como parámetro en las llamadas a los métodos *save* y *update*. Está compuesto por un identificador, un
+mapa con los atributos, una lista de subnodos y una lista con namespaces.
+
+La representación visual de este tipo es la siguiente:
+
+.. figure:: /images/soap/icmsnode.png
+   :scale: 75%
+   :align: center
+
+ICMSException
+-------------
+
+El tipo *ICMSException* es usado lanzándose como respuesta cuando un método realiza una operación no controlada. Esta
+excepción contiene un mensaje indicativo además de un código de error.
+
+La representación visual de este tipo es:
+
+.. figure:: /images/soap/icmsexception.png
+   :scale: 75%
+   :align: center
+
+Códigos de errores
+------------------
+
+A continuación se muestra la relación de códigos de errores que puede contener una excepción.
+
+* ICMS_COLLECTION_NO_FOUND
+* ICMS_CONFIG_ERROR
+* ICMS_CONNECTION_ERROR
+* ICMS_FRAGMENTS_NOT_FOUND
+* ICMS_INVALID_ATOM
+* ICMS_INVALID_COLLECTION_ID
+* ICMS_INVALID_CONDITION_QUERY
+* ICMS_INVALID_URL
+* ICMS_IO_ERROR
+* ICMS_MIMETYPE_NOT_SUPPORTED
+* ICMS_MIMETYPE_NOT_SUPPORTED_BY_PROVIDER
+* ICMS_OPERATION_NOT_SUPPORTED
+* ICMS_PAGE_NOT_FOUND
+* ICMS_PREFIX_NOT_SUPPORTED
+* ICMS_PROVIDER_NOT_FOUND
+* ICMS_PROVIDER_PROBLEM
+* ICMS_RDF_INCORRECT
+* ICMS_RESOURCE_NO_FOUND
+* ICMS_SERVER_ERROR
+* ICMS_SNAPSHOTS_NOT_FOUND
+* ICMS_STORAGE_DATA_ERROR
+* ICMS_TIMEOUT
+* ICMS_UNKNOWN
+
+Pruebas de llamadas a los métodos
+=================================
+
+Contexto
+--------
+
+A continuación se muestran algunos ejemplos de llamadas a los métodos de servicios web. Para los ejemplos usaremos
+una colección ficticia llamada *personas*\ , con el siguiente contenido:
+
+.. literalinclude:: /code/personas_xml
+   :language: xml
+
+Método executeQuery
+-------------------
+
+Para realizar una consulta a la colección personas con el fin de traernos los 10 primeros elementos tendremos que enviar el
+siguiente mensaje *SOAP*\ :
+
+.. code-block:: xml
+
+  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+  		  xmlns:icms="http://www.juntadeandalucia.es/icms">
+    <soapenv:Header/>
+    <soapenv:Body>
+      <icms:executeQuery>
+        <arg0>personas</arg0>
+        <arg2>1</arg2>
+        <arg3>10</arg3>
+      </icms:executeQuery>
+    </soapenv:Body>
+  </soapenv:Envelope>
+
+La respuesta a este mensaje sería:
+
+.. literalinclude:: /code/soap-executequery.xml
+   :language: xml
+
+Método executeQuery con condiciones
+-----------------------------------
+
+Para realizar una consulta a la colección personas con el fin de traernos las personas que son analistas y que tiene 31 años
+el mensaje *SOAP* que tendremos que enviar será el siguiente:
+
+.. code-block:: xml
+
+  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+  		  xmlns:icms="http://www.juntadeandalucia.es/icms">
+    <soapenv:Header/>
+    <soapenv:Body>
+      <icms:executeQuery>
+        <arg0>personas</arg0>
+        <arg1>
+  	<property>icms:cargo</property>
+  	<value>analista</value>
+        </arg1>
+        <arg1>
+  	<property>icms:edad</property>
+  	<value>31</value>
+        </arg1
+        <arg2>1</arg2>
+        <arg3>10</arg3>
+      </icms:executeQuery>
+    </soapenv:Body>
+  </soapenv:Envelope>
+
+La respuesta a este mensaje será:
+
+.. literalinclude:: /code/soap-executequery-conditions.xml
+   :language: xml
+
+Método executeQueryFromDate
+---------------------------
+
+Para realizar una consulta a la colección personas con el fin de traernos los 10 primeros elementos creados a partir de julio
+del 2008 tendremos que enviar el siguiente mensaje *SOAP* al método *executeQueryFromDate*\ :
+
+.. code-block:: xml
+
+  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+  		  xmlns:icms="http://www.juntadeandalucia.es/icms">
+    <soapenv:Header/>
+    <soapenv:Body>
+      <icms:executeQueryFromDate>
+        <arg0>personas</arg0>
+        <arg2>1</arg2>
+        <arg3>10</arg3>
+        <arg4>2008-7-01T00:00:00</arg4>
+      </icms:executeQueryFromDate>
+    </soapenv:Body>
+  </soapenv:Envelope>
+
+La respuesta a este mensaje sería:
+
+.. literalinclude:: /code/soap-executequeryfromdate.xml
+   :language: xml
+
+Método executeQueryFromDate con condiciones
+-------------------------------------------
+
+Para realizar una consulta a la colección personas con el fin de traernos los recursos creados a
+partir de julio del 2008 y que además tengan 25 años tendremos que enviar el siguiente mensaje
+*SOAP* al método *executeQueryFromDate*\ :
+
+.. code-block:: xml
+
+  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+  		  xmlns:icms="http://www.juntadeandalucia.es/icms">
+    <soapenv:Header/>
+    <soapenv:Body>
+      <icms:executeQueryFromDate>
+        <arg0>personas</arg0>
+        <arg1>
+  	<property>icms:edad</property>
+  	<value>25</value>
+        </arg1>
+        <arg2>1</arg2>
+        <arg3>10</arg3>
+        <arg4>2008-7-01T00:00:00</arg4>
+      </icms:executeQueryFromDate>
+    </soapenv:Body>
+  </soapenv:Envelope>
+
+La respuesta a este mensaje sería:
+
+.. literalinclude:: /code/soap-executequeryfromdate-conditions.xml
+   :language: xml
+
+Método getResource
+------------------
+
+Para traernos el recurso identificado por la URI ``http://servidoricms/icms/id/personas/2`` debemos llamar al método
+*getResource* con el siguiente mensaje *SOAP*\ :
+
+.. code-block:: xml
+
+  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+  		  xmlns:icms="http://www.juntadeandalucia.es/icms">
+    <soapenv:Header/>
+    <soapenv:Body>
+      <icms:getResource>
+        <arg0>http://servidoricms/icms/id/personas/2</arg0>
+      </icms:getResource>
+    </soapenv:Body>
+  </soapenv:Envelope>
+
+La respuesta sería:
+
+.. code-block:: xml
+
+  <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Body>
+      <ns2:executeQueryFromDateResponse xmlns:ns2="http://www.juntadeandalucia.es/icms"
+  				      xmlns:ns3="http://www.juntadeandalucia.es/icms/data">
+        <return id="2">
+  	<attribute>
+  	  <a value="Isabel Gómez" key="dc:title"/>
+  	  <a value="25" key="icms:edad"/>
+  	  <a value="analista" key="icms:cargo"/>
+  	  <a value="2008-07-11T10:35:25" key="egov:creation-date"/>
+  	</attribute>
+  	<namespaces url="http://www.juntadeandalucia.es/2009/icms/" prefix="icms"/>
+  	<namespaces url="http://purl.org/dc/elements/1.1/" prefix="dc"/>
+  	<namespaces url="http://psi.egovpt.org/types/" prefix="egov"/>
+  	<namespaces url="http://www.w3.org/1999/02/22-rdf-syntax-ns#" prefix="rdf"/>
+  	<namespaces url="http://www.w3.org/2000/01/rdf-schema#" prefix="rdfs"/>
+  	<namespaces url="http://www.w3.org/2005/Atom" prefix="atom"/>
+  	namespaces url="http://a9.com/-/spec/opensearch/1.1/" prefix="os"/>
+  	<namespaces url="http://drupal.org/ns/" prefix="drupal"/>
+        </return>
+      </ns2:executeQueryFromDateResponse>
+    </S:Body>
+  </S:Envelope>
+
+Método save
+-----------
+
+Para añadir un nuevo recurso a la colección personas tendremos que crear un mensaje *SOAP* del tipo:
+
+.. code-block:: xml
+
+  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+  		  xmlns:icms="http://www.juntadeandalucia.es/icms">
+    <soapenv:Header/>
+    <soapenv:Body>
+      <icms:saveRequestWrapper>
+        <arg0>personas</arg0>
+        <arg1 id="4">
+  	<attribute>
+  	  <a key="dc:title" value="María Galán"/>
+  	  <a key="icms:edad" value="28"/>
+  	  <a key="icms:cargo" value="jefe de proyecto"/>
+  	  <a key="egov:created-date" value="2010-04-05T10:35:25"/>
+  	</attribute>
+        </arg1>
+        <arg2>2010-04-05T10:35:25</arg2>
+      </icms:saveRequestWrapper>
+    </soapenv:Body>
+  </soapenv:Envelope>
+
+Una vez creado el recurso correctamente el mensaje de respuesta sería:
+
+.. code-block:: xml
+
+  <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Body>
+      <ns2:saveResponseWrapper xmlns:ns2="http://www.juntadeandalucia.es/icms"
+  			     xmlns:ns3="http://www.juntadeandalucia.es/icms/data">
+        <ns2:saveResult>http://servidoricms/icms/id/personas/4</ns2:saveResult>
+      </ns2:saveResponseWrapper>
+    </S:Body>
+  </S:Envelope>
+
+Método update
+-------------
+
+Para actualizar un recurso de la colección personas tendremos que crear un mensaje *SOAP* del tipo:
+
+.. code-block:: xml
+
+  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+  		  xmlns:icms="http://www.juntadeandalucia.es/icms">
+    <soapenv:Header/>
+    <soapenv:Body>
+      <icms:updateRequestWrapper>
+        <arg0>personas</arg0>
+        <arg1 id="2">
+  	<attribute>
+  	  <a key="dc:title" value="Juan Cortina"/>
+  	  <a key="icms:edad" value="33"/>
+  	  <a key="icms:cargo" value="analista"/>
+  	  <a key="egov:created-date" value="2010-04-05T10:35:25"/>
+  	</attribute>
+        </arg1>
+        <arg2>2010-04-05T10:35:25</arg2>
+      </icms:updateRequestWrapper>
+    </soapenv:Body>
+  </soapenv:Envelope>
+
+Una vez creado el recurso correctamente el mensaje de respuesta sería:
+
+.. code-block:: xml
+
+  <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Body>
+      <ns2:updateResponseWrapper xmlns:ns2="http://www.juntadeandalucia.es/icms"
+  			       xmlns:ns3="http://www.juntadeandalucia.es/icms/data">
+        <ns2:updateResult>http://servidoricms/icms/id/personas/2</ns2:updateResult>
+      </ns2:updateResponseWrapper>
+    </S:Body>
+  </S:Envelope>
+

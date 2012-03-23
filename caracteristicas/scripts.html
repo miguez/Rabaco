@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Sistema de comportamiento dinámico ante eventos &mdash; Interfaz de Interoperabilidad iCMS 1.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS 1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Características" href="index.html" />
+    <link rel="next" title="Sistema de caché" href="cache.html" />
+    <link rel="prev" title="Interfaz de servicios web" href="interfaz-http.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="cache.html" title="Sistema de caché"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="interfaz-http.html" title="Interfaz de servicios web"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Características</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sistema-de-comportamiento-dinamico-ante-eventos">
+<span id="eventos"></span><h1>Sistema de comportamiento dinámico ante eventos<a class="headerlink" href="#sistema-de-comportamiento-dinamico-ante-eventos" title="Enlazar permanentemente con este título">¶</a></h1>
+<p><em>iCMS</em> nos brinda una manera simple de inyectar comportamiento ante cambios en una determinada
+colección. Esta funcionalidad hace uso del compilador dinámico incluido en la distribución oficial
+de <em>Groovy</em> para implementar la lógica que se debe ejecutar bien al arranque del servidor o cuando una
+colección especificada haya cambiado.</p>
+<p>Existen dos tipos de scripts distintos, que se diferencian en el momento de su ejecución.</p>
+<div class="section" id="eventos-de-arranque">
+<h2>Eventos de arranque<a class="headerlink" href="#eventos-de-arranque" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los scripts de inicio implementan la interfaz <em>InitScript</em> y son lanzados en el arranque del servidor,
+justo después de la creación de las colecciones.</p>
+</div>
+<div class="section" id="notificaciones">
+<h2>Notificaciones<a class="headerlink" href="#notificaciones" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los scripts que implementan <em>EventScript</em> se ejecutan cada vez que se recibe una notificación en el
+<em>listener</em> de eventos asociado (habitualmente, cuando se crean nuevos contenidos en la colección).</p>
+</div>
+<div class="section" id="notificaciones-dinamicas">
+<h2>Notificaciones Dinámicas<a class="headerlink" href="#notificaciones-dinamicas" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Las notificaciones que el servidor envía a los clientes podrán incorporar una parte dinámica adicional
+a la parte fija que se enviaba hasta la versión 2.0.0. La parte fija sigue constando, como mínimo, del
+identificador del elemento que ha cambiado. La parte dinámica puede depender tanto del mismo driver como de la
+configuración de la colección:</p>
+<div class="section" id="contenido-de-la-notificacion-desde-el-driver">
+<h3>Contenido de la notificación desde el driver<a class="headerlink" href="#contenido-de-la-notificacion-desde-el-driver" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Mediante la anotación de dos métodos en la clase que implementa a la interfaz <tt class="docutils literal"><span class="pre">ICMSCollectionProvider</span></tt>
+se puede añadir más contenido al mensaje de notificación. En concreto, todo aquello que se quiera añadir será
+devuelto como un mapa de cadenas y objetos (<tt class="docutils literal"><span class="pre">Map&lt;String,Object&gt;</span></tt>) en un método que se anota con <tt class="docutils literal"><span class="pre">&#64;PreNotification</span></tt>.
+Dicho método recibe como parámetro el identificador del recurso que ha cambiado.</p>
+<p>Si fuera necesario ejecutar algún método después del proceso de notificación, sería necesario anotar un método con
+<tt class="docutils literal"><span class="pre">&#64;PostNotification</span></tt>, pasando asimismo como parámetro, al igual que en el caso anterior, el identificador del recurso.</p>
+<p>Por ejemplo, el driver de BOJA necesita incluir
+en la notificación si el cambio se debe a un nuevo elemento, un elemento ya existente que ha sido
+modificado o un elemento que ha sido borrado. Esta información no se encuentra en la configuración
+de la colección, sino que viene incluida en la notificación interna que el sistema de procesado
+envía a iCMS.</p>
+<div class="highlight-python"><pre>@PreNotification
+public Map&lt;String, Object&gt; modifyNotificationMessage(final String resourceId) {
+	final Map&lt;String, Object&gt; result = new HashMap&lt;String, Object&gt;();
+	if (notificationsOperationMap.containsKey(resourceId)) {
+		result.put("op", notificationsOperationMap.get(resourceId));
+	}
+	return result;
+}
+
+@PostNotification
+public void purgeNotificationMap(final String resourceId) {
+	notificationsOperationMap.remove(resourceId);
+}
+</pre>
+</div>
+</div>
+<div class="section" id="contenido-de-la-notificacion-desde-la-configuracion-de-la-coleccion">
+<h3>Contenido de la notificación desde la configuración de la colección<a class="headerlink" href="#contenido-de-la-notificacion-desde-la-configuracion-de-la-coleccion" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Otra forma de añadir más contenido al mensaje de notificación es a través del properties de la colección. Aquellos
+metadatos que tiene la propiedad <tt class="docutils literal"><span class="pre">includeInNotification</span> <span class="pre">=</span> <span class="pre">true</span></tt> se incluirán en la parte dinámica de la notificación.</p>
+<p>Por ejemplo, en una notificación de una colección gestionada con el driver de Drupal se podría incluir información
+acerca del elemento modificado, como su nid. Este metadato se encuentra en cada uno de los elementos, si así se
+configura en el fichero de propiedades de la colección.</p>
+<div class="highlight-python"><pre>metadata {
+    'id' {
+		required = false
+		resolvable = false
+		queryable = true
+	}
+
+	'eboja:number' {
+		required = false
+		resolvable = false
+		queryable = false
+		includeInNotification = true
+	}
+
+	'eboja:year' {
+		required = false
+		resolvable = false
+		queryable = false
+		includeInNotification = true
+	}
+
+	'eboja:date' {
+		required = false
+		resolvable = false
+		queryable = false
+	}
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-icms.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Sistema de comportamiento dinámico ante eventos</a><ul>
+<li><a class="reference internal" href="#eventos-de-arranque">Eventos de arranque</a></li>
+<li><a class="reference internal" href="#notificaciones">Notificaciones</a></li>
+<li><a class="reference internal" href="#notificaciones-dinamicas">Notificaciones Dinámicas</a><ul>
+<li><a class="reference internal" href="#contenido-de-la-notificacion-desde-el-driver">Contenido de la notificación desde el driver</a></li>
+<li><a class="reference internal" href="#contenido-de-la-notificacion-desde-la-configuracion-de-la-coleccion">Contenido de la notificación desde la configuración de la colección</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="interfaz-http.html"
+                        title="Capítulo anterior">Interfaz de servicios web</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="cache.html"
+                        title="Próximo capítulo">Sistema de caché</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/caracteristicas/scripts.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un módulo, clase o nombre de función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="cache.html" title="Sistema de caché"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="interfaz-http.html" title="Interfaz de servicios web"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Características</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

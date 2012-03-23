@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Empaquetado de la aplicación &mdash; Interfaz de Interoperabilidad iCMS 1.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS 1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Instalación de la Interfaz de Interoperabilidad" href="index.html" />
+    <link rel="next" title="Configuración" href="../configuracion/index.html" />
+    <link rel="prev" title="Batería de pruebas" href="testado.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../configuracion/index.html" title="Configuración"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="testado.html" title="Batería de pruebas"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Instalación de la Interfaz de Interoperabilidad</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="empaquetado-de-la-aplicacion">
+<span id="empaquetado"></span><h1>Empaquetado de la aplicación<a class="headerlink" href="#empaquetado-de-la-aplicacion" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Para poder compilar el proyecto <tt class="docutils literal"><span class="pre">icms-server</span></tt> es necesario satisfacer su dependencia con el otro
+proyecto que se ha descargado, <tt class="docutils literal"><span class="pre">icms-api</span></tt>, así que dentro del directorio de <tt class="docutils literal"><span class="pre">icms-api</span></tt> se deberá
+ejecutar el comando</p>
+<div class="highlight-python"><pre>mvn install</pre>
+</div>
+<p>Como en el caso anterior, la compilación y posterior empaquetado del proyecto <tt class="docutils literal"><span class="pre">icms-server</span></tt> se realiza mediante <a class="reference external" href="http://maven.apache.org">Apache
+Maven</a>. Se ejecutará el siguiente comando desde el directorio correspondiente al proyecto</p>
+<div class="highlight-python"><pre>mvn package</pre>
+</div>
+<p>Si se va a realizar un desarrollo basado en <em>iCMS</em> será necesario instalar el paquete compilado en
+el repositorio local</p>
+<div class="highlight-python"><pre>mvn install</pre>
+</div>
+<p>Estos comandos lanzan la batería de pruebas del proyecto, lo que se puede deshabilitar mediante la
+inclusión en línea de comandos de la opción <cite>-Dmaven.test.skip=true</cite>.  Para todos los proyectos, el
+empaquetado crea dos ficheros <abbr title="Java ARchive">JAR</abbr>: uno con los binarios (ficheros con
+extensión <cite>class</cite>), y otro conteniendo el código fuente del proyecto.  Además, se distribuye otro
+fichero <cite>jar</cite> adicional que incluye todas las dependencias del proyecto, y que recibe
+el nombre de icms-server-1.2.0-All.jar.</p>
+</div>
+<div class="section" id="instalacion">
+<span id="id1"></span><h1>Instalación<a class="headerlink" href="#instalacion" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Para instalar <em>iCMS</em> basta simplemente con copiar el fichero <em>jar</em> en un directorio del disco
+duro. No obstante, se recomienda la instalación de una serie de subdirectorios para una disposición
+más organizada de los ficheros que se crearán durante el proceso de ejecución del servidor. Por
+ejemplo, para instalar la aplicación en la carpeta <cite>opt/icms</cite> habrá que escribir desde la línea de
+comandos</p>
+<div class="highlight-python"><pre>mkdir /opt/icms
+mkdir -p /opt/icms/conf /opt/lib
+cp ./icms-server-|release|-All.jar /opt/icms</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Hay que tener en cuenta que <em>iCMS</em> permite <a class="reference internal" href="../configuracion/estructura-directorios.html#configuracion-estructura-directorios"><em>personalizar la estructura de directorios</em></a>, por lo que podrían variar las carpetas a crear en función
+de las rutas que se vayan a configurar.</p>
+</div>
+<p>De esta manera, una vez que se termine el proceso de <a class="reference internal" href="../configuracion/index.html#configuracion"><em>configuración</em></a> se podrá
+proceder a <a class="reference internal" href="../ejecucion/arranque.html#uso-servidor"><em>su uso</em></a>.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-icms.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Empaquetado de la aplicación</a></li>
+<li><a class="reference internal" href="#instalacion">Instalación</a></li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="testado.html"
+                        title="Capítulo anterior">Batería de pruebas</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="../configuracion/index.html"
+                        title="Próximo capítulo">Configuración</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/instalacion/compilacion.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un módulo, clase o nombre de función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../configuracion/index.html" title="Configuración"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="testado.html" title="Batería de pruebas"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Instalación de la Interfaz de Interoperabilidad</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

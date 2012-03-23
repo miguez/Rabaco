@@ -1,0 +1,11 @@
+=================
+ Características
+=================
+
+.. toctree::
+
+   Operaciones soportadas <operaciones>
+   Interfaz Java <interfaz-java>
+   Interfaz de servicios web <interfaz-http>
+   Sistema de comportamiento dinámico ante eventos <scripts>
+   Sistema de caché <cache>

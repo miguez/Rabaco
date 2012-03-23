@@ -1,0 +1,193 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuración de la estructura de directorios &mdash; Interfaz de Interoperabilidad iCMS 1.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS 1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuración" href="index.html" />
+    <link rel="next" title="Configuración de Jetty" href="jetty.html" />
+    <link rel="prev" title="Ficheros de configuración" href="ficheros.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="jetty.html" title="Configuración de Jetty"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="ficheros.html" title="Ficheros de configuración"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Configuración</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="configuracion-de-la-estructura-de-directorios">
+<span id="configuracion-estructura-directorios"></span><h1>Configuración de la estructura de directorios<a class="headerlink" href="#configuracion-de-la-estructura-de-directorios" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="configuracion-por-defecto">
+<h2>Configuración por defecto<a class="headerlink" href="#configuracion-por-defecto" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La estructura de directorios de iCMS es personalizable. No obstante, en caso de no
+especificar nada en la configuración se tomará la estructura por defecto:</p>
+<dl class="docutils">
+<dt><strong>/cache</strong></dt>
+<dd>Almacén de los archivos de la caché.</dd>
+<dt><strong>/conf</strong></dt>
+<dd>Contiene los ficheros de configuración <cite>icms-config.properties</cite>, <cite>icms-providers.properties</cite>,
+<cite>icms-scripts.properties</cite>, <cite>ehcache.xml</cite>, <cite>hazelcast.xml</cite>, <cite>logback.xml</cite>. La localización de
+este directorio se indica en el script de arranque de <cite>iCMS</cite> mediante el parámetro
+<tt class="docutils literal"><span class="pre">$ICMS_CONF</span></tt>.</dd>
+<dt><strong>/conf/collections</strong></dt>
+<dd>Configuración de las colecciones (icms-nombrecoleccion.properties).</dd>
+<dt><strong>/lib</strong></dt>
+<dd>Contendrá las librerías que usará el servidor, como por ejemplo los drivers (<cite>icms-driver.jar</cite>),
+el war de <cite>Solr</cite>, etc.</dd>
+<dt><strong>/logs</strong></dt>
+<dd>Directorio donde se almacenarán los logs que se generen.</dd>
+<dt><strong>/notification</strong></dt>
+<dd>Información sobre las notificaciones.</dd>
+<dt><strong>/scripts</strong></dt>
+<dd>Ficheros de script.</dd>
+<dt><strong>/scripts/compile</strong></dt>
+<dd>.class de los scripts.</dd>
+<dt><strong>/solr</strong></dt>
+<dd>Directorio donde se encontrará desplegado <cite>Solr</cite>.</dd>
+<dt><strong>/subscription</strong></dt>
+<dd>Ficheros relacionados con las subscripciones.</dd>
+</dl>
+</div>
+<div class="section" id="personalizar-la-estructura-de-directorios">
+<h2>Personalizar la estructura de directorios<a class="headerlink" href="#personalizar-la-estructura-de-directorios" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para personalizar los directorios de iCMS respecto a su configuración por defecto
+bastará con indicarlo en icms-config.properties en el apartado <tt class="docutils literal"><span class="pre">directory</span></tt>. Por ejemplo,
+para cambiar el directorio donde se guardan los .jar de los drivers, para que en vez de <cite>lib</cite>
+se llame <cite>drivers</cite> tendríamos que definirlo así en <cite>icms-config.properties</cite>:</p>
+<div class="highlight-python"><pre>directory {
+  plugins="drivers"
+}</pre>
+</div>
+<p>Los directorios que se pueden configurar son:</p>
+<ul class="simple">
+<li><strong>plugins</strong> (por defecto <cite>lib</cite>)</li>
+<li><strong>notification</strong></li>
+<li><strong>subscription</strong></li>
+<li><strong>cache</strong></li>
+<li><strong>collections</strong></li>
+<li><strong>scripts</strong></li>
+<li><strong>compileScripts</strong> (por defecto &#8216;compile&#8217;)</li>
+</ul>
+<p>Un ejemplo donde modificaríamos todos los directorios posibles sería:</p>
+<div class="highlight-python"><pre>directory {
+  plugins="my_lib"
+  notification="my_notification"
+  subscription="my_subscription"
+  cache="my_cache"
+  collections="my_conf_collections"
+  scripts="my_scripts"
+  compileScripts="my_scripts/compile"
+}</pre>
+</div>
+<p>El directorio de configuración se establece en el script de arranque,
+mediante el parámetro <tt class="docutils literal"><span class="pre">$ICMS_CONF</span></tt>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-icms.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Configuración de la estructura de directorios</a><ul>
+<li><a class="reference internal" href="#configuracion-por-defecto">Configuración por defecto</a></li>
+<li><a class="reference internal" href="#personalizar-la-estructura-de-directorios">Personalizar la estructura de directorios</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="ficheros.html"
+                        title="Capítulo anterior">Ficheros de configuración</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="jetty.html"
+                        title="Próximo capítulo">Configuración de Jetty</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configuracion/estructura-directorios.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un módulo, clase o nombre de función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="jetty.html" title="Configuración de Jetty"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="ficheros.html" title="Ficheros de configuración"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Configuración</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

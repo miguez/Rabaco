@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Interfaz HTTP &mdash; Interfaz de Interoperabilidad iCMS 1.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS 1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Ejecución y uso" href="index.html" />
+    <link rel="next" title="Interfaz SOAP" href="soap.html" />
+    <link rel="prev" title="Uso del servidor" href="arranque.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="soap.html" title="Interfaz SOAP"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="arranque.html" title="Uso del servidor"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Ejecución y uso</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="interfaz-http">
+<span id="id1"></span><h1>Interfaz <em>HTTP</em><a class="headerlink" href="#interfaz-http" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="busqueda">
+<h2>Búsqueda<a class="headerlink" href="#busqueda" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Como paso previo a una consulta, se supone al sistema cliente un conocimiento de las distintas
+colecciones existentes en el sistema destino de la petición de búsqueda, conocimiento derivado de
+una operación de recolección anterior. Cada una de estas colecciones tiene asociada un fichero
+descriptor de la búsqueda que indica al cliente los parámetros que debe o puede incluir en la
+petición de consulta.</p>
+<p>Las peticiones de búsqueda son como la siguiente
+<tt class="docutils literal"><span class="pre">/icms/feeds/coleccion?query=&quot;consultaLucene&quot;&amp;&lt;...&gt;</span></tt></p>
+<p>Además del parámetro <tt class="docutils literal"><span class="pre">query</span></tt> con la consulta específica para el tipo de contenido que se está buscando (relacionados con los meta-datos
+que dicho tipo de contenido admite), en la petición se pueden incluir parámetros destinados a la configuración y control de la
+paginación en el documento de respuesta. En concreto, son:</p>
+<dl class="docutils">
+<dt>query</dt>
+<dd>Define la cadena de consulta sobre Lucene.</dd>
+<dt>page</dt>
+<dd>Define el número de la página de resultados deseada.</dd>
+<dt>items</dt>
+<dd>Define el número de elementos incluidos por cada página del documento de respuesta.</dd>
+<dt>from</dt>
+<dd>Define la fecha de actualización. Por defecto muestra la fecha de 1970. La notación utilizada para facilitar la fecha es la indicada en la ISO-8601 (<tt class="docutils literal"><span class="pre">http://es.wikipedia.org/wiki/ISO_8601</span></tt>).</dd>
+<dt>sort</dt>
+<dd>Define los criterios de ordenación de la consulta.</dd>
+</dl>
+<p>La <em>url</em> base para acceder a las colecciones es <tt class="docutils literal"><span class="pre">/icms/feeds/</span></tt> A partir de ahí, el resto de la dirección identifica
+unívocamente una de las posibles colecciones contenidas en el sistema servidor. Como ya se ha especificado
+anteriormente, la <em>url</em> de una colección se utiliza para efectuar consultas mediante el protocolo <em>OpenSearch</em>, pasando como
+parámetros las condiciones de la búsqueda.</p>
+<p>El servidor <em>iCMS</em> está encargado tanto de la publicación de los descriptores de búsqueda <em>OpenSearch</em>
+como de la capacidades de búsqueda de las colecciones.
+El descriptor de <em>OpenSearch</em> se encuentra bajo la <em>url</em> <tt class="docutils literal"><span class="pre">/icms/opensearch/</span></tt>, siendo
+identificados en última instancia por el nombre de la colección a la que pertenecen (por ejemplo
+<tt class="docutils literal"><span class="pre">/icms/opensearch/&lt;coleccion&gt;</span></tt>).</p>
+</div>
+<div class="section" id="informacion">
+<h2>Información<a class="headerlink" href="#informacion" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El descriptor tanto de las capacidades de búsqueda como las de operación de cada colección se encuentra en <tt class="docutils literal"><span class="pre">/icms/info/&lt;coleccion&gt;</span></tt>.</p>
+<div class="section" id="capacidades-de-operacion">
+<h3>Capacidades de Operación<a class="headerlink" href="#capacidades-de-operacion" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Cada colección podrá habilitar un subconjunto de todas las capacidades de operación permitidas.
+La siguiente tabla recoge el listado de las posibles capacidades de operación:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="94%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operador</th>
+<th class="head">Descripción</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>query</td>
+<td>Búsqueda</td>
+</tr>
+<tr class="row-odd"><td>edit</td>
+<td>Edición</td>
+</tr>
+<tr class="row-even"><td>delete</td>
+<td>Borrado</td>
+</tr>
+<tr class="row-odd"><td>subscribe</td>
+<td>Suscripción</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="suscripcion-y-notificacion">
+<h2>Suscripción y notificación<a class="headerlink" href="#suscripcion-y-notificacion" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="suscripcion-simple">
+<h3>Suscripción simple<a class="headerlink" href="#suscripcion-simple" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Suponiendo un cliente que quiere suscribirse a una colección determinada, el cliente realizará una
+petición <em>HTTP</em> a la dirección <tt class="docutils literal"><span class="pre">/icms/subscribe/&lt;identificador</span> <span class="pre">de</span> <span class="pre">colección&gt;</span></tt>, pasando como
+argumento de la petición una dirección de callback (utilizando el parámetro <em>url</em>) en la cual
+desea recibir las notificaciones del servidor.</p>
+<p>Es necesario pues, que el sistema que se suscribe tenga disponible un servicio al que le llegarán
+los mensajes que envía el servidor <em>iCMS</em> con cada cambio en la colección. El formato de estos
+mensajes es una petición <em>HTTP POST</em> que incluye, descrito mediante un <em>xml Atom</em>, un enlace al recurso
+que describe el cambio:</p>
+<div class="highlight-python"><pre>POST / HTTP/1.1
+Content-Type: application/atom+xml
+User-Agent: Jakarta Commons-HttpClient/3.1
+Host: localhost:3333
+Content-Length: 316
+
+&lt;entry xmlns="http://www.w3.org/2005/Atom"&gt;
+  &lt;id&gt;http://192.168.10.101:9991/icms/id/exampleIcmsCollection/ID1254818358233&lt;/id&gt;
+  &lt;updated&gt;Tue Oct 06 10:39:18 CEST 2009&lt;/updated&gt;
+  &lt;link rel="alternate" type="application/rdf+xml"
+    href="http://192.168.10.101:9991/icms/id/exampleIcmsCollection/ID1254818358233"/&gt;
+&lt;/entry&gt;</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">El contenido de la notificación no es el cambio en sí, sino el enlace al recurso que ha sido
+modificado, siendo responsabilidad del sistema notificado la petición posterior del mismo.</p>
+</div>
+</div>
+<div class="section" id="suscripcion-con-condiciones">
+<h3>Suscripción con condiciones<a class="headerlink" href="#suscripcion-con-condiciones" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Una funcionalidad interesante del sistema de suscripción y notificación de la <em>Interfaz de
+Interoperabilidad</em> es la posibilidad de definir un conjunto de condiciones asociadas. De esta
+manera, el servidor sólo manda avisos de notificación de cambios en los contenidos si se cumplen una
+serie de requisitos en el recurso correspondiente al cambio.</p>
+<p>Las condiciones se especifican como un parámetro más en la petición <em>HTTP</em> de suscripción. Por
+ejemplo, para recibir notificaciones de la colección <tt class="docutils literal"><span class="pre">ejemplo</span></tt> sólo si se cumplen ciertas
+condiciones referentes a los metadatos <tt class="docutils literal"><span class="pre">dc:subject</span></tt> y <tt class="docutils literal"><span class="pre">dc:creator</span></tt> del recurso, se realizaría una
+petición similar a</p>
+<div class="highlight-python"><pre>"http://www.juntadeandalucia.es/icms/susbcribe/ejemplo?
+  conditions=dc:subject=noticia;dc:creator=usuario&amp;url=http://10.0.0.2:3000"</pre>
+</div>
+</div>
+<div class="section" id="cancelar-una-suscripcion">
+<h3>Cancelar una suscripción<a class="headerlink" href="#cancelar-una-suscripcion" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Para cancelar una suscripción, se manda una petición <em>HTTP</em> a la <em>url</em> <tt class="docutils literal"><span class="pre">/icms/unsubscribe/&lt;identificador</span>
+<span class="pre">de</span> <span class="pre">la</span> <span class="pre">colección&gt;</span></tt> incluyendo, al igual que en el caso de la suscripción, la <em>url</em> destino de las
+notificaciones como parámetro. En el caso de que queramos cancelar una suscripción con condiciones
+se añadirá las condiciones para las cuales se ha suscrito, similar al proceso de suscripción con
+condiciones.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-icms.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Interfaz <em>HTTP</em></a><ul>
+<li><a class="reference internal" href="#busqueda">Búsqueda</a></li>
+<li><a class="reference internal" href="#informacion">Información</a><ul>
+<li><a class="reference internal" href="#capacidades-de-operacion">Capacidades de Operación</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#suscripcion-y-notificacion">Suscripción y notificación</a><ul>
+<li><a class="reference internal" href="#suscripcion-simple">Suscripción simple</a></li>
+<li><a class="reference internal" href="#suscripcion-con-condiciones">Suscripción con condiciones</a></li>
+<li><a class="reference internal" href="#cancelar-una-suscripcion">Cancelar una suscripción</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="arranque.html"
+                        title="Capítulo anterior">Uso del servidor</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="soap.html"
+                        title="Próximo capítulo">Interfaz <em>SOAP</em></a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/ejecucion/http.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un módulo, clase o nombre de función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="soap.html" title="Interfaz SOAP"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="arranque.html" title="Uso del servidor"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Ejecución y uso</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+=====================
+ Descarga del código
+=====================
+
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+Se puede descargar el servidor iCMS desde la página del repositorio de software libre de la Junta de
+Andalucía o desde el mismo repositorio *Subversion* en que se encuentra.
+
+Descarga desde el repositorio web
+=================================
+
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+La Interfaz de Interoperabilidad iCMS cuenta con una `ficha de proyecto
+<http://www.juntadeandalucia.es/repositorio/usuario/listado/fichacompleta.jsf?idProyecto=736>`_ en
+el repositorio de software libre de la Junta de Andalucía.
+
+Dentro del apartado de descarga se puede obtener un fichero comprimido por cada versión liberada
+del proyecto y los subproyectos. En concreto, para instalar el servidor iCMS hay que descargar la
+versión más reciente de ``icms-server.zip``.
+
+Para terminar la instalación sólo es necesario descomprimir el archivo comprimido en una carpeta del
+disco duro ::
+
+  unzip icms-server.zip
+

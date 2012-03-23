@@ -1,0 +1,156 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuración de Apache Solr &mdash; Interfaz de Interoperabilidad iCMS 1.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS 1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuración" href="index.html" />
+    <link rel="next" title="Sintaxis" href="sintaxis.html" />
+    <link rel="prev" title="Configuración del sistema de caché" href="cache.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="sintaxis.html" title="Sintaxis"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="cache.html" title="Configuración del sistema de caché"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Configuración</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="configuracion-de-apache-solr">
+<span id="configuracion-solr"></span><h1>Configuración de Apache Solr<a class="headerlink" href="#configuracion-de-apache-solr" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Desde la versión 1.3.0, los servidores <em>iCMS</em> integran al servidor de búsqueda
+<a class="reference external" href="http://lucene.apache.org/solr">Apache Solr</a> para mejorar la eficiencia en las
+consultas a colecciones y minimizar el impacto en los <em>backends</em>.</p>
+<p>Para hacer uso del mismo, es necesario definir las variables <tt class="docutils literal"><span class="pre">solr.solr.home</span></tt>
+y <tt class="docutils literal"><span class="pre">icms.solr.war</span></tt> antes de arrancar el servidor <em>iCMS</em>. Ambas variables se
+definen en el fichero de control del servidor <tt class="docutils literal"><span class="pre">ctlscript.sh</span></tt>.</p>
+<dl class="docutils">
+<dt><strong>solr.solr.home</strong></dt>
+<dd>Define la carpeta en la que es posible encontrar la estructura de directorios
+que Apache Solr necesita para funcionar.
+Por defecto: <tt class="docutils literal"><span class="pre">$ICMS_HOME/solr</span></tt></dd>
+<dt><strong>icms.solr.war</strong></dt>
+<dd>Define la ruta en donde es posible encontrar el fichero <em>WAR</em> de Apache Solr.
+Por defecto: <tt class="docutils literal"><span class="pre">$ICMS_HOME/lib</span></tt></dd>
+</dl>
+<p>La versión 1.3.0 de iCMS es compatible con Apache Solr 3.5.0. Dicha versión de Solr
+se encuentra incluida en el código del servidor, en la carpeta
+<tt class="docutils literal"><span class="pre">src/main/resources</span></tt>. La distribución original se puede descargar desde
+<a class="reference external" href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">http://www.apache.org/dyn/closer.cgi/lucene/solr/</a></p>
+<p>Se detallan a continuación los pasos a realizar para la configuración de Solr:</p>
+<ol class="arabic">
+<li><p class="first">Copiar el fichero solr.war a la carpeta definida anteriormente (/opt/icms/
+por ejemplo):</p>
+<p>cp src/main/resources/solr.war /opt/icms/lib</p>
+</li>
+<li><p class="first">Crear la estructura de directorios de Solr:</p>
+<p>cd /opt/icms/solr
+mkdir bin lib conf data</p>
+</li>
+<li><p class="first">Copiar los ficheros de configuración de Solr:</p>
+<p>cp src/main/resources/schema.xml src/main/resources/solrconfig.xml
+/opt/icms/solr/conf</p>
+</li>
+<li><p class="first">Modificar el fichero <tt class="docutils literal"><span class="pre">ctlscript.sh</span></tt> y configurar las variables descritas
+anteriormente.</p>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-icms.png" alt="Logo"/>
+            </a></p>
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="cache.html"
+                        title="Capítulo anterior">Configuración del sistema de caché</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="sintaxis.html"
+                        title="Próximo capítulo">Sintaxis</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configuracion/solr.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un módulo, clase o nombre de función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="sintaxis.html" title="Sintaxis"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="cache.html" title="Configuración del sistema de caché"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Configuración</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

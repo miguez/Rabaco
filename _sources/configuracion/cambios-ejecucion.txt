@@ -1,0 +1,52 @@
+.. _cambios-ejecucion:
+
+===================================================
+ Cambios en la configuración en tiempo de ejecución
+===================================================
+
+Una de las características del servidor *iCMS* es que permite monitorizar (a partir de
+la versión 2.0.0) los ficheros de configuración, de tal manera que cualquier
+cambio que se realice a los mismos supondrá una recarga de las opciones de
+configuración en tiempo real, evitando así reinicios del servidor y minimizando
+el tiempo de inactividad del servicio.
+
+La monitorización de configuración viene deshabilitada por defecto. Para
+habilitarla, sólo hay que modificar el fichero ``icms-config.properties``
+para que contenga la siguiente línea::
+
+  monitor_configuration = true
+
+Los ficheros que se monitorizan son los siguientes:
+
+**Fichero de configuración general (icms-config.properties)**
+  Fichero de configuración general de iCMS. Las únicas opciones que se pueden
+  modificar son las que se encuentran contenidas dentro de ``icms_client``.
+
+**Fichero de configuración de colección (icms-*.properties)**
+  Con respecto a los ficheros de configuración de las colecciones, es posible
+  modificar cualquier dato de las mismas, incluyendo cambios en tiempo real en
+  los nombres de los metadatos o la configuración de los mismos. 
+
+**Fichero de scripts (icms-scripts.properties)**
+  Es posible añadir o eliminar scripts en tiempo de ejecución. Habrá que tener
+  en cuenta que sólo los scripts de tipo ``EventScript`` tienen sentido, ya que
+  los ``InitScript`` se ejecutan siempre con el arranque del servicio.
+
+**Ficheros de suscripciones (subscriptions/*.properties)**
+  Los ficheros que se encuentran en la carpeta de subscripciones (por defecto 
+  ``subscriptions``, aunque se puede cambiar en la :ref:`configuración de directorios 
+  <configuración-estructura-directorios>`) indican las suscripciones a la colección 
+  indicada en el mismo nombre del fichero. Dichos ficheros se pueden modificar también en 
+  tiempo real, añadiendo o eliminando suscripciones. Cada línea de estos ficheros 
+  indica una suscripción, con el siguiente formato ::
+
+    url_de_callback = condiciones
+
+  El siguiente ejemplo muestra una suscripción sin condiciones, con url de
+  callback http://192.168.10.77:4000 ::
+
+    #Subscriptions for collection node_test
+    #Wed Aug 17 12:40:20 CEST 2011
+
+    http\://192.168.10.77\:4000=
+

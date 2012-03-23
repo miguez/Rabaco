@@ -1,0 +1,447 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuración del sistema de caché &mdash; Interfaz de Interoperabilidad iCMS 1.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS 1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuración" href="index.html" />
+    <link rel="next" title="Configuración de Apache Solr" href="solr.html" />
+    <link rel="prev" title="Configuración de Jetty" href="jetty.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="solr.html" title="Configuración de Apache Solr"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="jetty.html" title="Configuración de Jetty"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Configuración</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="configuracion-del-sistema-de-cache">
+<span id="configuracion-cache"></span><h1>Configuración del sistema de caché<a class="headerlink" href="#configuracion-del-sistema-de-cache" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El sistema de caché del servidor de referencia <em>iCMS</em> se basa en las soluciones de código abierto
+<a class="reference external" href="http://ehcache.org">Ehcache</a> y <a class="reference external" href="http://www.terracotta.org">Terracotta</a>.</p>
+<p>Mediante la integración con estas aplicaciones/librerías es posible obtener un sistema de caché muy
+configurable, adaptable a múltiples situaciones y topologías.</p>
+<p>Toda la configuración reside en el fichero <tt class="docutils literal"><span class="pre">ehcache.xml</span></tt>, que se debe encontrar en el mismo
+directorio que el resto de ficheros de configuración de tipo <tt class="docutils literal"><span class="pre">properties</span></tt>. La sintaxis del fichero
+<tt class="docutils literal"><span class="pre">ehcache.xml</span></tt> se describe en <a class="reference external" href="http://ehcache.org/documentation/index.html">la documentación oficial de Ehcache</a>. Se incluyen a continuación ejemplos
+concretos de implementación para los casos más habituales relacionados con <em>iCMS</em>:</p>
+<p>La configuración debe incluir las siguientes cachés:</p>
+<ul class="simple">
+<li>icms_requests</li>
+<li>icms_subscriptions</li>
+</ul>
+<p>Se recomienda mirar los ficheros de ejemplo que aparecen a continuación en caso de duda acerca de
+cómo realizar este paso.</p>
+<div class="section" id="cache-no-distribuida">
+<h2>Caché no distribuida<a class="headerlink" href="#cache-no-distribuida" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Es el caso más simple, no válido para situaciones en que se requiere una configuración en activo-pasivo
+o con balanceo de carga. Se usará prácticamente de forma única en instalaciones de un solo nodo:</p>
+<p><em>ehcache.xml</em></p>
+<div class="highlight-python"><pre>&lt;ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd"&gt;
+
+	&lt;diskStore path="/home/antonio/icms/next/cache"/&gt;
+	&lt;defaultCache
+		maxElementsInMemory="1000"
+		maxElementsOnDisk="10000000"
+		eternal="true"
+		overflowToDisk="true"
+		diskPersistent="true"
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU"&gt;
+	&lt;/defaultCache&gt;
+
+	&lt;cache name="icms_requests" /&gt;
+	&lt;cache name="icms_subscriptions" /&gt;
+
+&lt;/ehcache&gt;
+</pre>
+</div>
+</div>
+<div class="section" id="cache-replicada">
+<h2>Caché replicada<a class="headerlink" href="#cache-replicada" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>En instalaciones de múltiples nodos existen dos modos principales de operación. El modo que nos
+ocupa en este apartado mantiene una sincronización entre las cachés de todos los servidores de un
+mismo segmento de red, con capacidades de autodescubrimiento. Este modo es ligeramente menos
+eficiente que el caso en que se usa Terracotta Server Array, ya que según la <a class="reference external" href="http://ehcache.org/documentation/cache_topologies.html#Potential_Issues_with_Replicated_Caching">documentación oficial</a>
+puede presentar problemas de sincronismo. Al utilizar el modo síncrono en lugar del asíncrono y,
+teniendo en cuenta las necesidades del servicio, se presenta como una opción válida y más sencilla
+de instalar que el último caso.</p>
+<p>El fichero de configuración que se incluye a continuación tiene habilitado el
+autodescubrimiento de los nodos de la caché, siendo requisito que todas las
+máquinas que funcionan como servidor <em>iCMS</em> se localicen en el mismo segmento
+de red. Es posible especificar en más detalle la configuración de los nodos
+realizando unos simples cambios, presentes en el segundo ejemplo. En él, se
+añade el parámetro <tt class="docutils literal"><span class="pre">rmiUrls</span></tt> a las propiedades del
+<tt class="docutils literal"><span class="pre">cacheManagerPeerProviderFactory</span></tt>. En él se tienen que incluir las rutas
+a todas las cachés compartidas.</p>
+<p>En caso de dudas, se recomienda seguir el manual oficial de <em>Ehcache</em>, enlazado
+al principio de esta página.</p>
+<p><em>Descubrimiento automático</em></p>
+<div class="highlight-python"><pre>&lt;ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd"&gt;
+
+	&lt;diskStore path="/home/antonio/icms/next/cache" /&gt;
+
+	&lt;cacheManagerPeerProviderFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+		properties="peerDiscovery=automatic, multicastGroupAddress=230.0.0.1, multicastGroupPort=4446, timeToLive=1"/&gt;
+
+	&lt;cacheManagerPeerListenerFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+		properties="hostName=${icms.cache.hostName}, port=40001, socketTimeoutMillis=2000" /&gt;
+
+	&lt;defaultCache
+		maxElementsInMemory="1000"
+		maxElementsOnDisk="10000000"
+		eternal="true"
+		overflowToDisk="true"
+		diskPersistent="true"
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU" &gt;
+	&lt;/defaultCache&gt;
+
+	&lt;cache name="icms_subscriptions"&gt;
+		&lt;cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=false, replicatePuts=true,
+			replicateUpdates=true, replicateUpdatesViaCopy=true,
+			replicateRemovals=true" /&gt;
+	&lt;/cache&gt;
+	&lt;cache name="icms_requests"&gt;
+		&lt;cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=false, replicatePuts=true,
+			replicateUpdates=true, replicateUpdatesViaCopy=true,
+			replicateRemovals=true" /&gt;
+	&lt;/cache&gt;
+&lt;/ehcache&gt;
+</pre>
+</div>
+<p><em>Descubrimiento manual</em></p>
+<div class="highlight-python"><pre>&lt;ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd"&gt;
+
+	&lt;diskStore path="/home/antonio/icms/next/cache" /&gt;
+
+	&lt;cacheManagerPeerProviderFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+		properties="peerDiscovery=manual, rmiUrls=//192.168.1.2/icms_subscriptions|//192.168.1.2/icms_requests|//192.168.1.3/icms_subscriptions|//192.168.1.3/icms_requests"/&gt;
+
+	&lt;cacheManagerPeerListenerFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+		properties="hostName=${icms.cache.hostName}, port=40001, socketTimeoutMillis=2000" /&gt;
+
+	&lt;defaultCache
+		maxElementsInMemory="1000"
+		maxElementsOnDisk="10000000"
+		eternal="true"
+		overflowToDisk="true"
+		diskPersistent="true"
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU" &gt;
+	&lt;/defaultCache&gt;
+
+	&lt;cache name="icms_subscriptions"&gt;
+		&lt;cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=false, replicatePuts=true,
+			replicateUpdates=true, replicateUpdatesViaCopy=true,
+			replicateRemovals=true" /&gt;
+	&lt;/cache&gt;
+	&lt;cache name="icms_requests"&gt;
+		&lt;cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=false, replicatePuts=true,
+			replicateUpdates=true, replicateUpdatesViaCopy=true,
+			replicateRemovals=true" /&gt;
+	&lt;/cache&gt;
+&lt;/ehcache&gt;
+</pre>
+</div>
+</div>
+<div class="section" id="cache-distribuida-con-terracotta">
+<h2>Caché distribuida con Terracotta<a class="headerlink" href="#cache-distribuida-con-terracotta" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El último ejemplo de los presentados es el más complejo, ya que requiere la instalación y configuración
+previa de un cluster de servidores Terracotta en modo activo/pasivo.</p>
+<p>La instalación no es para nada complicada, los pasos a seguir serían los siguientes:</p>
+<ul class="simple">
+<li>Descargar el <em>tarball</em> de Terracotta desde la página
+<a class="reference external" href="http://www.terracotta.org/dl/oss-download-catalog">http://www.terracotta.org/dl/oss-download-catalog</a></li>
+<li>Descomprimir en una carpeta, como por ejemplo <tt class="docutils literal"><span class="pre">/opt/terracotta</span></tt>, en cada una de las máquinas
+que vaya a actuar como nodo del cluster.</li>
+<li>Escribir el fichero de configuración <tt class="docutils literal"><span class="pre">tc-config.xml</span></tt> y copiarlo a cada uno de los nodos. Se
+incluye un ejemplo al final de este apartado. Simplemente habría que modificar las entradas de
+tipo <tt class="docutils literal"><span class="pre">server</span></tt>, adaptándolas a la topología indicada y añadiendo o eliminando entradas
+convenientemente.</li>
+<li>Arrancar los Terracotta mediante el comando <tt class="docutils literal"><span class="pre">./start-tc-server.sh</span></tt> de la carpeta <tt class="docutils literal"><span class="pre">bin</span></tt>,
+pasando como parámetros el fichero de configuración y el nombre del nodo que se está
+instanciando. Por ejemplo:
+<tt class="docutils literal"><span class="pre">./start-tc-server.sh</span> <span class="pre">-f</span> <span class="pre">/home/antonio/icms/next/data/tc-config.xml</span> <span class="pre">-n</span> <span class="pre">asantos</span></tt></li>
+</ul>
+<p>Se puede encontrar la referencia del fichero de configuración en la <a class="reference external" href="http://www.terracotta.org/documentation/product-documentation">documentación de Terracotta</a>.</p>
+<p>Una vez que los servidores de Terracotta están encendidos, es posible comprobar su estado y
+estadísticas utilizando la consola de Terracotta, ejecutando <tt class="docutils literal"><span class="pre">./dev-console.sh</span></tt> dentro de la
+carpeta <tt class="docutils literal"><span class="pre">bin</span></tt>.</p>
+<p>Por último, los servidores <em>iCMS</em> deben ser capaces de acceder al fichero <tt class="docutils literal"><span class="pre">tc-config.xml</span></tt> para
+conectar con los servidores Terracotta. La manera más sencilla es copiar dicho fichero a la carpeta
+de instalación de <em>iCMS</em> y hacer referencia a él desde <tt class="docutils literal"><span class="pre">ehcache.xml</span></tt>. Se incluyen a continuación
+ejemplos de los ficheros <tt class="docutils literal"><span class="pre">ehcache.xml</span></tt> y <tt class="docutils literal"><span class="pre">tc-config.xml</span></tt> necesarios para que funcione esta
+configuración.</p>
+<p><em>ehcache.xml</em></p>
+<div class="highlight-python"><pre>&lt;ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd"&gt;
+
+	&lt;diskStore path="/home/antonio/icms/next/cache"/&gt;
+	&lt;terracottaConfig url="/home/antonio/icms/next/data/tc-config.xml" rejoin="true"/&gt;
+	&lt;defaultCache
+		maxElementsInMemory="1000"
+		maxElementsOnDisk="10000000"
+		eternal="true"
+		overflowToDisk="false"
+		diskPersistent="false"
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU"&gt;
+		&lt;terracotta&gt;
+			&lt;nonstop immediateTimeout="false" timeoutMillis="30000"&gt;
+				&lt;timeoutBehavior type="localReads" /&gt;
+			&lt;/nonstop&gt;
+		&lt;/terracotta&gt;
+	&lt;/defaultCache&gt;
+
+	&lt;cache name="icms_requests"
+		maxElementsInMemory="1000"
+		maxElementsOnDisk="10000000"
+		eternal="true"
+		overflowToDisk="false"
+		diskPersistent="false"
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU"&gt;
+		&lt;terracotta&gt;
+			&lt;nonstop immediateTimeout="false" timeoutMillis="30000"&gt;
+				&lt;timeoutBehavior type="localReads" /&gt;
+			&lt;/nonstop&gt;
+		&lt;/terracotta&gt;
+	&lt;/cache&gt;
+	&lt;cache name="icms_subscriptions"
+		maxElementsInMemory="1000"
+		maxElementsOnDisk="10000000"
+		eternal="true"
+		overflowToDisk="false"
+		diskPersistent="false"
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU"&gt;
+		&lt;terracotta&gt;
+			&lt;nonstop immediateTimeout="false" timeoutMillis="30000"&gt;
+				&lt;timeoutBehavior type="localReads" /&gt;
+			&lt;/nonstop&gt;
+		&lt;/terracotta&gt;
+	&lt;/cache&gt;
+&lt;/ehcache&gt;
+</pre>
+</div>
+<p><em>tc-config.xml</em></p>
+<div class="highlight-python"><pre>&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;tc:tc-config xmlns:tc="http://www.terracotta.org/config"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.terracotta.org/schema/terracotta-6.xsd"&gt;
+
+	&lt;tc-properties&gt;
+		&lt;property name="l2.nha.dirtydb.autoDelete" value="true"/&gt;
+		&lt;property name="l2.nha.tcgroupcomm.reconnect.enabled" value="true"/&gt;
+		&lt;property name="l2.nha.tcgroupcomm.reconnect.timeout" value="5000"/&gt;
+		&lt;property name="l1.cachemanager.enabled" value="true"/&gt;
+		&lt;property name="logging.maxLogFileSize" value="1024"/&gt;
+		&lt;property name="l2.l1reconnect.enabled" value="true" /&gt;
+		&lt;property name="l2.l1reconnect.timeout.millis" value="5000"/&gt;
+		&lt;property name="l2.healthcheck.l2.ping.idletime" value="5000" /&gt;
+		&lt;property name="l2.healthCheck.l2.ping.interval" value="1000" /&gt;
+		&lt;property name="l2.healthCheck.l2.ping.probes" value="3" /&gt;
+		&lt;property name="l2.healthCheck.l2.socketConnect" value="true" /&gt;
+		&lt;property name="l2.healthCheck.l2.socketConnectCount" value="5" /&gt;
+		&lt;property name="l1.healthCheck.l2.ping.idletime" value="5000" /&gt;
+		&lt;property name="l1.healthCheck.l2.ping.interval" value="1000" /&gt;
+		&lt;property name="l1.healthCheck.l2.ping.probes" value="3" /&gt;
+		&lt;property name="l1.healthCheck.l2.socketConnect" value="true" /&gt;
+		&lt;property name="l1.healthCheck.l2.socketConnectCount" value="8" /&gt;
+		&lt;property name="l2.healthCheck.l1.ping.idletime" value="5000" /&gt;
+		&lt;property name="l2.healthCheck.l1.ping.interval" value="1000" /&gt;
+		&lt;property name="l2.healthCheck.l1.ping.probes" value="3" /&gt;
+		&lt;property name="l2.healthCheck.l1.socketConnect" value="true" /&gt;
+		&lt;property name="l2.healthCheck.l1.socketConnectCount" value="5" /&gt;
+		&lt;property name="l1.max.connect.retries" value="-1" /&gt;
+		&lt;property name="l1.socket.connect.timeout" value="3000" /&gt;
+		&lt;property name="l1.socket.reconnect.waitInterval" value="1000" /&gt;
+	&lt;/tc-properties&gt;
+
+	&lt;system&gt;
+		&lt;configuration-model&gt;development&lt;/configuration-model&gt;
+	&lt;/system&gt;
+	&lt;servers&gt;
+		&lt;server host="192.168.10.77" bind="192.168.10.77" name="asantos"&gt;
+			&lt;data&gt;/home/antonio/icms/next/terracotta/server-data&lt;/data&gt;
+			&lt;logs&gt;/home/antonio/icms/next/terracotta/server-logs&lt;/logs&gt;
+			&lt;index&gt;/home/antonio/icms/next/terracotta/server-index&lt;/index&gt;
+			&lt;statistics&gt;/home/antonio/icms/next/terracotta/server-statistics&lt;/statistics&gt;
+			&lt;dso-port&gt;9510&lt;/dso-port&gt;
+			&lt;jmx-port&gt;9520&lt;/jmx-port&gt;
+			&lt;l2-group-port&gt;9530&lt;/l2-group-port&gt;
+			&lt;dso&gt;
+				&lt;client-reconnect-window&gt;120&lt;/client-reconnect-window&gt;
+				&lt;persistence&gt;
+					&lt;mode&gt;permanent-store&lt;/mode&gt;
+				&lt;/persistence&gt;
+				&lt;garbage-collection&gt;
+					&lt;enabled&gt;true&lt;/enabled&gt;
+					&lt;verbose&gt;false&lt;/verbose&gt;
+					&lt;interval&gt;3600&lt;/interval&gt;
+				&lt;/garbage-collection&gt;
+			&lt;/dso&gt;
+		&lt;/server&gt;
+		&lt;server host="192.168.10.74" bind="192.168.10.74" name="jcasas"&gt;
+			&lt;data&gt;/home/antonio/icms/next/terracotta/server-data&lt;/data&gt;
+			&lt;logs&gt;/home/antonio/icms/next/terracotta/server-logs&lt;/logs&gt;
+			&lt;index&gt;/home/antonio/icms/next/terracotta/server-index&lt;/index&gt;
+			&lt;statistics&gt;/home/antonio/icms/next/terracotta/server-statistics&lt;/statistics&gt;
+			&lt;dso-port&gt;9510&lt;/dso-port&gt;
+			&lt;jmx-port&gt;9520&lt;/jmx-port&gt;
+			&lt;l2-group-port&gt;9530&lt;/l2-group-port&gt;
+			&lt;authentication/&gt;
+			&lt;dso&gt;
+				&lt;client-reconnect-window&gt;60&lt;/client-reconnect-window&gt;
+				&lt;persistence&gt;
+					&lt;mode&gt;permanent-store&lt;/mode&gt;
+				&lt;/persistence&gt;
+				&lt;garbage-collection&gt;
+					&lt;enabled&gt;true&lt;/enabled&gt;
+					&lt;verbose&gt;false&lt;/verbose&gt;
+					&lt;interval&gt;3600&lt;/interval&gt;
+				&lt;/garbage-collection&gt;
+			&lt;/dso&gt;
+		&lt;/server&gt;
+
+		&lt;mirror-groups&gt;
+		&lt;/mirror-groups&gt;
+
+		&lt;ha&gt;
+			&lt;mode&gt;networked-active-passive&lt;/mode&gt;
+			&lt;networked-active-passive&gt;
+				&lt;election-time&gt;10&lt;/election-time&gt;
+			&lt;/networked-active-passive&gt;
+		&lt;/ha&gt;
+	&lt;/servers&gt;
+
+	&lt;clients&gt;
+		&lt;logs&gt;logs-%i&lt;/logs&gt;
+	&lt;/clients&gt;
+
+&lt;/tc:tc-config&gt;
+</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-icms.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Configuración del sistema de caché</a><ul>
+<li><a class="reference internal" href="#cache-no-distribuida">Caché no distribuida</a></li>
+<li><a class="reference internal" href="#cache-replicada">Caché replicada</a></li>
+<li><a class="reference internal" href="#cache-distribuida-con-terracotta">Caché distribuida con Terracotta</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="jetty.html"
+                        title="Capítulo anterior">Configuración de Jetty</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="solr.html"
+                        title="Próximo capítulo">Configuración de Apache Solr</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configuracion/cache.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un módulo, clase o nombre de función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="solr.html" title="Configuración de Apache Solr"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="jetty.html" title="Configuración de Jetty"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Configuración</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

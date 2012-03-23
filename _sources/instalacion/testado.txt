@@ -1,0 +1,21 @@
+==================
+Batería de pruebas
+==================
+
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+El proyecto *icms-server* cuenta con una amplia batería de pruebas que comprueba y garantiza la
+funcionalidad del sistema. Estos tests están basados en la conocida librería de testeo JUnit_,
+por lo que pueden ser lanzados utilizando la herramienta de línea de comandos `Apache Maven`_. Para ello, basta
+con escribir desde el directorio raíz del proyecto ``icms-server`` el siguiente comando ::
+
+ mvn test
+
+.. _JUnit: http://www.junit.org
+.. _Apache Maven: http://maven.apache.org
+
+Es posible de igual manera la ejecución de la batería de tests desde un entorno de desarrollo como
+Eclipse_ o Netbeans_.
+
+.. _Eclipse: http://www.eclipse.org
+.. _Netbeans: http://www.netbeans.org

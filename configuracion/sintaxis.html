@@ -1,0 +1,138 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Sintaxis &mdash; Interfaz de Interoperabilidad iCMS 1.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS 1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuración" href="index.html" />
+    <link rel="next" title="Drivers" href="driver.html" />
+    <link rel="prev" title="Configuración de Apache Solr" href="solr.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="driver.html" title="Drivers"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="solr.html" title="Configuración de Apache Solr"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Configuración</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sintaxis">
+<span id="id1"></span><h1>Sintaxis<a class="headerlink" href="#sintaxis" title="Enlazar permanentemente con este título">¶</a></h1>
+<p><em>iCMS</em> utiliza para interpretar los ficheros de configuración los métodos proporcionados por la
+clase <a class="reference external" href="http://groovy.codehaus.org/ConfigSlurper">ConfigSlurper</a>, que permiten una sintaxis de configuración más potente que la de un fichero
+<em>properties</em> convencional.</p>
+<p>Las ventajas que tiene utilizar este tipo de configuración son varias:</p>
+<ul class="simple">
+<li>Estructura en árbol de las opciones de configuración, que aportan más claridad y organización.</li>
+<li>Posibilidad de tipar las opciones de configuración.</li>
+<li>La posibilidad de definir variables asociadas a un entorno determinado.</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
+<p class="last">Es necesario recordar definir los valores de tipo <em>String</em> utilizando comillas simples o dobles.</p>
+</div>
+<p>A continuación se incluye a modo de ejemplo un fichero de configuración:</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Es posible utilizar también una sintaxis más tradicional en lugar de la estructura en árbol,
+simplemente utilizando el caracter &#8216;.&#8217; como separador de niveles.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-icms.png" alt="Logo"/>
+            </a></p>
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="solr.html"
+                        title="Capítulo anterior">Configuración de Apache Solr</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="driver.html"
+                        title="Próximo capítulo">Drivers</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configuracion/sintaxis.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un módulo, clase o nombre de función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="driver.html" title="Drivers"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="solr.html" title="Configuración de Apache Solr"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Configuración</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

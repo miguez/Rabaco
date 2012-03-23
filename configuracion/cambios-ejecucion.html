@@ -1,0 +1,161 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cambios en la configuración en tiempo de ejecución &mdash; Interfaz de Interoperabilidad iCMS 1.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS 1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuración" href="index.html" />
+    <link rel="next" title="Ejecución y uso" href="../ejecucion/index.html" />
+    <link rel="prev" title="Definición de una nueva colección" href="coleccion.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../ejecucion/index.html" title="Ejecución y uso"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="coleccion.html" title="Definición de una nueva colección"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Configuración</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="cambios-en-la-configuracion-en-tiempo-de-ejecucion">
+<span id="cambios-ejecucion"></span><h1>Cambios en la configuración en tiempo de ejecución<a class="headerlink" href="#cambios-en-la-configuracion-en-tiempo-de-ejecucion" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Una de las características del servidor <em>iCMS</em> es que permite monitorizar (a partir de
+la versión 2.0.0) los ficheros de configuración, de tal manera que cualquier
+cambio que se realice a los mismos supondrá una recarga de las opciones de
+configuración en tiempo real, evitando así reinicios del servidor y minimizando
+el tiempo de inactividad del servicio.</p>
+<p>La monitorización de configuración viene deshabilitada por defecto. Para
+habilitarla, sólo hay que modificar el fichero <tt class="docutils literal"><span class="pre">icms-config.properties</span></tt>
+para que contenga la siguiente línea:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">monitor_configuration</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>Los ficheros que se monitorizan son los siguientes:</p>
+<dl class="docutils">
+<dt><strong>Fichero de configuración general (icms-config.properties)</strong></dt>
+<dd>Fichero de configuración general de iCMS. Las únicas opciones que se pueden
+modificar son las que se encuentran contenidas dentro de <tt class="docutils literal"><span class="pre">icms_client</span></tt>.</dd>
+<dt><strong>Fichero de configuración de colección (icms-*.properties)</strong></dt>
+<dd>Con respecto a los ficheros de configuración de las colecciones, es posible
+modificar cualquier dato de las mismas, incluyendo cambios en tiempo real en
+los nombres de los metadatos o la configuración de los mismos.</dd>
+<dt><strong>Fichero de scripts (icms-scripts.properties)</strong></dt>
+<dd>Es posible añadir o eliminar scripts en tiempo de ejecución. Habrá que tener
+en cuenta que sólo los scripts de tipo <tt class="docutils literal"><span class="pre">EventScript</span></tt> tienen sentido, ya que
+los <tt class="docutils literal"><span class="pre">InitScript</span></tt> se ejecutan siempre con el arranque del servicio.</dd>
+<dt><strong>Ficheros de suscripciones (subscriptions/*.properties)</strong></dt>
+<dd><p class="first">Los ficheros que se encuentran en la carpeta de subscripciones (por defecto
+<tt class="docutils literal"><span class="pre">subscriptions</span></tt>, aunque se puede cambiar en la <a class="reference internal" href="estructura-directorios.html#configuracion-estructura-directorios"><em>configuración de directorios</em></a>) indican las suscripciones a la colección
+indicada en el mismo nombre del fichero. Dichos ficheros se pueden modificar también en
+tiempo real, añadiendo o eliminando suscripciones. Cada línea de estos ficheros
+indica una suscripción, con el siguiente formato</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">url_de_callback</span> <span class="o">=</span> <span class="n">condiciones</span>
+</pre></div>
+</div>
+<p>El siguiente ejemplo muestra una suscripción sin condiciones, con url de
+callback <a class="reference external" href="http://192.168.10.77:4000">http://192.168.10.77:4000</a></p>
+<div class="last highlight-python"><pre>#Subscriptions for collection node_test
+#Wed Aug 17 12:40:20 CEST 2011
+
+http\://192.168.10.77\:4000=</pre>
+</div>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-icms.png" alt="Logo"/>
+            </a></p>
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="coleccion.html"
+                        title="Capítulo anterior">Definición de una nueva colección</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="../ejecucion/index.html"
+                        title="Próximo capítulo">Ejecución y uso</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configuracion/cambios-ejecucion.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un módulo, clase o nombre de función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../ejecucion/index.html" title="Ejecución y uso"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="coleccion.html" title="Definición de una nueva colección"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Configuración</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

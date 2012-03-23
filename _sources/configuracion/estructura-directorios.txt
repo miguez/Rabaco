@@ -1,0 +1,81 @@
+.. _configuración-estructura-directorios:
+
+===============================================
+ Configuración de la estructura de directorios
+===============================================
+.. sectionauthor:: Raúl Recacha Camacho <rrecacha@viavansi.com>
+
+Configuración por defecto
+=========================
+La estructura de directorios de iCMS es personalizable. No obstante, en caso de no 
+especificar nada en la configuración se tomará la estructura por defecto:
+
+**/cache**
+  Almacén de los archivos de la caché.
+
+**/conf**
+  Contiene los ficheros de configuración `icms-config.properties`, `icms-providers.properties`, 
+  `icms-scripts.properties`, `ehcache.xml`, `hazelcast.xml`, `logback.xml`. La localización de 
+  este directorio se indica en el script de arranque de `iCMS` mediante el parámetro 
+  ``$ICMS_CONF``.
+
+**/conf/collections**
+  Configuración de las colecciones (icms-nombrecoleccion.properties).
+
+**/lib**
+  Contendrá las librerías que usará el servidor, como por ejemplo los drivers (`icms-driver.jar`), 
+  el war de `Solr`, etc.
+  
+**/logs**
+  Directorio donde se almacenarán los logs que se generen.
+  
+**/notification**
+  Información sobre las notificaciones.
+
+**/scripts**
+  Ficheros de script.
+
+**/scripts/compile**
+  .class de los scripts.
+  
+**/solr**
+  Directorio donde se encontrará desplegado `Solr`.
+
+**/subscription**
+  Ficheros relacionados con las subscripciones.
+
+Personalizar la estructura de directorios
+=========================================
+Para personalizar los directorios de iCMS respecto a su configuración por defecto
+bastará con indicarlo en icms-config.properties en el apartado ``directory``. Por ejemplo,
+para cambiar el directorio donde se guardan los .jar de los drivers, para que en vez de `lib`
+se llame `drivers` tendríamos que definirlo así en `icms-config.properties`::
+
+  directory {
+    plugins="drivers"
+  }
+
+Los directorios que se pueden configurar son:
+
+* **plugins** (por defecto `lib`)
+* **notification**
+* **subscription**
+* **cache**
+* **collections**
+* **scripts**
+* **compileScripts** (por defecto 'compile')
+
+Un ejemplo donde modificaríamos todos los directorios posibles sería::
+
+  directory {
+    plugins="my_lib"
+    notification="my_notification"
+    subscription="my_subscription"
+    cache="my_cache"
+    collections="my_conf_collections"
+    scripts="my_scripts"
+    compileScripts="my_scripts/compile"
+  }
+
+El directorio de configuración se establece en el script de arranque, 
+mediante el parámetro ``$ICMS_CONF``.

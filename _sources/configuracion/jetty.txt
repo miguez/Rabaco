@@ -1,0 +1,22 @@
+.. _configuración-jetty:
+
+=======================
+ Configuración de Jetty
+=======================
+
+Desde la versión 2.0.0, el servidor *iCMS* permite la configuración del servidor
+HTTP `Jetty <http://www.eclipse.org/jetty>`_ utilizando ficheros de
+configuración que siguen la sintaxis expuesta en `la documentación oficial
+<http://wiki.eclipse.org/Jetty/Reference/jetty.xml_syntax>`_.
+
+Para que el servidor *iCMS* tenga conocimiento de dichos ficheros es necesario
+incluir en el fichero de configuración ``icms-config.properties`` algo como la
+siguiente línea::
+
+  jetty_custom_files = [ "/home/antonio/icms/next/data/jetty.xml","/home/antonio/icms/next/data/jetty-connectors.xml" ]
+
+Se incluye un ejemplo de fichero de configuración de Jetty a continuación. Dicho
+fichero añade simplemente algunas opciones al servidor y un nuevo conector en
+el puerto 7777
+
+.. literalinclude:: /code/jetty.xml

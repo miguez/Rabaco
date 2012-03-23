@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuración de Jetty &mdash; Interfaz de Interoperabilidad iCMS 1.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS 1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuración" href="index.html" />
+    <link rel="next" title="Configuración del sistema de caché" href="cache.html" />
+    <link rel="prev" title="Configuración de la estructura de directorios" href="estructura-directorios.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="cache.html" title="Configuración del sistema de caché"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="estructura-directorios.html" title="Configuración de la estructura de directorios"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Configuración</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="configuracion-de-jetty">
+<span id="configuracion-jetty"></span><h1>Configuración de Jetty<a class="headerlink" href="#configuracion-de-jetty" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Desde la versión 2.0.0, el servidor <em>iCMS</em> permite la configuración del servidor
+HTTP <a class="reference external" href="http://www.eclipse.org/jetty">Jetty</a> utilizando ficheros de
+configuración que siguen la sintaxis expuesta en <a class="reference external" href="http://wiki.eclipse.org/Jetty/Reference/jetty.xml_syntax">la documentación oficial</a>.</p>
+<p>Para que el servidor <em>iCMS</em> tenga conocimiento de dichos ficheros es necesario
+incluir en el fichero de configuración <tt class="docutils literal"><span class="pre">icms-config.properties</span></tt> algo como la
+siguiente línea:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">jetty_custom_files</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&quot;/home/antonio/icms/next/data/jetty.xml&quot;</span><span class="p">,</span><span class="s">&quot;/home/antonio/icms/next/data/jetty-connectors.xml&quot;</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>Se incluye un ejemplo de fichero de configuración de Jetty a continuación. Dicho
+fichero añade simplemente algunas opciones al servidor y un nuevo conector en
+el puerto 7777</p>
+<div class="highlight-python"><pre>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;
+
+&lt;!-- =============================================================== --&gt;
+&lt;!-- Configure the Jetty Server                                      --&gt;
+&lt;!--                                                                 --&gt;
+&lt;!-- Documentation of this file format can be found at:              --&gt;
+&lt;!-- http://wiki.eclipse.org/Jetty/Reference/jetty.xml_syntax        --&gt;
+&lt;!--                                                                 --&gt;
+&lt;!-- Additional configuration files are available in $JETTY_HOME/etc --&gt;
+&lt;!-- and can be mixed in.  For example:                              --&gt;
+&lt;!--   java -jar start.jar etc/jetty-ssl.xml                         --&gt;
+&lt;!--                                                                 --&gt;
+&lt;!-- See start.ini file for the default configuraton files           --&gt;
+&lt;!-- =============================================================== --&gt;
+
+
+&lt;Configure id="server" class="org.eclipse.jetty.server.Server"&gt;
+
+    &lt;!-- =========================================================== --&gt;
+    &lt;!-- Server Thread Pool                                          --&gt;
+    &lt;!-- =========================================================== --&gt;
+    &lt;Set name="ThreadPool"&gt;
+      &lt;!-- Default queued blocking threadpool --&gt;
+      &lt;New class="org.eclipse.jetty.util.thread.QueuedThreadPool"&gt;
+        &lt;Set name="minThreads"&gt;10&lt;/Set&gt;
+        &lt;Set name="maxThreads"&gt;200&lt;/Set&gt;
+        &lt;Set name="detailedDump"&gt;false&lt;/Set&gt;
+      &lt;/New&gt;
+    &lt;/Set&gt;
+
+    &lt;!-- =========================================================== --&gt;
+    &lt;!-- Set connectors                                              --&gt;
+    &lt;!-- =========================================================== --&gt;
+
+    &lt;Call name="addConnector"&gt;
+      &lt;Arg&gt;
+          &lt;New id="customconnector" class="org.eclipse.jetty.server.nio.SelectChannelConnector"&gt;
+            &lt;Set name="host"&gt;0.0.0.0&lt;/Set&gt;
+            &lt;Set name="port"&gt;7777&lt;/Set&gt;
+            &lt;Set name="maxIdleTime"&gt;300000&lt;/Set&gt;
+            &lt;Set name="Acceptors"&gt;2&lt;/Set&gt;
+            &lt;Set name="statsOn"&gt;false&lt;/Set&gt;
+            &lt;Set name="confidentialPort"&gt;7443&lt;/Set&gt;
+            &lt;Set name="lowResourcesConnections"&gt;20000&lt;/Set&gt;
+            &lt;Set name="lowResourcesMaxIdleTime"&gt;5000&lt;/Set&gt;
+          &lt;/New&gt;
+      &lt;/Arg&gt;
+    &lt;/Call&gt;
+
+    &lt;!-- =========================================================== --&gt;
+    &lt;!-- extra options                                               --&gt;
+    &lt;!-- =========================================================== --&gt;
+    &lt;Set name="stopAtShutdown"&gt;true&lt;/Set&gt;
+    &lt;Set name="sendServerVersion"&gt;true&lt;/Set&gt;
+    &lt;Set name="sendDateHeader"&gt;true&lt;/Set&gt;
+    &lt;Set name="gracefulShutdown"&gt;1000&lt;/Set&gt;
+    &lt;Set name="dumpAfterStart"&gt;false&lt;/Set&gt;
+    &lt;Set name="dumpBeforeStop"&gt;false&lt;/Set&gt;
+
+&lt;/Configure&gt;
+</pre>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-icms.png" alt="Logo"/>
+            </a></p>
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="estructura-directorios.html"
+                        title="Capítulo anterior">Configuración de la estructura de directorios</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="cache.html"
+                        title="Próximo capítulo">Configuración del sistema de caché</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configuracion/jetty.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un módulo, clase o nombre de función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="cache.html" title="Configuración del sistema de caché"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="estructura-directorios.html" title="Configuración de la estructura de directorios"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Configuración</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

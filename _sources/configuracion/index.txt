@@ -1,0 +1,21 @@
+.. _configuración:
+
+===============
+ Configuración
+===============
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+.. sectionauthor:: Raúl Recacha Camacho <rrecacha@viavansi.com>
+
+.. toctree::
+
+   Ficheros de configuración <ficheros>
+   Configuración de la estructura de directorios <estructura-directorios>
+   Configuración del servidor Jetty <jetty>
+   Configuración de la caché <cache>
+   Configuración del servidor Apache Solr asociado <solr>
+   Sintaxis <sintaxis>
+   Añadir driver <driver>
+   Definir colección <coleccion>
+   Modificación de la configuración en tiempo de ejecución <cambios-ejecucion>
+
+.. Configuración del servicio en alta disponibilidad <alta-disponibilidad>

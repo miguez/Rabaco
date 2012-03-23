@@ -1,0 +1,47 @@
+.. _configuración-solr:
+
+=============================
+ Configuración de Apache Solr
+=============================
+
+Desde la versión 1.3.0, los servidores *iCMS* integran al servidor de búsqueda
+`Apache Solr <http://lucene.apache.org/solr>`_ para mejorar la eficiencia en las
+consultas a colecciones y minimizar el impacto en los *backends*.
+
+Para hacer uso del mismo, es necesario definir las variables ``solr.solr.home``
+y ``icms.solr.war`` antes de arrancar el servidor *iCMS*. Ambas variables se
+definen en el fichero de control del servidor ``ctlscript.sh``.
+
+**solr.solr.home**
+  Define la carpeta en la que es posible encontrar la estructura de directorios
+  que Apache Solr necesita para funcionar.
+  Por defecto: ``$ICMS_HOME/solr``
+
+**icms.solr.war**
+  Define la ruta en donde es posible encontrar el fichero *WAR* de Apache Solr.
+  Por defecto: ``$ICMS_HOME/lib``
+
+La versión 1.3.0 de iCMS es compatible con Apache Solr 3.5.0. Dicha versión de Solr
+se encuentra incluida en el código del servidor, en la carpeta
+``src/main/resources``. La distribución original se puede descargar desde
+http://www.apache.org/dyn/closer.cgi/lucene/solr/
+
+Se detallan a continuación los pasos a realizar para la configuración de Solr:
+
+1. Copiar el fichero solr.war a la carpeta definida anteriormente (/opt/icms/
+   por ejemplo)::
+
+   cp src/main/resources/solr.war /opt/icms/lib
+
+2. Crear la estructura de directorios de Solr::
+
+   cd /opt/icms/solr
+   mkdir bin lib conf data
+
+3. Copiar los ficheros de configuración de Solr::
+
+   cp src/main/resources/schema.xml src/main/resources/solrconfig.xml
+   /opt/icms/solr/conf
+
+4. Modificar el fichero ``ctlscript.sh`` y configurar las variables descritas
+   anteriormente.

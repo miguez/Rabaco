@@ -1,0 +1,138 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuración del servicio en alta disponibilidad &mdash; Interfaz de Interoperabilidad iCMS 1.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS 1.2.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="configuracion-del-servicio-en-alta-disponibilidad">
+<span id="alta-disponibilidad"></span><h1>Configuración del servicio en alta disponibilidad<a class="headerlink" href="#configuracion-del-servicio-en-alta-disponibilidad" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Es posible configurar un conjunto de servidores iCMS para que operen en modo distribuido,
+consiguiendo una mayor tolerancia a fallos y un incremento del tiempo de servicio. Para ello, sólo
+es necesario tener en cuenta una serie de detalles a la hora de realizar la configuración de los
+servidores, que son los siguientes:</p>
+<dl class="docutils">
+<dt><strong>Url de servicio única</strong></dt>
+<dd>Es necesario que todos los servidores identifiquen una <em>url</em> de operaciones común a todos ellos,
+que será probablemente la <em>url</em> del balanceador de carga.</dd>
+<dt><strong>Configuración común de colecciones y parámetros de ejecución</strong></dt>
+<dd>Los distintos servidores tienen que tener configuradas las mismas colecciones y los mismos
+parámetros de ejecución (por ejemplo, mismo número de elementos por página) para no incidir en
+inconsistencias en sucesivas peticiones (caché no válida, colecciones accesibles aleatoriamente).</dd>
+<dt><strong>Caché replicada o distribuida</strong></dt>
+<dd>El sistema de caché de <em>iCMS</em> se puede distribuir entre varias máquinas utilizando mecanismos de
+replicación o de distribución propios de la solución utilizada (Ehcache). Todos aquellos
+servidores que estén operando como un único nodo deberán tener una caché común para el intercambio
+de información (este sistema de caché se utiliza, además de para las operaciones habituales, como
+almacén de información distribuida acerca de suscripciones y estado de los servidores). En el
+apartado correspondiente a la <a class="reference internal" href="cache.html#configuracion-cache"><em>configuración de caché</em></a> se pueden encontrar ejemplos de configuración
+en los modos replicado y distribuido.</dd>
+<dt><strong>Carpetas de configuración y logs compartidas</strong></dt>
+<dd><p class="first">Para un correcto funcionamiento del servicio en alta disponibilidad, es
+requisito que se compartan a nivel de red una serie de carpetas de
+configuración y datos. Las mismas deben estar compartidas utilizando uno de
+los múltiples protocolos existentes para tal efecto (NFS, SSH, Samba, ...).
+El único requisito es que a efectos del servidor las carpetas montadas en
+red se comporten como si fueran locales.</p>
+<p>La carpeta de configuración
+obligatoriamente tiene que estar compartidas para un correcto funcionamiento
+del servicio en alta disponibilidad.</p>
+<p>La configuración de parámetros propios de cada nodo se realiza en el
+<a class="reference internal" href="../ejecucion/arranque.html#script-arranque"><em>script de arranque del servicio</em></a>, mediante la
+definición de una serie de variables de entorno al inicio del mismo.</p>
+<p class="last">Si se desea contar con un log único para todos los nodos de un sistema, será
+necesario compartir la carpeta <tt class="docutils literal"><span class="pre">logs</span></tt>, de tal manera que todos los nodos
+compartan el fichero.</p>
+</dd>
+</dl>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/alta-disponibilidad.jpg"><img alt="../_images/alta-disponibilidad.jpg" src="../_images/alta-disponibilidad.jpg" style="width: 768.0px; height: 576.0px;" /></a>
+<p class="caption">Configuración en alta disponibilidad</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-icms.png" alt="Logo"/>
+            </a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configuracion/alta-disponibilidad.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un módulo, clase o nombre de función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS 1.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>
