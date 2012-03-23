@@ -1,0 +1,14 @@
+.. _configuración:
+
+===============
+ Configuración
+===============
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+.. toctree::
+
+   Ficheros de configuración <ficheros>
+   Sintaxis <sintaxis>
+   Añadir driver <driver>
+   Definir colección <coleccion>
+

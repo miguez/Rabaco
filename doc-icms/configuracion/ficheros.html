@@ -1,0 +1,206 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Ficheros de configuración &mdash; Interfaz de Interoperabilidad iCMS v1.2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS v1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuración" href="index.html" />
+    <link rel="next" title="Sintaxis" href="sintaxis.html" />
+    <link rel="prev" title="Configuración" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="sintaxis.html" title="Sintaxis"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Configuración"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS v1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Configuración</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ficheros-de-configuracion">
+<span id="ficheros-configuracion"></span><h1>Ficheros de configuración<a class="headerlink" href="#ficheros-de-configuracion" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>La configuración del servicio se realiza a través de ficheros <em>properties</em> localizados en el
+<em>directorio base</em> del proyecto. Existen tres ficheros de configuración diferentes en la
+implementación de referencia:</p>
+<dl class="docutils">
+<dt><strong>icms-config.properties</strong></dt>
+<dd>Contiene toda la configuración relativa a la operación del servidor y del modo cliente.</dd>
+<dt><strong>icms-providers.properties</strong></dt>
+<dd>Contiene un listado de las colecciones que maneja el sevidor</dd>
+<dt><strong>icms-scripts.properties</strong></dt>
+<dd>Configuración relativa al <a class="reference internal" href="../caracteristicas/scripts.html#eventos"><em>sistema de eventos</em></a>.</dd>
+</dl>
+<p>La carga de las opciones de configuración se realiza de la siguiente manera: los paquetes <em>jar</em> de
+cliente y servidor incorporan un fichero con valores a utilizar por defecto, que se
+cargan al arrancar la aplicación (bien como librería o bien de forma independiente). A continuación
+se examina el directorio base y se cargan las propiedades de configuración que se encuentren allí
+(si es que las hay), sobreescribiendo los valores que se habían tomado por defecto.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">De esta manera, iCMS es una implementación completamente funcional sin una configuración previa.</p>
+</div>
+<p>Los ficheros de configuración son autoexplicativos, definiendo mediante comentarios la función de
+cada una de las opciones de configuración. Los ejemplos que se incluyen a continuación no
+representan las últimas versiones, disponibles en el repositorio de código.</p>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para activar el sistema de <em>logging</em> de <em>iCMS</em> es necesario que exista un fichero
+<tt class="docutils literal"><span class="pre">log4j.properties</span></tt> presente en la carpeta <tt class="docutils literal"><span class="pre">data</span></tt>. Se adjunta a modo de ejemplo el fichero de
+configuración de <em>log4j</em> que se incluye por defecto en el código del servicio <em>iCMS</em>.</p>
+<div class="highlight-python"><pre># -----------------------------------------------------
+# * Desarrollado por Viavansi Servicios Avanzados para las Instituciones S.L. (VIAVANSI) 2007
+# * Contacto: comercial@viavansi.com
+# * http://www.viavansi.com
+# *
+# *
+# *  Fichero de configuracion de logs de la aplicacion Oficina Virtual
+# *  
+# * --------------------------------------------------------------------------------
+
+
+#Configuración para desarrollo
+log4j.rootCategory=consolaSimple,fileLogger
+
+# log en fichero
+log4j.appender.fileLogger=org.apache.log4j.RollingFileAppender 
+log4j.appender.fileLogger.File=logs/icms.log 
+log4j.appender.fileLogger.MaxFileSize=5MB 
+log4j.appender.fileLogger.MaxBackupIndex=5 
+log4j.appender.fileLogger.layout=org.apache.log4j.PatternLayout 
+log4j.appender.fileLogger.layout.ConversionPattern=%p %t %c - %m%n
+log4j.appender.fileLogger.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c.%M(%L) - %m%n
+log4j.appender.fileLogger.Threshold=DEBUG
+
+# appender appConsola
+# Configuracion para utilizar un Appender de Consola
+log4j.appender.consolaSimple=org.apache.log4j.ConsoleAppender
+# Defino la capa PatternLayout para la consola
+log4j.appender.consolaSimple.layout=org.apache.log4j.PatternLayout
+log4j.appender.consolaSimple.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} - %m%n
+log4j.appender.consolaSimple.Threshold=INFO
+
+#Configuración de los paquetes con permiso para escribir en consola
+log4j.logger=ERROR,consolaSimple
+log4j.logger.es.juntadeandalucia.icms.util.ICMSUtil=INFO,consolaSimple
+
+log4j.logger.es.juntadeandalucia.icms.TestUtil=INFO,consolaSimple
+log4j.logger.es.juntadeandalucia.icms.TestUtil=DEBUG,fileLogger
+
+#log4j.logger.es.juntadeandalucia.icms=DEBUG,fileLogger
+#Nivel de log por paquetes y proyectos
+log4j.logger.com.viavansi.framework=INFO,fileLogger
+log4j.logger.org.apache.commons=WARN,fileLogger
+log4j.logger.httpclient.wire=WARN,fileLogger
+log4j.logger.org.mortbay=INFO,fileLogger
+log4j.logger.com.hp.hpl.jena=INFO,fileLogger
+log4j.logger.org.mortbay.log=WARN,fileLogger
+log4j.logger.es.juntadeandalucia.icms.util.ConfigurationUtil=INFO,fileLogger
+
+#Oculta posibles problemas en la ontología de ejemplo.
+log4j.logger.com.hp.hpl.jena.ontology.OntDocumentManager=ERROR,fileLogger
+log4j.logger.org.apache=INFO,fileLogger
+
+
+</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Ficheros de configuración</a><ul>
+<li><a class="reference internal" href="#logging">Logging</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="index.html"
+                        title="Capítulo anterior">Configuración</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="sintaxis.html"
+                        title="Próximo capítulo">Sintaxis</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configuracion/ficheros.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="sintaxis.html" title="Sintaxis"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Configuración"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS v1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Configuración</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

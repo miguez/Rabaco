@@ -1,0 +1,156 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Operaciones soportadas &mdash; Interfaz de Interoperabilidad iCMS v1.2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS v1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Características" href="index.html" />
+    <link rel="next" title="Interfaz Java" href="interfaz-java.html" />
+    <link rel="prev" title="Características" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="interfaz-java.html" title="Interfaz Java"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Características"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS v1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Características</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="operaciones-soportadas">
+<h1>Operaciones soportadas<a class="headerlink" href="#operaciones-soportadas" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="busqueda">
+<h2>Búsqueda<a class="headerlink" href="#busqueda" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><em>iCMS</em> proporciona una interfaz común para realizar búsquedas en las diferentes colecciones,
+totalmente independiente del <em>backend</em> en que se encuentren los contenidos de la colección.</p>
+<p><em>iCMS</em> utiliza el formato estándar de descripción y retorno de búsquedas <a class="reference external" href="http://www.opensearch.org">OpenSearch</a>, lo que
+aumenta las posibilidades de integración con herramientas y aplicaciones externas.</p>
+</div>
+<div class="section" id="recoleccion">
+<h2>Recolección<a class="headerlink" href="#recoleccion" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><em>iCMS</em> proporciona también mecanismos para la recolección de contenidos, permitiendo las siguientes
+operaciones:</p>
+<ul class="simple">
+<li>Recolección de contenidos desde una fecha determinada</li>
+<li>Sincronización de copia local con una colección remota</li>
+</ul>
+</div>
+<div class="section" id="suscripcion-y-notificacion">
+<h2>Suscripción y notificación<a class="headerlink" href="#suscripcion-y-notificacion" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La interfaz de operaciones de un servicio <em>iCMS</em> cuenta con mecanismos para habilitar la suscripción
+de sistemas externos a las colecciones que gestiona, e incorpora un mecanismo de notificación que
+avisa a los sistemas suscritos de cambios en la colección (bien por la creación de nuevos elementos
+o la modificación de los ya existentes).</p>
+<p>Además, la suscripción se puede definir para cualquier contenido o sólo para aquéllos que cumplan
+ciertas condiciones que se especifican a la hora de la suscripción.</p>
+</div>
+<div class="section" id="publicacion">
+<h2>Publicación<a class="headerlink" href="#publicacion" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para aquellos drivers que soportan operaciones de escritura, <em>iCMS</em> permite la publicación de
+contenidos a través de una interfaz estándar <em>http</em> de servicios web, lo que facilita de manera
+considerable la copia de contenido de una colección a otra o la automatización en la creación de
+nuevos elementos.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Operaciones soportadas</a><ul>
+<li><a class="reference internal" href="#busqueda">Búsqueda</a></li>
+<li><a class="reference internal" href="#recoleccion">Recolección</a></li>
+<li><a class="reference internal" href="#suscripcion-y-notificacion">Suscripción y notificación</a></li>
+<li><a class="reference internal" href="#publicacion">Publicación</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="index.html"
+                        title="Capítulo anterior">Características</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="interfaz-java.html"
+                        title="Próximo capítulo">Interfaz <em>Java</em></a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/caracteristicas/operaciones.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="interfaz-java.html" title="Interfaz Java"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Características"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS v1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Características</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

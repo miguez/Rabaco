@@ -1,0 +1,90 @@
+.. _uso-servidor:
+
+==================
+ Uso del servidor
+==================
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+El paquete *icms-server* es una implementación de un servidor *iCMS* con total funcionalidad, que mediante el
+uso de protocolos estándares exporta la información que recibe de un sistema productor de contenido
+a través de interfaces de servicios web de tipo *REST*\ ful y *SOAP*.
+
+Los protocolos de los que se hace uso son:
+
+* *OpenSearch* para la descripción del formato de búsqueda de datos.
+* *eGov-SDShare* para la recolección de datos.
+* *Rdf* y *Xml* para la descripción de contenidos usando la semántica definida por *eGov* y *Dublin Core*, entre otras.
+* *Atom* como formato de respuesta de búsquedas y descripción de colecciones.
+
+A diferencia de la implementación de referencia de cliente, que se utiliza únicamente como librería, el uso habitual que se le
+va a dar al paquete correspondiente a la implementación del servidor es la ejecución a través de la línea de comandos. No
+obstante, esto no quiere decir que no sea posible su integración con otras implementaciones a través de llamadas a las
+clases y métodos escritos en *Java*.
+
+Como se ha expuesto en el apartado :ref:`relativo al empaquetado <empaquetado>`, la distribución de
+la implementación de referencia servidor cuenta con un paquete que incluye todas las dependencias
+necesarias para la ejecución del proyecto en el fichero icms-server-|release|-All.jar. Este paquete
+se ha copiado, por otra parte, a un directorio durante el proceso de :ref:`instalación <instalación>`
+
+.. _arranque:
+
+Arranque
+========
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+El servidor de referencia *iCMS* muestra una pequeña página de ayuda al ser ejecutado sin parámetros
+desde la línea de comandos. Esta página también se muestra si en la ejecución se incluye el
+parámetro `help`. ::
+
+   java -jar icms-server-1.2.0-All.jar
+
+----
+
+directoryBase <arg>
+ Directorio de instalación en donde se encuentran los ficheros de configuración y el directorio de *plugins*.
+help
+ Este mensaje de ayuda
+port <arg>
+ Permite definir el puerto en el que se encuentra el servidor (por defecto, 9991)
+publicUrl <arg>
+ Url pública
+start
+ Arranca el servidor
+version
+ Información acerca de la versión
+
+----
+
+Un ejemplo de ejecución desde línea de comandos típica es el siguiente ::
+
+ java -server -jar icms-server-1.1.2-SNAPSHOT-All.jar -publicUrl http://www.example.com
+ -directoryBase /opt/icms/data -start
+
+
+Para arrancar el servidor de referencia de iCMS siempre es necesario especificar en la línea de
+comandos, al menos, el directorio base y la url pública bajo la que se encuentra el servidor.
+
+.. note::
+
+ El directorio base es uno de los dos parámetros que el servidor necesita recibir para un correcto
+ funcionamiento (ver :ref:`sección correspondiente <arranque>`). El parámetro directorio base
+ especifica el lugar del sistema de ficheros en que es posible encontrar y escribir los archivos
+ necesarios para la óptima ejecución del servidor *iCMS*. En dicho directorio se encuentran los
+ :ref:`ficheros de configuración <ficheros-configuración>` y el directorio de :ref:`drivers <drivers>`.
+
+.. note::
+
+ La url pública se utiliza para definir los enlaces en el servidor, ya que para una correcta
+ operación de *iCMS* es necesario que los identificadores que se dan a los recursos se ajusten a la
+ dirección desde la que se sirven.
+
+El puerto en el que la aplicación escucha las conexiones se puede definir con el parámetro ``port``, que
+por defecto toma el valor **9991**. Hay que destacar que es posible que la aplicación esté escuchando en
+dicho puerto y sin embargo tenga otro puerto definido en la url pública, ya que normalmente un
+balanceador de carga o proxy reverso se encargará de redirigir la petición a la dirección y puerto
+correspondientes.
+
+El resto de parámetros se pueden especificar no en la línea de comandos, sino a
+través de los ficheros de configuración de la implementación (véase apartado de :ref:`configuración
+<configuración>`).
+

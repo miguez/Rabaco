@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introducción y origen &mdash; Interfaz de Interoperabilidad iCMS v1.2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS v1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Introducción a la Interfaz de Interoperabilidad iCMS" href="index.html" />
+    <link rel="next" title="Conceptos" href="conceptos.html" />
+    <link rel="prev" title="Introducción a la Interfaz de Interoperabilidad iCMS" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="conceptos.html" title="Conceptos"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Introducción a la Interfaz de Interoperabilidad iCMS"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS v1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Introducción a la Interfaz de Interoperabilidad iCMS</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduccion-y-origen">
+<h1>Introducción y origen<a class="headerlink" href="#introduccion-y-origen" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="fundamento">
+<h2>Fundamento<a class="headerlink" href="#fundamento" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>En la actualidad existen en la Junta de Andalucía gran heterogeneidad de sistemas, productos y
+back-ends cuya información es susceptible de ser publicada en el <a class="reference external" href="http://www.juntadeandalucia.es">portal de la Junta de Andalucía</a>.</p>
+<p>Estos sistemas gestionan la información en estructuras y medios distintos, utilizando por un lado
+sus propios conjuntos de metadatos, normas para la estructuración y ordenación de los contenidos y
+por otro, distintos mecanismos para acceder a la información por parte de otros sistemas.</p>
+<p>Las diferencias entre los modelos de datos proporcionados por dichos sistemas plantean la necesidad
+de buscar alternativas que involucren no sólo el aspecto de sintaxis sino también de semántica
+(significado) para conciliar estos modelos con el fin de permitir la interoperabilidad entre
+distintos modelos.</p>
+<p>En este contexto, la <em>Interfaz de Interoperabilidad de Contenidos Web</em> persigue los siguientes
+objetivos:</p>
+<blockquote>
+<ul class="simple">
+<li>Definir la interfaz de interoperabilidad que contemple todas las operaciones de contenidos que
+actualmente se realizan entre los sistemas identificados en los distintos escenarios estudiados.</li>
+<li>Implementar la interfaz para cada uno de los sistemas identificados.</li>
+</ul>
+</blockquote>
+<p><a class="reference external" href="http://www.juntadeandalucia.es/repositorio/usuario/listado/fichacompleta.jsf?idProyecto=736">iCMS, la solución desarrollada</a>, es
+una interfaz para la comunicación según un protocolo estándar de diversas aplicaciones que son
+utilizadas en la actualidad por parte de la Junta de Andalucía y sus organismos asociados. Su
+principal función es el consumo y gestión de información de un sistema por parte de otro.</p>
+<p>El proyecto iCMS ofrece una plataforma de interoperabilidad entre distintas herramientas de
+generación y explotación de información. Además del protocolo común de intercambio de
+información se incluyen en el proyecto una serie de implementaciones de referencia.</p>
+<p>Un objetivo de iCMS es utilizar un <em>lenguaje</em> común entre las distintas herramientas usadas para la
+gestión de información en una organización como la Junta de Andalucía, donde las necesidades pueden ser muy
+distintas y se utilizan para cubrirlas una gran variedad de tecnologías. Este lenguaje común
+posibilita la explotación de la información en distintos escenarios.</p>
+<p>Otro de los principales objetivos del proyecto es conseguir que la gestión y administración de la
+información no se multiplique en distintas herramientas por problemas de incompatibilidad entre los
+sistemas que explotan esa información. Es decir, cada tipo de contenido debe ser gestionado en un
+solo entorno y de ahí ser distribuido y explotado por el resto de manera transparente.</p>
+<p>En resumen, se busca <strong>interoperabilidad hacia el exterior de manera sencilla</strong>.</p>
+</div>
+<div class="section" id="sistemas-soportados">
+<h2>Sistemas soportados<a class="headerlink" href="#sistemas-soportados" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>En la actualidad están soportados los siguientes sistemas:</p>
+<blockquote>
+<ul class="simple">
+<li><a class="reference external" href="http://www.drupal.org">Drupal</a></li>
+<li><a class="reference external" href="http://lucene.apache.org/solr">Apache Solr</a></li>
+<li><a class="reference external" href="http://cocoon.apache.org">Apache Cocoon</a></li>
+<li><a class="reference external" href="http://www.juntadeandalucia.es/boja/">Boletín Oficial de la Junta de Andalucía</a></li>
+</ul>
+</blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introducción y origen</a><ul>
+<li><a class="reference internal" href="#fundamento">Fundamento</a></li>
+<li><a class="reference internal" href="#sistemas-soportados">Sistemas soportados</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="index.html"
+                        title="Capítulo anterior">Introducción a la Interfaz de Interoperabilidad iCMS</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="conceptos.html"
+                        title="Próximo capítulo">Conceptos</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/intro/origen.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="conceptos.html" title="Conceptos"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Introducción a la Interfaz de Interoperabilidad iCMS"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS v1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Introducción a la Interfaz de Interoperabilidad iCMS</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

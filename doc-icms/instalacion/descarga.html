@@ -1,0 +1,148 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Descarga del código &mdash; Interfaz de Interoperabilidad iCMS v1.2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS v1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Instalación de la Interfaz de Interoperabilidad" href="index.html" />
+    <link rel="next" title="Batería de pruebas" href="testado.html" />
+    <link rel="prev" title="Requisitos técnicos" href="requisitos.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="testado.html" title="Batería de pruebas"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="requisitos.html" title="Requisitos técnicos"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS v1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Instalación de la Interfaz de Interoperabilidad</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="descarga-del-codigo">
+<h1>Descarga del código<a class="headerlink" href="#descarga-del-codigo" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Se puede descargar el servidor iCMS desde la página del repositorio de software libre de la Junta de
+Andalucía o desde el mismo repositorio <em>Subversion</em> en que se encuentra.</p>
+<div class="section" id="descarga-desde-el-repositorio-web">
+<h2>Descarga desde el repositorio web<a class="headerlink" href="#descarga-desde-el-repositorio-web" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La Interfaz de Interoperabilidad iCMS cuenta con una <a class="reference external" href="http://www.juntadeandalucia.es/repositorio/usuario/listado/fichacompleta.jsf?idProyecto=736">ficha de proyecto</a> en
+el repositorio de software libre de la Junta de Andalucía.</p>
+<p>Dentro del apartado de descarga se puede obtener un fichero comprimido por cada versión liberada
+del proyecto y los subproyectos. En concreto, para instalar el servidor iCMS hay que descargar la
+versión más reciente de <tt class="docutils literal"><span class="pre">icms-server.zip</span></tt>.</p>
+<p>Para terminar la instalación sólo es necesario descomprimir el archivo comprimido en una carpeta del
+disco duro</p>
+<div class="highlight-python"><pre>unzip icms-server.zip</pre>
+</div>
+</div>
+<div class="section" id="descarga-desde-el-repositorio-subversion">
+<h2>Descarga desde el repositorio <em>Subversion</em><a class="headerlink" href="#descarga-desde-el-repositorio-subversion" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El código de iCMS se encuentra disponible en el repositorio de la Junta de Andalucía, bajo la url
+<a class="reference external" href="http://trac.i-administracion.junta-andalucia.es/svn/iCMS/trunk/icms-server">http://trac.i-administracion.junta-andalucia.es/svn/iCMS/trunk/icms-server</a> (accesible únicamente mediante
+una conexión autorizada).</p>
+<p>Para conseguir una copia local del código sólo hay que hacer un <tt class="docutils literal"><span class="pre">svn</span> <span class="pre">checkout</span></tt> de <tt class="docutils literal"><span class="pre">icms-server</span></tt>
+e <tt class="docutils literal"><span class="pre">icms-api</span></tt> (siendo éste último el proyecto que define la interfaz entre servicios y clientes
+<em>iCMS</em>)</p>
+<div class="highlight-python"><pre>svn checkout http://trac.i-administracion.junta-andalucia.es/svn/iCMS/trunk/icms-api
+svn checkout http://trac.i-administracion.junta-andalucia.es/svn/iCMS/trunk/icms-server</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Descarga del código</a><ul>
+<li><a class="reference internal" href="#descarga-desde-el-repositorio-web">Descarga desde el repositorio web</a></li>
+<li><a class="reference internal" href="#descarga-desde-el-repositorio-subversion">Descarga desde el repositorio <em>Subversion</em></a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="requisitos.html"
+                        title="Capítulo anterior">Requisitos técnicos</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="testado.html"
+                        title="Próximo capítulo">Batería de pruebas</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/instalacion/descarga.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="testado.html" title="Batería de pruebas"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="requisitos.html" title="Requisitos técnicos"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS v1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Instalación de la Interfaz de Interoperabilidad</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

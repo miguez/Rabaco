@@ -1,0 +1,25 @@
+.. _eventos:
+
+=================================================
+ Sistema de comportamiento dinámico ante eventos
+=================================================
+
+*iCMS* nos brinda una manera simple de inyectar comportamiento ante cambios en una determinada
+colección. Esta funcionalidad hace uso del compilador dinámico incluido en la distribución oficial
+de *Groovy* para implementar la lógica que se debe ejecutar bien al arranque del servidor o cuando una
+colección especificada haya cambiado.
+
+Existen dos tipos de scripts distintos, que se diferencian en el momento de su ejecución.
+
+Eventos de arranque
+===================
+
+Los scripts de inicio implementan la interfaz *InitScript* y son lanzados en el arranque del servidor,
+justo después de la creación de las colecciones.
+
+Notificaciones
+==============
+
+Los scripts que implementan *EventScript* se ejecutan cada vez que se recibe una notificación en el
+*listener* de eventos asociado (habitualmente, cuando se crean nuevos contenidos en la colección).
+

@@ -1,0 +1,41 @@
+.. _ficheros-configuración:
+
+===========================
+ Ficheros de configuración
+===========================
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+La configuración del servicio se realiza a través de ficheros *properties* localizados en el
+*directorio base* del proyecto. Existen tres ficheros de configuración diferentes en la
+implementación de referencia:
+
+**icms-config.properties**
+  Contiene toda la configuración relativa a la operación del servidor y del modo cliente.
+
+**icms-providers.properties**
+  Contiene un listado de las colecciones que maneja el sevidor
+
+**icms-scripts.properties**
+  Configuración relativa al :ref:`sistema de eventos <eventos>`.
+
+La carga de las opciones de configuración se realiza de la siguiente manera: los paquetes *jar* de
+cliente y servidor incorporan un fichero con valores a utilizar por defecto, que se
+cargan al arrancar la aplicación (bien como librería o bien de forma independiente). A continuación
+se examina el directorio base y se cargan las propiedades de configuración que se encuentren allí
+(si es que las hay), sobreescribiendo los valores que se habían tomado por defecto.
+
+.. note::
+ De esta manera, iCMS es una implementación completamente funcional sin una configuración previa.
+
+Los ficheros de configuración son autoexplicativos, definiendo mediante comentarios la función de
+cada una de las opciones de configuración. Los ejemplos que se incluyen a continuación no
+representan las últimas versiones, disponibles en el repositorio de código.
+
+Logging
+=======
+
+Para activar el sistema de *logging* de *iCMS* es necesario que exista un fichero
+``log4j.properties`` presente en la carpeta ``data``. Se adjunta a modo de ejemplo el fichero de
+configuración de *log4j* que se incluye por defecto en el código del servicio *iCMS*.
+
+.. literalinclude:: /code/log4j.properties

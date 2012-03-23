@@ -1,0 +1,29 @@
+.. _drivers:
+
+Drivers
+=======
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+Una de las características que iCMS ofrece es su extensibilidad a través de lo que se conoce como el
+sistema de *drivers* o *plugins*. Esta extensibilidad implica la posibilidad de incluir nuevos
+proveedores sin necesidad de realizar modificaciones en el código de la implementación de referencia
+del servidor.
+
+Añadir nuevo driver al servicio
+-------------------------------
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+Para hacer uso de esta característica de *iCMS*, es necesario disponer de un proveedor que implemente los métodos
+definidos en la *API* de proveedor en formato jar.
+
+Añadir un nuevo driver al servidor normalmente es tan sencillo como copiar el fichero *jar* correspondiente a la
+carpeta *plugins* del directorio base. ::
+
+ cp icms-drupal-1.2.0-All.jar /opt/icms/data/plugins
+
+Además de esto, cada *driver* en concreto puede necesitar algún tipo de instalación adicional. Por
+ejemplo, el de *Drupal* requiere la instalación de un módulo *PHP* en el *CMS* para posibilitar la
+comunicación con el servicio *iCMS*. En la documentación de cada *driver* se podrán encontrar los
+pasos necesarios a seguir para una instalación satisfactoria.
+
+Una vez que el driver ya está disponible, es posible :ref:`definir una nueva colección <configuración-colección>`

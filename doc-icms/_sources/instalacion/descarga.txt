@@ -1,0 +1,43 @@
+=====================
+ Descarga del código
+=====================
+
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+Se puede descargar el servidor iCMS desde la página del repositorio de software libre de la Junta de
+Andalucía o desde el mismo repositorio *Subversion* en que se encuentra.
+
+Descarga desde el repositorio web
+=================================
+
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+La Interfaz de Interoperabilidad iCMS cuenta con una `ficha de proyecto
+<http://www.juntadeandalucia.es/repositorio/usuario/listado/fichacompleta.jsf?idProyecto=736>`_ en
+el repositorio de software libre de la Junta de Andalucía.
+
+Dentro del apartado de descarga se puede obtener un fichero comprimido por cada versión liberada
+del proyecto y los subproyectos. En concreto, para instalar el servidor iCMS hay que descargar la
+versión más reciente de ``icms-server.zip``.
+
+Para terminar la instalación sólo es necesario descomprimir el archivo comprimido en una carpeta del
+disco duro ::
+
+  unzip icms-server.zip
+
+Descarga desde el repositorio *Subversion*
+==========================================
+
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+El código de iCMS se encuentra disponible en el repositorio de la Junta de Andalucía, bajo la url
+http://trac.i-administracion.junta-andalucia.es/svn/iCMS/trunk/icms-server (accesible únicamente mediante
+una conexión autorizada).
+
+Para conseguir una copia local del código sólo hay que hacer un ``svn checkout`` de ``icms-server``
+e ``icms-api`` (siendo éste último el proyecto que define la interfaz entre servicios y clientes
+*iCMS*) ::
+
+   svn checkout http://trac.i-administracion.junta-andalucia.es/svn/iCMS/trunk/icms-api
+   svn checkout http://trac.i-administracion.junta-andalucia.es/svn/iCMS/trunk/icms-server
+

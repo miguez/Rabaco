@@ -1,0 +1,162 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Ejecución y uso &mdash; Interfaz de Interoperabilidad iCMS v1.2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS v1.2.0 documentation" href="../index.html" />
+    <link rel="next" title="Uso como librería" href="libreria.html" />
+    <link rel="prev" title="Definición de una nueva colección" href="../configuracion/coleccion.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="libreria.html" title="Uso como librería"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="../configuracion/coleccion.html" title="Definición de una nueva colección"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS v1.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ejecucion-y-uso">
+<h1>Ejecución y uso<a class="headerlink" href="#ejecucion-y-uso" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Se pueden diferenciar diversas formas de uso de <em>iCMS</em>, dependiendo del tipo de implementación y la
+función (cliente/consumidor, servidor o proveedor) que realiza.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="libreria.html">Uso como librería</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arranque.html">Uso como aplicación independiente</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arranque.html#arranque">Arranque</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http.html">Interfaz HTTP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="http.html#recoleccion">Recolección</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html#busqueda">Búsqueda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html#suscripcion-y-notificacion">Suscripción y notificación</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="http.html#suscripcion-simple">Suscripción simple</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http.html#suscripcion-con-condiciones">Suscripción con condiciones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http.html#cancelar-una-suscripcion">Cancelar una suscripción</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="soap.html">Interfaz SOAP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="soap.html#descriptor-de-servicios">Descriptor de servicios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="soap.html#metodos-soportados">Métodos soportados</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#metodo-executequery">Método executeQuery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#metodo-executequeryfromdate">Método executeQueryFromDate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#metodo-getresource">Método getResource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#metodo-save">Método save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#metodo-update">Método update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#metodo-ping">Método ping</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="soap.html#tipos-complejos">Tipos complejos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#icmsnode">IcmsNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#icmsexception">ICMSException</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#codigos-de-errores">Códigos de errores</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="soap.html#pruebas-de-llamadas-a-los-metodos">Pruebas de llamadas a los métodos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#contexto">Contexto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#id2">Método executeQuery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#metodo-executequery-con-condiciones">Método executeQuery con condiciones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#id3">Método executeQueryFromDate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#metodo-executequeryfromdate-con-condiciones">Método executeQueryFromDate con condiciones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#id4">Método getResource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#id5">Método save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="soap.html#id6">Método update</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="../configuracion/coleccion.html"
+                        title="Capítulo anterior">Definición de una nueva colección</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="libreria.html"
+                        title="Próximo capítulo">Uso como librería</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/ejecucion/index.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="libreria.html" title="Uso como librería"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="../configuracion/coleccion.html" title="Definición de una nueva colección"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS v1.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

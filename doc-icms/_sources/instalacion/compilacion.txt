@@ -1,0 +1,49 @@
+.. _empaquetado:
+
+Empaquetado de la aplicación
+============================
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+Para poder compilar el proyecto ``icms-server`` es necesario satisfacer su dependencia con el otro
+proyecto que se ha descargado, ``icms-api``, así que dentro del directorio de ``icms-api`` se deberá
+ejecutar el comando ::
+
+ mvn install
+
+Como en el caso anterior, la compilación y posterior empaquetado del proyecto ``icms-server`` se realiza mediante `Apache
+Maven`_. Se ejecutará el siguiente comando desde el directorio correspondiente al proyecto ::
+
+ mvn package
+
+.. _Apache Maven: http://maven.apache.org
+
+Si se va a realizar un desarrollo basado en *iCMS* será necesario instalar el paquete compilado en
+el repositorio local ::
+
+ mvn install
+
+Estos comandos lanzan la batería de pruebas del proyecto, lo que se puede deshabilitar mediante la
+inclusión en línea de comandos de la opción `-Dmaven.test.skip=true`.  Para todos los proyectos, el
+empaquetado crea dos ficheros :abbr:`JAR (Java ARchive)`: uno con los binarios (ficheros con
+extensión `class`), y otro conteniendo el código fuente del proyecto.  Además, se distribuye otro
+fichero `jar` adicional que incluye todas las dependencias del proyecto, y que recibe
+el nombre de icms-server-|release|-All.jar.
+
+.. _instalación:
+
+Instalación
+===========
+.. sectionauthor:: Antonio Santos Velasco <asantos@viavansi.com>
+
+Para instalar *iCMS* basta simplemente con copiar el fichero *jar* en un directorio del disco
+duro. No obstante, se recomienda la instalación de una serie de subdirectorios para una disposición
+más organizada de los ficheros que se crearán durante el proceso de ejecución del servidor. Por
+ejemplo, para instalar la aplicación en la carpeta `opt/icms` habrá que escribir desde la línea de
+comandos ::
+
+ mkdir /opt/icms
+ mkdir -p /opt/icms/data/plugins /opt/icms/sdshare
+ cp ./icms-server-|release|-All.jar /opt/icms
+
+De esta manera, una vez que se termine el proceso de :ref:`configuración <configuración>` se podrá
+proceder a :ref:`su uso <uso-servidor>`.

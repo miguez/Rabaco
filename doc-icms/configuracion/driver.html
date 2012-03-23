@@ -1,0 +1,139 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Drivers &mdash; Interfaz de Interoperabilidad iCMS v1.2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/viavansi.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Interfaz de Interoperabilidad iCMS v1.2.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuración" href="index.html" />
+    <link rel="next" title="Definición de una nueva colección" href="coleccion.html" />
+    <link rel="prev" title="Sintaxis" href="sintaxis.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="coleccion.html" title="Definición de una nueva colección"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="sintaxis.html" title="Sintaxis"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS v1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Configuración</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="drivers">
+<span id="id1"></span><h1>Drivers<a class="headerlink" href="#drivers" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Una de las características que iCMS ofrece es su extensibilidad a través de lo que se conoce como el
+sistema de <em>drivers</em> o <em>plugins</em>. Esta extensibilidad implica la posibilidad de incluir nuevos
+proveedores sin necesidad de realizar modificaciones en el código de la implementación de referencia
+del servidor.</p>
+<div class="section" id="anadir-nuevo-driver-al-servicio">
+<h2>Añadir nuevo driver al servicio<a class="headerlink" href="#anadir-nuevo-driver-al-servicio" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para hacer uso de esta característica de <em>iCMS</em>, es necesario disponer de un proveedor que implemente los métodos
+definidos en la <em>API</em> de proveedor en formato jar.</p>
+<p>Añadir un nuevo driver al servidor normalmente es tan sencillo como copiar el fichero <em>jar</em> correspondiente a la
+carpeta <em>plugins</em> del directorio base.</p>
+<div class="highlight-python"><pre>cp icms-drupal-1.2.0-All.jar /opt/icms/data/plugins</pre>
+</div>
+<p>Además de esto, cada <em>driver</em> en concreto puede necesitar algún tipo de instalación adicional. Por
+ejemplo, el de <em>Drupal</em> requiere la instalación de un módulo <em>PHP</em> en el <em>CMS</em> para posibilitar la
+comunicación con el servicio <em>iCMS</em>. En la documentación de cada <em>driver</em> se podrán encontrar los
+pasos necesarios a seguir para una instalación satisfactoria.</p>
+<p>Una vez que el driver ya está disponible, es posible <a class="reference internal" href="coleccion.html#configuracion-coleccion"><em>definir una nueva colección</em></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Drivers</a><ul>
+<li><a class="reference internal" href="#anadir-nuevo-driver-al-servicio">Añadir nuevo driver al servicio</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="sintaxis.html"
+                        title="Capítulo anterior">Sintaxis</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="coleccion.html"
+                        title="Próximo capítulo">Definición de una nueva colección</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configuracion/driver.txt"
+           rel="nofollow">Enseñar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="coleccion.html" title="Definición de una nueva colección"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="sintaxis.html" title="Sintaxis"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Interfaz de Interoperabilidad iCMS v1.2.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Configuración</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Viavansi.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>
